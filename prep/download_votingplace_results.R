@@ -1,3 +1,15 @@
+http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part8_cand_index.html
+
+
+
+
+
+
+
+
+
+
+
 #--------- Download 70 csvs for candidate vote------------------
 number_electorates <- 70
 filenames_cand <- paste0("raw_data/e9_part8_cand_", 1:number_electorates, ".csv")
