@@ -20,3 +20,5 @@ vignettes/*.pdf
 .Rproj.user
 
 downloads/elect2014/*
+*.Rcheck*
+*.tar.gz

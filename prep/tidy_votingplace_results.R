@@ -7,7 +7,7 @@ number_electorates <- 71
 #---------------------2014 candidate results-------------------
 filenames <- paste0("downloads/elect2014/e9_part8_cand_", 1:number_electorates, ".csv")
 
-results_polling_place <- list()
+results_voting_place <- list()
 
 for (i in 1:number_electorates){
     
@@ -27,32 +27,32 @@ for (i in 1:number_electorates){
     
     # we knock out all the rows from (first_blank - 1) (which is the total)
     tmp <- tmp[-((first_blank - 1) : nrow(tmp)), ]
-    names(tmp)[1:2] <- c("Polling_Location", "Polling_Place")
+    names(tmp)[1:2] <- c("ApproxLocation", "VotingPlace")
     
     # in some of the data there are annoying subheadings in the second column.  We can
     # identify these as rows that return NA when you sum up where the votes should be
     tmp <- tmp[!is.na(apply(tmp[, -(1:2)], 1, function(x){sum(as.numeric(x))})), ]
     
     # need to fill in the gaps where there is no polling location
-    last_polling_location <- tmp[1, 1]
+    last_ApproxLocation <- tmp[1, 1]
     for(j in 1: nrow(tmp)){
         if(tmp[j, 1] == "") {
-            tmp[j, 1] <- last_polling_location
+            tmp[j, 1] <- last_ApproxLocation
         } else {
-            last_polling_location <- tmp[j, 1]
+            last_ApproxLocation <- tmp[j, 1]
         }
     }  
     
     tmp <- tmp[names(tmp) != "Total Valid Candidate Votes"] %>%
-        gather(Candidate, Votes, -Polling_Location, -Polling_Place)
+        gather(Candidate, Votes, -ApproxLocation, -VotingPlace)
     
     tmp$Electorate <- electorate
     tmp <- tmp %>%
         left_join(candidates_parties, by = "Candidate")
-    results_polling_place[[i]] <- tmp
+    results_voting_place[[i]] <- tmp
 }
 
-candidate_results_polling_place <- do.call("rbind", results_polling_place) %>%
+candidate_results_voting_place <- do.call("rbind", results_voting_place) %>%
     mutate(Votes = as.numeric(Votes),
            Party = gsub("M..ori Party", "Maori Party", Party),
            VotingType = "Candidate")
@@ -60,7 +60,7 @@ candidate_results_polling_place <- do.call("rbind", results_polling_place) %>%
 #-------------------2014 party votes--------------------
 filenames <- paste0("downloads/elect2014/e9_part8_party_", 1:number_electorates, ".csv")
 
-results_polling_place <- list()
+results_voting_place <- list()
 
 for (i in 1:number_electorates){
     
@@ -76,37 +76,37 @@ for (i in 1:number_electorates){
     
     # we knock out all the rows from (first_blank - 1) (which is the total)
     tmp <- tmp[-((first_blank - 1) : nrow(tmp)), ]
-    names(tmp)[1:2] <- c("Polling_Location", "Polling_Place")
+    names(tmp)[1:2] <- c("ApproxLocation", "VotingPlace")
     
     # in some of the data there are annoying subheadings in the second column.  We can
     # identify these as rows that return NA when you sum up where the votes should be
     tmp <- tmp[!is.na(apply(tmp[, -(1:2)], 1, function(x){sum(as.numeric(x))})), ]
     
     # need to fill in the gaps where there is no polling location
-    last_polling_location <- tmp[1, 1]
+    last_ApproxLocation <- tmp[1, 1]
     for(j in 1: nrow(tmp)){
         if(tmp[j, 1] == "") {
-            tmp[j, 1] <- last_polling_location
+            tmp[j, 1] <- last_ApproxLocation
         } else {
-            last_polling_location <- tmp[j, 1]
+            last_ApproxLocation <- tmp[j, 1]
         }
     }  
     
     tmp <- tmp[names(tmp) != "Total Valid Party Votes"] %>%
-        gather(Party, Votes, -Polling_Location, -Polling_Place)
+        gather(Party, Votes, -ApproxLocation, -VotingPlace)
     
     tmp$Electorate <- electorate
-    results_polling_place[[i]] <- tmp
+    results_voting_place[[i]] <- tmp
 }
 
-party_results_polling_place <- do.call("rbind", results_polling_place) %>%
+party_results_voting_place <- do.call("rbind", results_voting_place) %>%
     mutate(Votes = as.numeric(Votes),
            Party = gsub("M..ori Party", "Maori Party", Party),
            VotingType = "Party")
 
 #---------------combine the 2014 voting place results--------------
-results_voting_place_2014 <- party_results_polling_place %>%
+ge2014 <- party_results_voting_place %>%
     mutate(Candidate = NA) %>%
-    rbind(candidate_results_polling_place) 
+    rbind(candidate_results_voting_place) 
 
-save(results_voting_place_2014, file = "pkg/data/results_voting_place_2014.rda")
+save(ge2014, file = "pkg/data/ge2014.rda")

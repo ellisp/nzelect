@@ -1,8 +1,8 @@
 # nzelect
 New Zealand election results data in convenient form of an R package
 
+```{r}
 
-```r
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
@@ -17,7 +17,7 @@ proportions <- ge2014 %>%
               ProportionMaori = sum(Votes[Party == "Maori Party"]) / sum(Votes))
 
 ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
-```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+
+```
 
