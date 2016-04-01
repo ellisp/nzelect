@@ -22,4 +22,4 @@
 #' @format A data frame with 136,195 rows and 7 variables.
 #' @source \link{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
 #' @seealso \code{\link{XXXX}}
-"ge2014"
+"GE2014"

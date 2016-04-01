@@ -105,8 +105,8 @@ party_results_voting_place <- do.call("rbind", results_voting_place) %>%
            VotingType = "Party")
 
 #---------------combine the 2014 voting place results--------------
-ge2014 <- party_results_voting_place %>%
+GE2014 <- party_results_voting_place %>%
     mutate(Candidate = NA) %>%
     rbind(candidate_results_voting_place) 
 
-save(ge2014, file = "pkg/data/ge2014.rda")
+save(GE2014, file = "pkg/data/GE2014.rda")
