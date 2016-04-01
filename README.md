@@ -8,7 +8,7 @@ library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
 library(gridExtra, quietly = TRUE) # for grid.arrange
 
-proportions <- ge2014 %>%
+proportions <- GE2014 %>%
     group_by(VotingPlace, VotingType) %>%
     summarise(ProportionLabour = sum(Votes[Party == "Labour Party"]) / sum(Votes),
               ProportionNational = sum(Votes[Party == "National Party"]) / sum(Votes),
