@@ -88,8 +88,6 @@ GE2014 %>%
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
-Or check out [this interactive map of the proportion of vote going to the Greens](greens.html)
-
 ## Rolling up results to Regional Council, Territorial Authority, or Area Unit
 Because this package matches the location people actually voted with to boundaries 
 of Regional Council, Territorial Authority and Area Unit it's possible to roll up 

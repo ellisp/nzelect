@@ -26,4 +26,4 @@ m <- leaflet(proportions) %>%
                popup = ~lab) %>%
     fitBounds(173, -37, 176, -38)
 library(htmlwidgets)
-saveWidget(m, file = "greens.html")
+# saveWidget(m, file = "greens.html") # no good unless on a webserver
