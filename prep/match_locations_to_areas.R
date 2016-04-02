@@ -31,5 +31,10 @@ Locations2014$REGC2014_N <- locs2$REGC2014_N
 AU <- readOGR("downloads/shapefiles/2014 Digital Boundaries Generlised Full",
                "AU2014_GV_Full")
 
-locs2 <- over(locs, AU)
-Locations2014$AU2014 <- locs2$AU2014
+#-------------Match to Mesh Block------------------
+MB <- readOGR("downloads/shapefiles/2014 Digital Boundaries Generlised Full",
+              "MB2014_GV_Full")
+
+locs2 <- over(locs, MB)
+head(locs2)
+Locations2014$MB2014 <- locs2$MB2014
