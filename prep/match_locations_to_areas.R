@@ -1,3 +1,10 @@
+# depends on the shapefiles having already been downloaded from
+# ./prep/download_map_shapefiles.R; and Locations2014 to have
+# been created via .prep/import_votingplace_locations.R
+# This script then matches those point locations with the polygons
+# of Regional Councils, Territorial Authority, and Area Unit.
+
+
 library(rgdal)
 
 

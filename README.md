@@ -87,3 +87,86 @@ GE2014 %>%
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
+## Rolling up results to Regional Council, Territorial Authority, or Area Unit
+
+```r
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    group_by(REGC2014_N) %>%
+    summarise(
+        TotalVotes = sum(Votes),
+        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3))
+```
+
+```
+## Source: local data frame [17 x 3]
+## 
+##                  REGC2014_N TotalVotes ProportionNational
+##                      (fctr)      (dbl)              (dbl)
+## 1           Auckland Region     478760              0.486
+## 2      Bay of Plenty Region      89065              0.473
+## 3         Canterbury Region     192577              0.520
+## 4           Gisborne Region      14342              0.351
+## 5        Hawke's Bay Region      53833              0.460
+## 6  Manawatu-Wanganui Region      78841              0.447
+## 7        Marlborough Region      17474              0.520
+## 8             Nelson Region      18754              0.398
+## 9          Northland Region      53688              0.427
+## 10             Otago Region      75933              0.447
+## 11         Southland Region      36158              0.528
+## 12          Taranaki Region      42586              0.552
+## 13            Tasman Region      17935              0.465
+## 14           Waikato Region     134511              0.512
+## 15        Wellington Region     165207              0.430
+## 16        West Coast Region      12226              0.465
+## 17                       NA     934589              0.451
+```
+
+```r
+# what are all those NA Regions?:
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    filter(is.na(REGC2014_N)) %>%
+    group_by(VotingPlace) %>%
+    summarise(TotalVotes = sum(Votes))
+```
+
+```
+## Source: local data frame [7 x 2]
+## 
+##                                               VotingPlace TotalVotes
+##                                                     (chr)      (dbl)
+## 1 Chatham Islands Council Building, 9 Tuku Road, Waitangi         90
+## 2                       Ordinary Votes BEFORE polling day     630775
+## 3          Overseas Special Votes including Defence Force      38316
+## 4                        Special Votes BEFORE polling day      71362
+## 5                            Special Votes On polling day     151530
+## 6                            Votes Allowed for Party Only      40986
+## 7        Voting places where less than 6 votes were taken       1530
+```
+
+```r
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    group_by(TA2014_NAM) %>%
+    summarise(
+        TotalVotes = sum(Votes),
+        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
+    arrange(desc(ProportionNational)) %>%
+    mutate(TA = ifelse(is.na(TA2014_NAM), "Special or other", as.character(TA2014_NAM)),
+           TA = gsub(" District", "", TA),
+           TA = gsub(" City", "", TA),
+           TA = factor(TA, levels = TA)) %>%
+    ggplot(aes(x = ProportionNational, y = TA, size = TotalVotes)) +
+    geom_point() +
+    scale_x_continuous("Proportion voting National Party", label = percent) +
+    scale_size("Number of\nvotes cast", label = comma) +
+    labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+
+

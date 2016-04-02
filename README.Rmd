@@ -65,9 +65,47 @@ GE2014 %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
+```
+
+## Rolling up results to Regional Council, Territorial Authority, or Area Unit
+```{r}
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    group_by(REGC2014_N) %>%
+    summarise(
+        TotalVotes = sum(Votes),
+        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3))
     
+# what are all those NA Regions?:
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    filter(is.na(REGC2014_N)) %>%
+    group_by(VotingPlace) %>%
+    summarise(TotalVotes = sum(Votes))
     
+
+
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    group_by(TA2014_NAM) %>%
+    summarise(
+        TotalVotes = sum(Votes),
+        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
+    arrange(desc(ProportionNational)) %>%
+    mutate(TA = ifelse(is.na(TA2014_NAM), "Special or other", as.character(TA2014_NAM)),
+           TA = gsub(" District", "", TA),
+           TA = gsub(" City", "", TA),
+           TA = factor(TA, levels = TA)) %>%
+    ggplot(aes(x = ProportionNational, y = TA, size = TotalVotes)) +
+    geom_point() +
+    scale_x_continuous("Proportion voting National Party", label = percent) +
+    scale_size("Number of\nvotes cast", label = comma) +
+    labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
 
 
 ```
+
 
