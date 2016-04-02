@@ -3,44 +3,21 @@ library(leaflet)
 library(dplyr)
 
 load("proportions.rda")
-
+load("parties.rda")
 
 shinyServer(function(input, output, session) {
-    pal <- colorNumeric("Greens", c(0, 1))
-    
+    # input <- data.frame(party = "Labour Party")
     the_data <- reactive({
-        tmp <- proportions 
-
-        if(input$party == "Labour Party"){
-                tmp$prop <- tmp$ProportionLabour
-                thecol <- "red"
-            } 
-        if(input$party == "National Party"){
-            tmp$prop <- tmp$ProportionNational
-            thecol <- "blue"
-        } 
-        if(input$party == "Green Party"){
-            tmp$prop <- tmp$ProportionGreen
-            thecol <- "green"
-        } 
-        if(input$party == "New Zealand First Party"){
-            tmp$prop <- tmp$ProportionNZF
-            thecol <- "purple"
-        } 
-        if(input$party == "Maori Party"){
-            tmp$prop <- tmp$ProportionMaori
-            thecol <- "black"
-        } 
-        if(input$party == "") {
-            tmp$prop <- 0
-            thecol <- "white"
+        tmp <- proportions %>%
+            filter(Party == input$party)
+        
+        if(input$party != ""){
+            thecol <- data.frame(parties)[parties$party == input$party, "colour"]
+        } else {
+            tmp <- proportions[1,]
+            thecol <- NULL
             
         }
-            
-        tmp <- tmp %>%
-            mutate(lab = paste0("<center>", VotingPlace, "<br>", 
-                                input$party, " ", 
-                                round(prop * 100), "%</center>"))
             
         return(list(df = tmp, thecol = thecol))
         })
@@ -64,17 +41,19 @@ shinyServer(function(input, output, session) {
     observe({
         x <- input$clear1
         updateSelectInput(session, "party", selected = "")
-        leafletProxy("MyMap") %>%
-            clearMarkers()
+        leafletProxy("MyMap") %>% clearMarkers()
     })
 
-
-    
-        
     observe({
         x <- input$sc
         leafletProxy("MyMap") %>% clearMarkers()
     })
+    
+    
+    output$leg <- renderPlot({
+        plot(1:10, 1:10, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
+        legend(5, 5, parties$party, col = parties$colour, pch = 19, bty = "n")
+    }, width = 300, height = 300)
     
    
 

@@ -22,7 +22,8 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
        selectInput("party", "Select a Party to add to the map",
-                   choices = c("", parties)),
+                   choices = c("", parties$party), selected = "", 
+                   size = , selectize = FALSE),
        actionButton("clear1", "Clear all parties"),
        p(),
        sliderInput("sc", "Scale size of circles (also redraws map to show only the last added party)",
@@ -37,6 +38,7 @@ the circles with the slider provided if you want."),
 
        p("It's useful to pick two parties to compare the sizes of their circles."),
        p("When you zoom in and out on the map, the circles resize for readability"),
+       plotOutput("leg"),
        h2("About"),
        HTML("<p>Created by Peter Ellis with R and Shiny.  Download the cleaned and tidy data
 from XXXX.  Original source is YYY.")
