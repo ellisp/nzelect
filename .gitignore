@@ -19,6 +19,6 @@ vignettes/*.pdf
 .httr-oauth
 .Rproj.user
 
-downloads/elect2014/*
+downloads/*
 *.Rcheck*
 *.tar.gz

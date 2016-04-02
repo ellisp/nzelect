@@ -34,7 +34,8 @@ head(vpc)
 Locations2014 <- vpc %>%
     select(-Voting.Place.Address) 
 names(Locations2014) <- gsub(".", "", names(Locations2014), fixed = TRUE)
-head(Locations2014)
+
+source("./prep/match_locations_to_areas.R")
 
 save(Locations2014, file = "pkg/data/Locations2014.rda", compress = "xz")
 
