@@ -5,7 +5,7 @@ library(dplyr)
 load("proportions.rda")
 
 
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
     pal <- colorNumeric("Greens", c(0, 1))
     
     the_data <- reactive({
@@ -54,18 +54,26 @@ shinyServer(function(input, output) {
     
     observe({
      leafletProxy("MyMap", data = the_data()$df) %>%
-         #   clearMarkers() %>%
             addCircleMarkers(~WGS84Longitude, 
                              ~WGS84Latitude,
                              color = the_data()$thecol,
-                             radius = ~prop * 30,
+                             radius = ~prop * 30 * input$sc,
                              popup = ~lab) 
     })
             
     observe({
-        x <- input$clear
+        x <- input$clear1
+        updateSelectInput(session, "party", selected = "")
         leafletProxy("MyMap") %>%
             clearMarkers()
+    })
+
+
+    
+        
+    observe({
+        x <- input$sc
+        leafletProxy("MyMap") %>% clearMarkers()
     })
     
    

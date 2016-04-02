@@ -22,3 +22,4 @@ vignettes/*.pdf
 downloads/*
 *.Rcheck*
 *.tar.gz
+examples/leaflet/shinyapps/*

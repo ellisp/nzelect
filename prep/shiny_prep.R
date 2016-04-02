@@ -1,5 +1,6 @@
 library(nzelect)
 library(dplyr)
+library(shinyapps)
 
 proportions <- GE2014 %>%
     filter(VotingType == "Party") %>%
@@ -17,3 +18,5 @@ parties <- c("Labour Party", "National Party", "Green Party",
 
 save(parties, file = "examples/leaflet/parties.rda")
 save(proportions, file = "examples/leaflet/proportions.rda")
+
+deployApp("examples/leaflet", appName = "NZ-general-election-2014", account = "ellisp")
