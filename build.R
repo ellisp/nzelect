@@ -1,7 +1,7 @@
 library(knitr)
 library(devtools)
-document("pkg")
 
+document("pkg")
 knit("README.Rmd", "README.md")
 
 build("pkg")

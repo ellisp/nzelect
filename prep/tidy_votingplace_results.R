@@ -109,4 +109,4 @@ GE2014 <- party_results_voting_place %>%
     mutate(Candidate = NA) %>%
     rbind(candidate_results_voting_place) 
 
-save(GE2014, file = "pkg/data/GE2014.rda")
+save(GE2014, file = "pkg/data/GE2014.rda", compress = "xz")
