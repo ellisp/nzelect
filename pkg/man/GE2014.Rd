@@ -3,7 +3,7 @@
 \docType{data}
 \name{GE2014}
 \alias{GE2014}
-\title{New Zealand General Election Results 2014}
+\title{General Election Results 2014}
 \format{A data frame with 136,195 rows and 7 variables.}
 \source{
 \link{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
@@ -12,7 +12,7 @@
 GE2014
 }
 \description{
-New Zealand 2014 General Election results by voting place
+New Zealand 2014 general election results by voting place
 }
 \details{
 \itemize{
@@ -33,7 +33,7 @@ New Zealand 2014 General Election results by voting place
 }
 }
 \seealso{
-\code{\link{XXXX}}
+\code{\link{Locations2014}}
 }
 \keyword{datasets}
 

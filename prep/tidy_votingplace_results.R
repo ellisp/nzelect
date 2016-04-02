@@ -1,5 +1,6 @@
 library(tidyr)
 library(dplyr)
+library(stringr)
 
 #==================2014======================================
 number_electorates <- 71
@@ -107,6 +108,9 @@ party_results_voting_place <- do.call("rbind", results_voting_place) %>%
 #---------------combine the 2014 voting place results--------------
 GE2014 <- party_results_voting_place %>%
     mutate(Candidate = NA) %>%
-    rbind(candidate_results_voting_place) 
+    rbind(candidate_results_voting_place)  %>%
+    mutate(VotingPlace = str_trim(VotingPlace),
+           ApproxLocation = str_trim(ApproxLocation),
+           Candidate = str_trim(Candidate))
 
 save(GE2014, file = "pkg/data/GE2014.rda", compress = "xz")
