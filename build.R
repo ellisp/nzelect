@@ -36,6 +36,9 @@ source("prep/shiny_prep.R")
 # create helpfiles:
 document("pkg")
 
+# unit tests, including check against published totals
+test("pkg")
+
 # create README for GitHub repo:
 knit("README.Rmd", "README.md")
 
