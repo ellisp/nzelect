@@ -36,12 +36,16 @@ circles on the first party, and so on.  Zoom in and out on the map with the scro
 wheel of a mouse, or grab it to move to another part of the country.  Rescale
 the circles with the slider provided if you want."),
 
-       p("It's useful to pick two parties to compare the sizes of their circles."),
-       p("When you zoom in and out on the map, the circles resize for readability"),
-       plotOutput("leg"),
+       p("It's useful to pick two parties to compare the sizes of their circles. 
+Because choosing a party adds another layer to the map, you can choose the order 
+in which parties' circles are superimposed on eachother."),
+       p("When you zoom in and out on the map, the circles resize for readability."),
+       plotOutput("leg", height = "100px"),
        h2("About"),
-       HTML("<p>Created by Peter Ellis with R and Shiny.  Download the cleaned and tidy data
-from XXXX.  Original source is YYY.")
+       HTML("<p>Created by Peter Ellis with R and Shiny.  R users can download the 
+cleaned and tidy data from <a href = 'https://github.com/ellisp/nzelect'>https://github.com/ellisp/nzelect</a>.  
+Original source is <a href = 'http://www.electionresults.govt.nz/'>
+http://www.electionresults.govt.nz/</a>")
     ),
     
     

@@ -51,9 +51,11 @@ shinyServer(function(input, output, session) {
     
     
     output$leg <- renderPlot({
+        par(mar = c(0,0,0,0))
         plot(1:10, 1:10, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
-        legend(5, 5, parties$party, col = parties$colour, pch = 19, bty = "n")
-    }, width = 300, height = 300)
+        legend(1, 10, parties$party, col = parties$colour, pch = 19, bty = "n", 
+               cex = 1.3, xjust = 0, yjust = 1, pt.cex = 2, ncol = 2)
+        })
     
    
 

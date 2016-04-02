@@ -20,7 +20,7 @@ parties <- data_frame(
     party = c("Labour Party", "National Party", "Green Party",
              "New Zealand First Party", "Conservative", "Internet MANA", 
              "Maori Party", "ACT New Zealand"),
-    colour = c("red", "darkblue", "green", "purple", "steelblue", "brown", 
+    colour = c("red", "darkblue", "darkgreen", "purple", "steelblue", "brown", 
                "black", "yellow")
 )
 
