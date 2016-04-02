@@ -1,3 +1,8 @@
+# ./prep/shiny_prep.R
+# Peter Ellis, April 2016
+# prepares data for the Shiny app to minimise calculations and payload needed
+# for the actual server.
+
 library(nzelect)
 library(dplyr)
 library(shinyapps)
@@ -29,6 +34,10 @@ save(proportions, file = "examples/leaflet/proportions.rda")
 
 
 
+cat("Do you want to deploy the Shiny app: [Y/n]")
+deploy <- readLines(n = 1)
+if(tolower(deploy) == "y"){
+    deployApp("examples/leaflet", appName = "NZ-general-election-2014", account = "ellisp")    
+}
 
-deployApp("examples/leaflet", appName = "NZ-general-election-2014", account = "ellisp")
 

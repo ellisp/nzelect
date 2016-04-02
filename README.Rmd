@@ -1,6 +1,15 @@
 # nzelect
 New Zealand election results data in convenient form of an R package
 
+## Installation
+Currently only available via GitHub.  I'll consider a CRAN version later.
+```{r eval = FALSE}
+devtools::install_github("ellisp/nzelect/pkg")
+library(nzelect)
+
+```
+
+
 
 ## Overall results
 The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
@@ -66,6 +75,9 @@ GE2014 %>%
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
 ```
+
+See this [detailed interactive map of of the 2014 general election](https://ellisp.shinyapps.io/NZ-general-election-2014/) 
+built as a side product of this project.
 
 ## Rolling up results to Regional Council, Territorial Authority, or Area Unit
 Because this package matches the location people actually voted with to boundaries 

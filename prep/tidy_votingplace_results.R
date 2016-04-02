@@ -1,3 +1,8 @@
+# ./prep/tidy_votingplace_results.R
+# imports previously downloaded CSVs of election results by voting place.
+# So far only for 2014 General Election
+# Peter Ellis, April 2016
+
 library(tidyr)
 library(dplyr)
 library(stringr)

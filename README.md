@@ -1,6 +1,15 @@
 # nzelect
 New Zealand election results data in convenient form of an R package
 
+## Installation
+Currently only available via GitHub.  I'll consider a CRAN version later.
+
+```r
+devtools::install_github("ellisp/nzelect/pkg")
+library(nzelect)
+```
+
+
 
 ## Overall results
 The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
@@ -44,7 +53,35 @@ GE2014 %>%
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
+```
+
+```
+## 
+## Attaching package: 'GGally'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     nasa
+```
+
+```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
+```
+
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -58,7 +95,7 @@ proportions <- GE2014 %>%
 ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 
 
@@ -86,7 +123,20 @@ GE2014 %>%
     ggtitle("Voting patterns in the 2014 General Election\n")
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+```
+## 
+##  # maps v3.1: updated 'world': all lakes moved to separate new #
+##  # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
+```
+
+```
+## Loading required package: grid
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+
+See this [detailed interactive map of of the 2014 general election](https://ellisp.shinyapps.io/NZ-general-election-2014/) 
+built as a side product of this project.
 
 ## Rolling up results to Regional Council, Territorial Authority, or Area Unit
 Because this package matches the location people actually voted with to boundaries 
@@ -174,6 +224,6 @@ GE2014 %>%
     labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 
