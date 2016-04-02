@@ -1,6 +1,26 @@
 # nzelect
 New Zealand election results data in convenient form of an R package
 
+
+## Overall results
+The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
+```{r}
+
+library(tidyr)
+library(dplyr)
+GE2014 %>%
+    mutate(VotingType = paste0(VotingType, "Vote")) %>%
+    group_by(Party, VotingType) %>%
+    summarise(Votes = sum(Votes)) %>%
+    spread(VotingType, Votes) %>%
+    select(Party, PartyVote, CandidateVote) %>%
+    ungroup() %>%
+    arrange(desc(PartyVote))
+
+```
+
+
+## Comparing party and candidate votes of several parties
 ```{r}
 
 library(ggplot2, quietly = TRUE)
@@ -24,7 +44,7 @@ ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
 
 
 
-
+## Geographical location of voting places
 ```{r}
 source("https://gist.githubusercontent.com/briatte/4718656/raw/2c4e71efe6d46f37e7ea264f5c9e1610511bcb09/ggplot2-map-theme.R")
 
