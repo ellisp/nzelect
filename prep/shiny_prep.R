@@ -1,6 +1,5 @@
 library(nzelect)
 library(dplyr)
-library(leaflet)
 
 proportions <- GE2014 %>%
     filter(VotingType == "Party") %>%
@@ -11,20 +10,10 @@ proportions <- GE2014 %>%
               ProportionNZF = sum(Votes[Party == "New Zealand First Party"]) / sum(Votes),
               ProportionMaori = sum(Votes[Party == "Maori Party"]) / sum(Votes)) %>%
     left_join(Locations2014, by = "VotingPlace") %>%
-    filter(VotingPlaceSuburb != "Chatham Islands") %>%
-    mutate(lab = paste0("<center>", VotingPlace, "<br>", round(ProportionGreens * 100), "%</center>"))
-    
+    filter(VotingPlaceSuburb != "Chatham Islands")
 
-pal <- colorNumeric("Greens", c(0, 1))
+parties <- c("Labour Party", "National Party", "Green Party",
+             "New Zealand First Party", "Maori Party")
 
-m <- leaflet(proportions) %>%
-    addProviderTiles("Stamen.TonerHybrid") %>%
-    addCircleMarkers( ~WGS84Longitude, 
-               ~WGS84Latitude,
-               color = "green",
-               radius = ~ProportionGreens * 100,
-               popup = ~lab) %>%
-    fitBounds(173, -37, 176, -38)
-
-library(htmlwidgets)
-# saveWidget(m, file = "greens.html") # no good unless on a webserver
+save(parties, file = "examples/leaflet/parties.rda")
+save(proportions, file = "examples/leaflet/proportions.rda")
