@@ -6,6 +6,7 @@ New Zealand election results data in convenient form of an R package
 The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
 
 ```r
+library(nzelect)
 library(tidyr)
 library(dplyr)
 GE2014 %>%
@@ -88,6 +89,11 @@ GE2014 %>%
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 ## Rolling up results to Regional Council, Territorial Authority, or Area Unit
+Because this package matches the location people actually voted with to boundaries 
+of Regional Council, Territorial Authority and Area Unit it's possible to roll up 
+voting behaviour to those categories.  However, a large number of votes cannot be
+located this way.  And it needs to be remembered that people are not necessarily voting
+near their normal place of residence.
 
 ```r
 GE2014 %>%
@@ -96,7 +102,8 @@ GE2014 %>%
     group_by(REGC2014_N) %>%
     summarise(
         TotalVotes = sum(Votes),
-        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3))
+        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
+    arrange(ProportionNational)
 ```
 
 ```
@@ -104,23 +111,23 @@ GE2014 %>%
 ## 
 ##                  REGC2014_N TotalVotes ProportionNational
 ##                      (fctr)      (dbl)              (dbl)
-## 1           Auckland Region     478760              0.486
-## 2      Bay of Plenty Region      89065              0.473
-## 3         Canterbury Region     192577              0.520
-## 4           Gisborne Region      14342              0.351
-## 5        Hawke's Bay Region      53833              0.460
-## 6  Manawatu-Wanganui Region      78841              0.447
-## 7        Marlborough Region      17474              0.520
-## 8             Nelson Region      18754              0.398
-## 9          Northland Region      53688              0.427
-## 10             Otago Region      75933              0.447
-## 11         Southland Region      36158              0.528
-## 12          Taranaki Region      42586              0.552
-## 13            Tasman Region      17935              0.465
-## 14           Waikato Region     134511              0.512
-## 15        Wellington Region     165207              0.430
-## 16        West Coast Region      12226              0.465
-## 17                       NA     934589              0.451
+## 1           Gisborne Region      14342              0.351
+## 2             Nelson Region      18754              0.398
+## 3          Northland Region      53688              0.427
+## 4         Wellington Region     165207              0.430
+## 5  Manawatu-Wanganui Region      78841              0.447
+## 6              Otago Region      75933              0.447
+## 7                        NA     934589              0.451
+## 8        Hawke's Bay Region      53833              0.460
+## 9             Tasman Region      17935              0.465
+## 10        West Coast Region      12226              0.465
+## 11     Bay of Plenty Region      89065              0.473
+## 12          Auckland Region     478760              0.486
+## 13           Waikato Region     134511              0.512
+## 14        Canterbury Region     192577              0.520
+## 15       Marlborough Region      17474              0.520
+## 16         Southland Region      36158              0.528
+## 17          Taranaki Region      42586              0.552
 ```
 
 ```r

@@ -5,7 +5,7 @@ New Zealand election results data in convenient form of an R package
 ## Overall results
 The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
 ```{r}
-
+library(nzelect)
 library(tidyr)
 library(dplyr)
 GE2014 %>%
@@ -68,6 +68,11 @@ GE2014 %>%
 ```
 
 ## Rolling up results to Regional Council, Territorial Authority, or Area Unit
+Because this package matches the location people actually voted with to boundaries 
+of Regional Council, Territorial Authority and Area Unit it's possible to roll up 
+voting behaviour to those categories.  However, a large number of votes cannot be
+located this way.  And it needs to be remembered that people are not necessarily voting
+near their normal place of residence.
 ```{r}
 GE2014 %>%
     filter(VotingType == "Party") %>%
@@ -75,7 +80,8 @@ GE2014 %>%
     group_by(REGC2014_N) %>%
     summarise(
         TotalVotes = sum(Votes),
-        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3))
+        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
+    arrange(ProportionNational)
     
 # what are all those NA Regions?:
 GE2014 %>%
