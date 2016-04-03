@@ -44,7 +44,7 @@ GE2014 \%>\%
     spread(VotingType, Votes) \%>\%
     select(Party, PartyVote, CandidateVote) \%>\%
     ungroup() \%>\%
-    arrange(desc(PartyVote))"GE2014"
+    arrange(desc(PartyVote))
 }
 \seealso{
 \code{\link{Locations2014}}
