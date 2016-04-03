@@ -1,6 +1,8 @@
 # nzelect
 New Zealand election results data in convenient form of an R package
 
+[![Travis-CI Build Status](https://travis-ci.org/ellisp/nzelect.svg?branch=master)](https://travis-ci.org/ellisp/nzelect)
+
 ## Installation
 Currently only available via GitHub.  I'll consider a CRAN version later.
 ```{r eval = FALSE}

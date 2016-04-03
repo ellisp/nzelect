@@ -1,6 +1,8 @@
 # nzelect
 New Zealand election results data in convenient form of an R package
 
+[![Travis-CI Build Status](https://travis-ci.org/ellisp/nzelect.svg?branch=master)](https://travis-ci.org/ellisp/nzelect)
+
 ## Installation
 Currently only available via GitHub.  I'll consider a CRAN version later.
 
@@ -18,6 +20,26 @@ The code below replicates the published results at http://www.electionresults.go
 library(nzelect)
 library(tidyr)
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 GE2014 %>%
     mutate(VotingType = paste0(VotingType, "Vote")) %>%
     group_by(Party, VotingType) %>%
@@ -51,9 +73,45 @@ GE2014 %>%
 
 ```r
 library(ggplot2, quietly = TRUE)
+```
+
+```
+## Need help getting started? Try the cookbook for R:
+## http://www.cookbook-r.com/Graphs/
+```
+
+```r
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
+```
+
+```
+## 
+## Attaching package: 'GGally'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     nasa
+```
+
+```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
+```
+
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -93,6 +151,16 @@ GE2014 %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
+```
+
+```
+## 
+##  # maps v3.1: updated 'world': all lakes moved to separate new #
+##  # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
+```
+
+```
+## Loading required package: grid
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
