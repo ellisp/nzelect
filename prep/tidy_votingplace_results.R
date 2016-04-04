@@ -24,7 +24,8 @@ for (i in 1:number_electorates){
     # read in the bulk of the data
     tmp <- read.csv(filenames[i], skip=2, check.names=FALSE, 
                     stringsAsFactors=FALSE, fileEncoding = "UTF-8-BOM")
-    
+  
+    # read in the candidate names and parties  
     first_blank <- which(tmp[,2] == "")
     candidates_parties <- tmp[(first_blank + 2) : nrow(tmp), 1:2]
     names(candidates_parties) <- c("Candidate", "Party")
@@ -49,6 +50,7 @@ for (i in 1:number_electorates){
         }
     }  
     
+    # normalise / tidy
     tmp <- tmp[names(tmp) != "Total Valid Candidate Votes"] %>%
         gather(Candidate, Votes, -ApproxLocation, -VotingPlace)
     
@@ -58,6 +60,7 @@ for (i in 1:number_electorates){
     results_voting_place[[i]] <- tmp
 }
 
+# combine all electorates
 candidate_results_voting_place <- do.call("rbind", results_voting_place) %>%
     mutate(Votes = as.numeric(Votes),
            Party = gsub("M..ori Party", "Maori Party", Party),

@@ -42,5 +42,8 @@ test("pkg")
 # create README for GitHub repo:
 knit("README.Rmd", "README.md")
 
+# run pedantic CRAN checks
+check("pkg") # currently fail due to inputenc LaTeX compile prob
+
 # create .tar.gz for CRAN or wherever
 build("pkg")
