@@ -67,3 +67,40 @@
 #' \link{https://github.com/ellisp/nzelect/tree/master/prep} for the code linking the two.
 #' @seealso \code{\link{GE2014}}
 "Locations2014"
+
+
+
+#' Census results by meshblock 2013
+#'
+#' Selected variables from the New Zealand 2013 census results by meshblock
+#'
+#' \itemize{
+#'   \item \code{MB}. Meshblock code
+#'   \item \code{MeanBedrooms2013}. Mean number of bedrooms per dwelling. 
+#'   \item \code{PropPrivateDwellings2013}. Proportion of dwellings that are private
+#'   dwellings.  
+#'   \item \code{PropSeparateHouse2013}. Proportion of occupied private dwellings
+#'   that are a separate house (as opposed to appartments, two or more houses, etc)
+#'   \item \code{NumberInHH2013} Mean usual number of residents in households
+#'   for private dwellings.
+#'   \item \code{PropMultiPersonHH2013} Proportion of occupied private dwellings
+#'    that are 'other multi person household' ie not a single person and not one
+#'    or more families
+#'   \item \code{PropInternetHH2013} Proportion of occupied private dwellings
+#'   that have access to the internet
+#'   \item \code{PropNotOwnedHH2013} Proportion of occupied private dwellings 
+#'   that are not owned or held in private trust for the occupiers
+#'   \item \code{MedianRentHH2013} Median weekly rent for rented occupied private dwellings
+#'   \item \code{PropLandlordPublic2013} Proportion of rented occupied private dwellings
+#'   where the landlord is one of Housing New Zealand, Local Authority, City Council,
+#'   or other state-owned corporation or enterprise
+#'   \item \codeP{PropNoMotorVehicle2013} Proportion of occupied private dwellings 
+#'   that have no motor vehicle for the household
+#' }
+#'
+#' @format A data frame with 49,024 rows and 4 variables.
+#' @source \link{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
+#' @seealso \code{\link{Locations2014}}
+#' @examples
+#' head(Meshblocks2013)
+"Meshblocks2013"

@@ -20,26 +20,6 @@ The code below replicates the published results at http://www.electionresults.go
 library(nzelect)
 library(tidyr)
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 GE2014 %>%
     mutate(VotingType = paste0(VotingType, "Vote")) %>%
     group_by(Party, VotingType) %>%
@@ -73,14 +53,6 @@ GE2014 %>%
 
 ```r
 library(ggplot2, quietly = TRUE)
-```
-
-```
-## Need help getting started? Try the cookbook for R:
-## http://www.cookbook-r.com/Graphs/
-```
-
-```r
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
 ```
