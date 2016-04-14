@@ -5,6 +5,8 @@
 #----------------functionality------------
 library(knitr)
 library(devtools)
+library(dplyr)
+library(tidyr)
 
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid

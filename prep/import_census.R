@@ -88,9 +88,58 @@ indiv1 <- indiv1_orig %>%
            PropOverseas2013, PropNZBorn2013, PropEuropean2013, PropMaori2013, 
            PropPacific2013, PropAsian2013)
 
+#------------selected individuals 1 variables-----------
+indiv2_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Individual-Part-2.csv",
+                        stringsAsFactors = FALSE, na.strings = c("..C", "*"))
+names(indiv2_orig)[grep("X2013", names(indiv2_orig))]
+
+indiv2 <- indiv2_orig %>%
+    rename(MB = Code) %>%
+    mutate(
+        PropNoReligion2013 = X2013_Census_religious_affiliation_.total_responses..2._for_the_census_usually_resident_population_count.1._No_Religion /
+            X2013_Census_religious_affiliation_.total_responses..2._for_the_census_usually_resident_population_count.1._Total_people_stated,
+        PropSmoker2013 = X2013_Census_cigarette_smoking_behaviour.4._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Regular_Smoker /
+            X2013_Census_cigarette_smoking_behaviour.4._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        PropSeparated2013 = X2013_Census_legally_registered_relationship_status_for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Separated.divorced_or_dissolved.widowed.surviving_partner.6..7..8. /
+            X2013_Census_legally_registered_relationship_status_for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        PropPartnered2013 = X2013_Census_partnership_status_in_current_relationship_for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Partnered /
+            X2013_Census_partnership_status_in_current_relationship_for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        PropOwnResidence2013 = X2013_Census_tenure_holder.10._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Own_or_Partly_Own_Usual_Residence.11. /
+            X2013_Census_tenure_holder.10._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        PropNoChildren2013 = X2013_Census_number_of_children_born_alive.13._for_the_female_census_usually_resident_population_count_aged_15_years_and_over.1._No_Children /
+            X2013_Census_number_of_children_born_alive.13._for_the_female_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        PropNoQualification2013 = X2013_Census_highest_qualification.15._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._No_Qualification /
+            X2013_Census_highest_qualification.15._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        PropBachelor2013 = X2013_Census_highest_qualification.15._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Bachelor_Degree_and_Level_7_Qualifications /
+            X2013_Census_highest_qualification.15._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropDoctorate2013 = X2013_Census_highest_qualification.15._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Doctorate_Degree /
+            X2013_Census_highest_qualification.15._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        PropFTStudent2013 = X2013_Census_study_participation.18._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Full.time_Study.19. /
+            X2013_Census_study_participation.18._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        PropPTStudent2013 = X2013_Census_study_participation.18._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Part.time_Study.20. /
+            X2013_Census_study_participation.18._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people_stated,
+        MedianIncome2013 = X2013_Census_total_personal_income_.grouped..21..22._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Median_personal_income_....23..27.,
+        PropSelfEmployed2013 = X2013_Census_sources_of_personal_income.24..25..26._for_the_census_usually_resident_population_count_aged_15_years_and_over_Self.employment_or_Business /
+            X2013_Census_sources_of_personal_income.24..25..26._for_the_census_usually_resident_population_count_aged_15_years_and_over_Total_people_Stated,
+        PropUnemploymentBenefit2013 = X2013_Census_sources_of_personal_income.24..25..26._for_the_census_usually_resident_population_count_aged_15_years_and_over_Unemployment_Benefit /
+            X2013_Census_sources_of_personal_income.24..25..26._for_the_census_usually_resident_population_count_aged_15_years_and_over_Total_people_Stated,
+        PropStudentAllowance2013 = X2013_Census_sources_of_personal_income.24..25..26._for_the_census_usually_resident_population_count_aged_15_years_and_over_Student_Allowance /
+            X2013_Census_sources_of_personal_income.24..25..26._for_the_census_usually_resident_population_count_aged_15_years_and_over_Total_people_Stated
+    ) %>%
+    select(MB, PropNoReligion2013, PropSmoker2013, PropSeparated2013, PropPartnered2013,
+           PropOwnResidence2013, PropNoChildren2013, PropNoQualification2013, 
+           PropBachelor2013, PropDoctorate2013, PropFTStudent2013,
+           PropPTStudent2013, MedianIncome2013, PropSelfEmployed2013,
+           PropUnemploymentBenefit2013, PropStudentAllowance2013)
+        
+        
+        
+            
+
 #-----------------------finish-------------------
 Meshblocks2013 <- dwelling %>%
     left_join(hh, by = "MB") %>%
-    left_join(indiv1, by = "MB")
+    left_join(indiv1, by = "MB") %>%
+    left_join(indiv2, by = "MB")
 save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda")
      

@@ -53,6 +53,14 @@ GE2014 %>%
 
 ```r
 library(ggplot2, quietly = TRUE)
+```
+
+```
+## Stackoverflow is a great place to get help:
+## http://stackoverflow.com/tags/ggplot2.
+```
+
+```r
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
 ```
