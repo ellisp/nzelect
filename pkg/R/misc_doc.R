@@ -96,9 +96,52 @@
 #'   or other state-owned corporation or enterprise
 #'   \item \code{PropNoMotorVehicle2013} Proportion of occupied private dwellings 
 #'   that have no motor vehicle for the household
+#'   \item \code{PropOld2013} Proportion of individuals aged 65 and over years
+#'   \item \code{PropEarly20s2013} Proportion of individuals aged 20-24 years
+#'   \item \code{PropAreChildren2013} Proportion of individuals aged under 15 years
+#'   \item \code{PropSameResidence5YearsAgo2013} Proportion of individuals who
+#'   lived in the same residence 5 years ago
+#'   \item \code{PropOverseas5YearsAgo2013} Proportion of individuals who lived
+#'   overseas 5 years ago
+#'   \item \code{PropNZBorn2013} Proportion of individuals who were born in New
+#'   Zealand
+#'   \item \code{PropEuropean2013} Proportion of individuals with European ethnic group
+#'   \item \code{PropMaori2013} Proportion of individuals with Maori ethnic group
+#'   \item \code{PropPacific2013} Proportion of individuals with Pacific Peoples ethnic group
+#'   \item \code{PropAsian2013} Proportion of individuals with Asiam ethnic group
+#'   \item \code{PropNoReligion2013} Proportion of individuals who stated a religion
+#'   with no religion   
+#'   \item \code{PropSmoker2013} Proportion of individuals who stated smoking behaviour
+#'   who smoked   
+#'   \item \code{PropPartnered2013} Proportion of individuals who stated their status
+#'   who had a partner
+#'   \item \code{PropOwnResidence2013} Proportion of individuals who stated their status
+#'   who were owner or part-owner of their residence
+#'   \item \code{PropNoChildren2013} Proportion of individuals who stated their status
+#'   who had no children
+#'   \item \code{PropNoQualification2013} Proportion of individuals who stated their status
+#'   with no educational qualification
+#'   \item \code{PropBachelor2013} Proportion of individuals who stated their status
+#'   whose highest qualification is a Bachelor degree
+#'   \item \code{PropDoctorate2013} Proportion of individuals who stated their status
+#'   whose highest qualification is a Doctorate
+#'   \item \code{PropFTStudent2013} Proportion of individuals who stated their status
+#'   who are in full time study
+#'   \item \code{PropPTStudent2013} Proportion of individuals who stated their status
+#'   who are in part time study
+#'   \item \code{MedianIncome2013} Median individual income
+#'   \item \code{PropSelfEmployed2013} Proportion of individuals who stated their status
+#'   who received income from being self-employed or business
+#'   \item \code{PropUnemploymentBenefit2013} Proportion of individuals who stated their status
+#'   who received income from unemployment benefits
+#'   \item \code{PropStudentAllowance2013} Proportion of individuals who stated their status
+#'   who received income from student allowance
 #' }
 #'
-#' @format A data frame with 49,024 rows and 4 variables.
+#' Note that many values are NA due to confidentialisation.  And even the values
+#' that appear to be numbers have been calculated from values that were random-rounded,
+#' hence some results are odd (eg proportions greater than one).
+#' @format A data frame with 46,629 rows and 35 variables.
 #' @source \link{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
 #' @seealso \code{\link{Locations2014}}
 #' @examples
