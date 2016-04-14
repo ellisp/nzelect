@@ -35,7 +35,7 @@ Selected variables from the New Zealand 2013 census results by meshblock
   \item \code{PropLandlordPublic2013} Proportion of rented occupied private dwellings
   where the landlord is one of Housing New Zealand, Local Authority, City Council,
   or other state-owned corporation or enterprise
-  \item \codeP{PropNoMotorVehicle2013} Proportion of occupied private dwellings 
+  \item \code{PropNoMotorVehicle2013} Proportion of occupied private dwellings 
   that have no motor vehicle for the household
 }
 }

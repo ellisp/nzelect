@@ -58,7 +58,7 @@ hh <- tmp_orig %>%
 #------------selected individuals 1 variables-----------
 indiv1_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Individual-Part-1.csv",
                         stringsAsFactors = FALSE, na.strings = c("..C", "*"))
-names(indiv1_orig)[grep("X2013", names(indiv1_orig))]
+# names(indiv1_orig)[grep("X2013", names(indiv1_orig))]
 
 indiv1 <- indiv1_orig %>%
     rename(MB = Code) %>%
@@ -88,10 +88,10 @@ indiv1 <- indiv1_orig %>%
            PropOverseas2013, PropNZBorn2013, PropEuropean2013, PropMaori2013, 
            PropPacific2013, PropAsian2013)
 
-#------------selected individuals 1 variables-----------
+#------------selected individuals 2 variables-----------
 indiv2_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Individual-Part-2.csv",
                         stringsAsFactors = FALSE, na.strings = c("..C", "*"))
-names(indiv2_orig)[grep("X2013", names(indiv2_orig))]
+# names(indiv2_orig)[grep("X2013", names(indiv2_orig))]
 
 indiv2 <- indiv2_orig %>%
     rename(MB = Code) %>%
@@ -132,9 +132,7 @@ indiv2 <- indiv2_orig %>%
            PropPTStudent2013, MedianIncome2013, PropSelfEmployed2013,
            PropUnemploymentBenefit2013, PropStudentAllowance2013)
         
-        
-        
-            
+
 
 #-----------------------finish-------------------
 Meshblocks2013 <- dwelling %>%
