@@ -7,11 +7,11 @@
 
 
 #-------------------selected dwellings variables-----------------
-tmp_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Dwelling.csv",
+dwell_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Dwelling.csv",
                      stringsAsFactors = FALSE, na.strings = c("..C", "*"))
 
 
-dwelling <- tmp_orig %>%
+dwelling <- dwell_orig %>%
     rename(MB = Code, 
            MeanBedrooms2013 = X2013_Census_number_of_bedrooms_for_occupied_private_dwellings_Mean_Number_of_Bedrooms) %>%
     mutate(PropPrivateDwellings2013 = X2013_Census_dwelling_record_type_for_occupied_dwellings_Occupied_Private_Dwelling /
@@ -19,14 +19,14 @@ dwelling <- tmp_orig %>%
            PropSeparateHouse2013 = X2013_Census_occupied_private_dwelling_type_Separate_House / 
                X2013_Census_occupied_private_dwelling_type_Total_occupied_private_dwellings
            ) %>%
-    select(MB, MeanBedrooms2013, PropPrivateDwellings2013, PropSeparateHouse2013)
+    select(MB, Area_Code_and_Description, MeanBedrooms2013, PropPrivateDwellings2013, PropSeparateHouse2013)
 
 
 #-------------------selected household variables--------------------
-tmp_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Household.csv",
+hh_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Household.csv",
                      stringsAsFactors = FALSE, na.strings = c("..C", "*"))
 
-hh <- tmp_orig %>%
+hh <- hh_orig %>%
     rename(MB = Code) %>%
     mutate(
         NumberInHH2013 = X2013_Census_number_of_usual_residents_in_household.1._for_households_in_occupied_private_dwellings_Mean_Number_of_Usual_Household_Members,
@@ -35,7 +35,7 @@ hh <- tmp_orig %>%
             X2013_Census_household_composition_for_households_in_occupied_private_dwellings_Total_households_in_occupied_private_dwellings,
         
         PropInternetHH2013 = X2013_Census_access_to_telecommunications.20..21._for_households_in_occupied_private_dwellings_Access_to_the_Internet /
-            X2013_Census_access_to_telecommunications.20..21._for_households_in_occupied_private_dwellings_Total_households_in_occupied_private_dwellings,
+            X2013_Census_access_to_telecommunications.20..21._for_households_in_occupied_private_dwellings_Total_households_stated,
         
         PropNotOwnedHH2013 = X2013_Census_tenure_of_household.10._for_households_in_occupied_private_dwellings_Dwelling_Not_Owned_and_Not_Held_in_a_Family_Trust.12. /
             X2013_Census_tenure_of_household.10._for_households_in_occupied_private_dwellings_Total_households_in_occupied_private_dwellings,
@@ -67,11 +67,11 @@ indiv1 <- indiv1_orig %>%
             X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Total_people,
         PropEarly20s2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._20.24_Years / 
             X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
-        PropChildren2013 = X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Under_15_years /
+        PropAreChildren2013 = X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Under_15_years /
             X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Total_people,
-        PropSameResidence2013 = X2013_Census_usual_residence_five_years_ago_.2008._indicator_for_the_census_usually_resident_population_count.1._Same_as_Usual_Residence /
+        PropSameResidence5YearsAgo2013 = X2013_Census_usual_residence_five_years_ago_.2008._indicator_for_the_census_usually_resident_population_count.1._Same_as_Usual_Residence /
             X2013_Census_usual_residence_five_years_ago_.2008._indicator_for_the_census_usually_resident_population_count.1._Total_people,
-        PropOverseas2013 = X2013_Census_usual_residence_five_years_ago_.2008._indicator_for_the_census_usually_resident_population_count.1._Overseas /
+        PropOverseas5YearsAgo2013 = X2013_Census_usual_residence_five_years_ago_.2008._indicator_for_the_census_usually_resident_population_count.1._Overseas /
             X2013_Census_usual_residence_five_years_ago_.2008._indicator_for_the_census_usually_resident_population_count.1._Total_people,
         PropNZBorn2013 = X2013_Census_birthplace_for_the_census_usually_resident_population_count.1._NZ_born /
             X2013_Census_birthplace_for_the_census_usually_resident_population_count.1._Total_people,
@@ -84,8 +84,9 @@ indiv1 <- indiv1_orig %>%
         PropAsian2013 = X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Asian /
             X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Total_people
      ) %>%
-    select(MB, PropOld2013, PropEarly20s2013, PropChildren2013, PropSameResidence2013,
-           PropOverseas2013, PropNZBorn2013, PropEuropean2013, PropMaori2013, 
+    select(MB, PropOld2013, PropEarly20s2013, PropAreChildren2013, 
+           PropSameResidence5YearsAgo2013, PropOverseas5YearsAgo2013, 
+           PropNZBorn2013, PropEuropean2013, PropMaori2013, 
            PropPacific2013, PropAsian2013)
 
 #------------selected individuals 2 variables-----------
@@ -135,9 +136,17 @@ indiv2 <- indiv2_orig %>%
 
 
 #-----------------------finish-------------------
-Meshblocks2013 <- dwelling %>%
+Combined <- dwelling %>%
     left_join(hh, by = "MB") %>%
     left_join(indiv1, by = "MB") %>%
     left_join(indiv2, by = "MB")
-save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda")
+
+# Note - some proportions are > 1.0.  This is because of random rounding.
+# Best to leave them in or else biases are introduced
+
+Meshblocks2013 <- Combined %>%
+    filter(substring(Area_Code_and_Description, 1, 2) == "MB")  %>%
+    select(-Area_Code_and_Description)
+    
+save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda", compress = "xz")
      
