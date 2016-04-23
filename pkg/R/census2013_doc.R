@@ -1,0 +1,124 @@
+#' Census results by meshblock 2013
+#'
+#' Selected variables from the New Zealand 2013 census results by meshblock
+#'
+#' \itemize{
+#'   \item \code{MB}. Meshblock code
+#'   \item \code{MeanBedrooms2013}. Mean number of bedrooms per dwelling. 
+#'   \item \code{PropPrivateDwellings2013}. Proportion of dwellings that are private
+#'   dwellings.  
+#'   \item \code{PropSeparateHouse2013}. Proportion of occupied private dwellings
+#'   that are a separate house (as opposed to appartments, two or more houses, etc)
+#'   \item \code{NumberInHH2013} Mean usual number of residents in households
+#'   for private dwellings.
+#'   \item \code{PropMultiPersonHH2013} Proportion of occupied private dwellings
+#'    that are 'other multi person household' ie not a single person and not one
+#'    or more families
+#'   \item \code{PropInternetHH2013} Proportion of occupied private dwellings
+#'   that have access to the internet
+#'   \item \code{PropNotOwnedHH2013} Proportion of occupied private dwellings 
+#'   that are not owned or held in private trust for the occupiers
+#'   \item \code{MedianRentHH2013} Median weekly rent for rented occupied private dwellings
+#'   \item \code{PropLandlordPublic2013} Proportion of rented occupied private dwellings
+#'   where the landlord is one of Housing New Zealand, Local Authority, City Council,
+#'   or other state-owned corporation or enterprise
+#'   \item \code{PropNoMotorVehicle2013} Proportion of occupied private dwellings 
+#'   that have no motor vehicle for the household
+#'   \item \code{PropOld2013} Proportion of individuals aged 65 and over years
+#'   \item \code{PropEarly20s2013} Proportion of individuals aged 20-24 years
+#'   \item \code{PropAreChildren2013} Proportion of individuals aged under 15 years
+#'   \item \code{PropSameResidence5YearsAgo2013} Proportion of individuals who
+#'   lived in the same residence 5 years ago
+#'   \item \code{PropOverseas5YearsAgo2013} Proportion of individuals who lived
+#'   overseas 5 years ago
+#'   \item \code{PropNZBorn2013} Proportion of individuals who were born in New
+#'   Zealand
+#'   \item \code{PropEuropean2013} Proportion of individuals with European ethnic group
+#'   \item \code{PropMaori2013} Proportion of individuals with Maori ethnic group
+#'   \item \code{PropPacific2013} Proportion of individuals with Pacific Peoples ethnic group
+#'   \item \code{PropAsian2013} Proportion of individuals with Asiam ethnic group
+#'   \item \code{PropNoReligion2013} Proportion of individuals who stated a religion
+#'   with no religion   
+#'   \item \code{PropSmoker2013} Proportion of individuals who stated smoking behaviour
+#'   who smoked   
+#'   \item \code{PropPartnered2013} Proportion of individuals who stated their status
+#'   who had a partner
+#'   \item \code{PropOwnResidence2013} Proportion of individuals who stated their status
+#'   who were owner or part-owner of their residence
+#'   \item \code{PropNoChildren2013} Proportion of individuals who stated their status
+#'   who had no children
+#'   \item \code{PropNoQualification2013} Proportion of individuals who stated their status
+#'   with no educational qualification
+#'   \item \code{PropBachelor2013} Proportion of individuals who stated their status
+#'   whose highest qualification is a Bachelor degree
+#'   \item \code{PropDoctorate2013} Proportion of individuals who stated their status
+#'   whose highest qualification is a Doctorate
+#'   \item \code{PropFTStudent2013} Proportion of individuals who stated their status
+#'   who are in full time study
+#'   \item \code{PropPTStudent2013} Proportion of individuals who stated their status
+#'   who are in part time study
+#'   \item \code{MedianIncome2013} Median individual income
+#'   \item \code{PropSelfEmployed2013} Proportion of individuals who stated their status
+#'   who received income from being self-employed or business
+#'   \item \code{PropUnemploymentBenefit2013} Proportion of individuals who stated their status
+#'   who received income from unemployment benefits
+#'   \item \code{PropStudentAllowance2013} Proportion of individuals who stated their status
+#'   who received income from student allowance
+#'   \item \code{FullTimeEmployed2013} Proportion of individuals resident who are
+#'   employed full time
+#'   \item \code{PartTimeEmployed2013} Proportion of individuals resident who are
+#'   employed part time
+#'   \item \code{PropUnemployed2013} Proportion of individuals resident who are
+#'   unemployed
+#'   \item \code{PropEmployee2013} Proportion of individuals resident who are
+#'   paid employees
+#'   \item \code{PropEmployer2013} Proportion of individuals resident who are
+#'   employers
+#'   \item \code{PropSelfEmployedNoEmployees} Proportion of residents resident
+#'   who are self employed with no employees
+#'   \item \code{PropManagers2013} Proportion of residents who stated an
+#'   occupation who are Managers
+#'   \item \code{PropProfessionals2013} Proportion of residents who stated an 
+#'   occupation who are Professionals
+#'   \item \code{PropTrades2013} Proportion of residents who stated an occupation
+#'   who are Technicians and Trades Workers
+#'   \item \code{PropLabourers2013} Proportion of residents who stated an 
+#'   occupation who are Labourers
+#'   \item \code{PropAgForFish2013} Proportion of residents who stated an
+#'   industry who work in Agriculture, Forestry and Fishing
+#'   \item \code{PropPubAdmin2013} Proportion of residents who stated an 
+#'   industry who work in Public Administration and Safety
+#'   \item \code{PropFinServices2013} Proportion of residents who stated an
+#'   industry who work in Financial and Insurance Services
+#'   \item \code{PropProfServices2013} Proportion of residents who stated an
+#'   industry who work in Professional, Scientific and Technical Services
+#'   \item \code{PropWorked40_49hours2013} Proportion of residents who 
+#'   stated working hours who worked from 40 to 49 hours per week
+#'   \item \code{PropWorkedHome2013} Proportion of residents who worked at home
+#'   \item \code{PropPublicTransport2013} Proportion of residents who take
+#'   the bus or train to work
+#'   \item \code{PropWalkJogBike2013} Proportion of residents who walked, jogged
+#'   or rode a bicyle to work
+#'   \item \code{PropNoUnpaidActivities2013} Proportion of residents who perform
+#'   no unapid activities
+#' }
+#' Variables have been selected in a somewhat ad hoc fashion.  For example, not
+#' all forms of travelling to work are shown; the same applies to occupations,
+#' industries, etc.  Generally the focus has been on place of residence than
+#' of work.  The aim is to provide a convenient collection of variables rather 
+#' than to be comprehensive.
+#'
+#' Note that many values are NA due to confidentialisation.  And even the values
+#' that appear to be numbers have been calculated from values that were random-rounded,
+#' hence some results are odd (eg proportions greater than one).
+#' 
+#' See the source (below) for the definitive and complete form of the original data 
+#' and its metadata. The exact variables used in the creation of this dataframe 
+#' can be seen at \link{https://github.com/ellisp/nzelect/blob/master/prep/import_census.R}
+#' 
+#' @format A data frame with 46,629 rows and 55 variables.  
+#' @source \link{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
+#' @seealso \code{\link{Locations2014}}
+#' @examples
+#' head(Meshblocks2013)
+"Meshblocks2013"

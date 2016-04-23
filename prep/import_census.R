@@ -1,4 +1,4 @@
-
+library(stringr)
 # download.file("http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip",
 #               destfile = "downloads/census2013/2013_mb_census.zip", mode = "wb")
 # 
@@ -224,4 +224,27 @@ Meshblocks2013 <- Combined %>%
     select(-Area_Code_and_Description)
     
 save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda", compress = "xz")
-     
+    
+
+AreaUnits2013 <- Combined %>%
+    filter(nchar(MB) == 6) %>%
+    rename(AU2014 = MB)
+
+save(AreaUnits2013, file = "pkg/data/AreaUnits2013.rda", compress = "xz")
+
+
+TA2013 <- Combined %>%
+    filter(grepl("^[0-9][0-9][0-9] ", Area_Code_and_Description)) %>%
+    rename(TA = MB) %>%
+    mutate(TA2013_NAM = str_sub(Area_Code_and_Description, start = 5))
+
+    
+REGC2013 <- Combined %>%
+    filter(grepl("^[0-9][0-9] ", Area_Code_and_Description)) %>%
+    rename(REGC = MB) %>%
+    mutate(REGC2013_N = str_sub(Area_Code_and_Description, start = 4)) %>%
+    select(-Area_Code_and_Description)
+    
+
+save(TA2013, file = "pkg/data/TA2013.rda")
+save(REGC2013, file = "pkg/data/REGC2013.rda")
