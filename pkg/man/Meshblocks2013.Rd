@@ -4,7 +4,7 @@
 \name{Meshblocks2013}
 \alias{Meshblocks2013}
 \title{Census results by meshblock 2013}
-\format{A data frame with 46,629 rows and 35 variables.}
+\format{A data frame with 46,629 rows and 55 variables.}
 \source{
 \link{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
 }
@@ -77,11 +77,57 @@ Selected variables from the New Zealand 2013 census results by meshblock
   who received income from unemployment benefits
   \item \code{PropStudentAllowance2013} Proportion of individuals who stated their status
   who received income from student allowance
+  \item \code{FullTimeEmployed2013} Proportion of individuals resident who are
+  employed full time
+  \item \code{PartTimeEmployed2013} Proportion of individuals resident who are
+  employed part time
+  \item \code{PropUnemployed2013} Proportion of individuals resident who are
+  unemployed
+  \item \code{PropEmployee2013} Proportion of individuals resident who are
+  paid employees
+  \item \code{PropEmployer2013} Proportion of individuals resident who are
+  employers
+  \item \code{PropSelfEmployedNoEmployees} Proportion of residents resident
+  who are self employed with no employees
+  \item \code{PropManagers2013} Proportion of residents who stated an
+  occupation who are Managers
+  \item \code{PropProfessionals2013} Proportion of residents who stated an 
+  occupation who are Professionals
+  \item \code{PropTrades2013} Proportion of residents who stated an occupation
+  who are Technicians and Trades Workers
+  \item \code{PropLabourers2013} Proportion of residents who stated an 
+  occupation who are Labourers
+  \item \code{PropAgForFish2013} Proportion of residents who stated an
+  industry who work in Agriculture, Forestry and Fishing
+  \item \code{PropPubAdmin2013} Proportion of residents who stated an 
+  industry who work in Public Administration and Safety
+  \item \code{PropFinServices2013} Proportion of residents who stated an
+  industry who work in Financial and Insurance Services
+  \item \code{PropProfServices2013} Proportion of residents who stated an
+  industry who work in Professional, Scientific and Technical Services
+  \item \code{PropWorked40_49hours2013} Proportion of residents who 
+  stated working hours who worked from 40 to 49 hours per week
+  \item \code{PropWorkedHome2013} Proportion of residents who worked at home
+  \item \code{PropPublicTransport2013} Proportion of residents who take
+  the bus or train to work
+  \item \code{PropWalkJogBike2013} Proportion of residents who walked, jogged
+  or rode a bicyle to work
+  \item \code{PropNoUnpaidActivities2013} Proportion of residents who perform
+  no unapid activities
 }
+Variables have been selected in a somewhat ad hoc fashion.  For example, not
+all forms of travelling to work are shown; the same applies to occupations,
+industries, etc.  Generally the focus has been on place of residence than
+of work.  The aim is to provide a convenient collection of variables rather 
+than to be comprehensive.
 
 Note that many values are NA due to confidentialisation.  And even the values
 that appear to be numbers have been calculated from values that were random-rounded,
 hence some results are odd (eg proportions greater than one).
+
+See the source (below) for the definitive and complete form of the original data 
+and its metadata. The exact variables used in the creation of this dataframe 
+can be seen at \link{https://github.com/ellisp/nzelect/blob/master/prep/import_census.R}
 }
 \examples{
 head(Meshblocks2013)

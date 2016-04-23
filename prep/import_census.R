@@ -134,12 +134,87 @@ indiv2 <- indiv2_orig %>%
            PropUnemploymentBenefit2013, PropStudentAllowance2013)
         
 
+#------------selected individuals 3a variables-----------
+indiv3a_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Individual-Part-3a.csv",
+                        stringsAsFactors = FALSE, na.strings = c("..C", "*"))
+# names(indiv3a_orig)[grep("X2013", names(indiv3a_orig))]
+
+indiv3a <- indiv3a_orig %>%
+    rename(MB = Code) %>%
+    mutate(PropFullTimeEmployed2013 = X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Employed_Full.time /
+               X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropPartTimeEmployed2013= X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Employed_Part.time /
+               X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropUnemployed2013 = X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Unemployed /
+               X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropEmployee2013 = X2013_Census_status_in_employment.3..4._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Paid_Employee /
+               X2013_Census_status_in_employment.3..4._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropEmployer2013 = X2013_Census_status_in_employment.3..4._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Employer /
+               X2013_Census_status_in_employment.3..4._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropSelfEmployedNoEmployees2013 = X2013_Census_status_in_employment.3..4._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Self.Employed_and_Without_Employees /
+               X2013_Census_status_in_employment.3..4._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropManagers2013 = X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Managers /
+               X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropProfessionals2013 = X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Professionals /
+               X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropTrades2013 = X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Technicians_and_Trades_Workers /
+               X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropLabourers2013 = X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Labourers /
+               X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropAgForFish2013 = X2013_Census_industry_.ANZSIC06_division..15..16._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Agriculture_Forestry_and_Fishing /
+               X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropPubAdmin2013 = X2013_Census_industry_.ANZSIC06_division..15..16._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Public_Administration_and_Safety /
+               X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropFinServices2013 = X2013_Census_industry_.ANZSIC06_division..15..16._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Financial_and_Insurance_Services /
+               X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+           PropProfServices2013 = X2013_Census_industry_.ANZSIC06_division..15..16._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Professional_Scientific_and_Technical_Services /
+               X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people
+    ) %>%
+    select(MB, PropFullTimeEmployed2013, PropPartTimeEmployed2013,
+           PropUnemployed2013, PropEmployee2013, PropEmployer2013,
+           PropSelfEmployedNoEmployees2013, PropManagers2013,
+           PropProfessionals2013, PropTrades2013, PropLabourers2013,
+           PropAgForFish2013, PropPubAdmin2013, PropFinServices2013,
+           PropProfServices2013)
+           
+        
+#------------selected individuals 3b variables-----------
+indiv3b_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Individual-Part-3b.csv",
+                         stringsAsFactors = FALSE, na.strings = c("..C", "*"))
+# names(indiv3b_orig)[grep("X2013", names(indiv3b_orig))]
+
+indiv3b <- indiv3b_orig %>%
+    rename(MB = Code) %>%
+    mutate(
+        PropWorked40_49hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._40.49_Hours_Worked /
+            X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropWorkedHome2013 = X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Worked_at_Home /
+            X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropPublicTransport2013 = (
+            X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Public_Bus +
+                X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Train
+        ) /
+            X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropWalkJogBike2013 = (
+            X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Bicycle +
+                X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Walked_or_Jogged
+        ) /
+            X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropNoUnpaidActivities2013 = X2013_Census_unpaid_activities.8..9._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._No_Activities /
+            X2013_Census_unpaid_activities.8..9._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people
+    ) %>%
+    select(MB, PropWorked40_49hours2013, PropWorkedHome2013,
+           PropPublicTransport2013, PropWalkJogBike2013,
+           PropNoUnpaidActivities2013)
+               
 
 #-----------------------finish-------------------
 Combined <- dwelling %>%
     left_join(hh, by = "MB") %>%
     left_join(indiv1, by = "MB") %>%
-    left_join(indiv2, by = "MB")
+    left_join(indiv2, by = "MB") %>%
+    left_join(indiv3a, by = "MB") %>%
+    left_join(indiv3b, by = "MB")
 
 # Note - some proportions are > 1.0.  This is because of random rounding.
 # Best to leave them in or else biases are introduced
