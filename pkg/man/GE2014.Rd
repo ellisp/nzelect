@@ -6,7 +6,7 @@
 \title{General Election Results 2014}
 \format{A data frame with 136,195 rows and 7 variables.}
 \source{
-\link{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
+\url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
 }
 \usage{
 GE2014

@@ -1,25 +1,31 @@
 library(stringr)
+library(dplyr)
 # download.file("http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip",
 #               destfile = "downloads/census2013/2013_mb_census.zip", mode = "wb")
 # 
 # unzip("downloads/census2013/2013_mb_census.zip", exdir = "downloads/census2013")
 
+# Note that the "Code" column in the original data is not a unique identifier.
+# eg The same code 7608 is sometimes a community board, sometimes something else.
 
 
 #-------------------selected dwellings variables-----------------
 dwell_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Dwelling.csv",
-                     stringsAsFactors = FALSE, na.strings = c("..C", "*"))
+                     stringsAsFactors = FALSE, na.strings = c("..C", "..C ", "*"))
 
 
 dwelling <- dwell_orig %>%
-    rename(MB = Code, 
-           MeanBedrooms2013 = X2013_Census_number_of_bedrooms_for_occupied_private_dwellings_Mean_Number_of_Bedrooms) %>%
+    filter(Code != "Total New Zealand" & !is.na(Code)) %>%
+    filter(!grepl("Footnote", Area_Code_and_Description)) %>%
+    filter(!grepl("Source", Area_Code_and_Description)) %>%
+    filter(!grepl("Symbols", Area_Code_and_Description)) %>%
+    rename(MeanBedrooms2013 = X2013_Census_number_of_bedrooms_for_occupied_private_dwellings_Mean_Number_of_Bedrooms) %>%
     mutate(PropPrivateDwellings2013 = X2013_Census_dwelling_record_type_for_occupied_dwellings_Occupied_Private_Dwelling /
                X2013_Census_dwelling_record_type_for_occupied_dwellings_Total_occupied_dwellings,
            PropSeparateHouse2013 = X2013_Census_occupied_private_dwelling_type_Separate_House / 
                X2013_Census_occupied_private_dwelling_type_Total_occupied_private_dwellings
            ) %>%
-    select(MB, Area_Code_and_Description, MeanBedrooms2013, PropPrivateDwellings2013, PropSeparateHouse2013)
+    select(Code, Area_Code_and_Description, MeanBedrooms2013, PropPrivateDwellings2013, PropSeparateHouse2013)
 
 
 #-------------------selected household variables--------------------
@@ -27,7 +33,10 @@ hh_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Hous
                      stringsAsFactors = FALSE, na.strings = c("..C", "*"))
 
 hh <- hh_orig %>%
-    rename(MB = Code) %>%
+    filter(Code != "Total New Zealand" & !is.na(Code)) %>%
+    filter(!grepl("Footnote", Area_Code_and_Description)) %>%
+    filter(!grepl("Source", Area_Code_and_Description)) %>%
+    filter(!grepl("Symbols", Area_Code_and_Description)) %>%
     mutate(
         NumberInHH2013 = X2013_Census_number_of_usual_residents_in_household.1._for_households_in_occupied_private_dwellings_Mean_Number_of_Usual_Household_Members,
         
@@ -50,7 +59,7 @@ hh <- hh_orig %>%
         PropNoMotorVehicle2013 = X2013_Census_number_of_motor_vehicles_for_households_in_occupied_private_dwellings_No_Motor_Vehicle / 
             X2013_Census_number_of_motor_vehicles_for_households_in_occupied_private_dwellings_Total_households_in_occupied_private_dwellings   
         ) %>%
-    select(MB, NumberInHH2013, PropMultiPersonHH2013, PropInternetHH2013,
+    select(Area_Code_and_Description,  NumberInHH2013, PropMultiPersonHH2013, PropInternetHH2013,
            PropNotOwnedHH2013, MedianRentHH2013, PropLandlordPublic2013,
            PropNoMotorVehicle2013)
 
@@ -61,7 +70,10 @@ indiv1_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-
 # names(indiv1_orig)[grep("X2013", names(indiv1_orig))]
 
 indiv1 <- indiv1_orig %>%
-    rename(MB = Code) %>%
+    filter(Code != "Total New Zealand" & !is.na(Code)) %>%
+    filter(!grepl("Footnote", Area_Code_and_Description)) %>%
+    filter(!grepl("Source", Area_Code_and_Description)) %>%
+    filter(!grepl("Symbols", Area_Code_and_Description)) %>%
     mutate(
         PropOld2013 = X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._65_years_and_Over / 
             X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Total_people,
@@ -84,7 +96,7 @@ indiv1 <- indiv1_orig %>%
         PropAsian2013 = X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Asian /
             X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Total_people
      ) %>%
-    select(MB, PropOld2013, PropEarly20s2013, PropAreChildren2013, 
+    select(Area_Code_and_Description, PropOld2013, PropEarly20s2013, PropAreChildren2013, 
            PropSameResidence5YearsAgo2013, PropOverseas5YearsAgo2013, 
            PropNZBorn2013, PropEuropean2013, PropMaori2013, 
            PropPacific2013, PropAsian2013)
@@ -95,7 +107,10 @@ indiv2_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-
 # names(indiv2_orig)[grep("X2013", names(indiv2_orig))]
 
 indiv2 <- indiv2_orig %>%
-    rename(MB = Code) %>%
+    filter(Code != "Total New Zealand" & !is.na(Code)) %>%
+    filter(!grepl("Footnote", Area_Code_and_Description)) %>%
+    filter(!grepl("Source", Area_Code_and_Description)) %>%
+    filter(!grepl("Symbols", Area_Code_and_Description)) %>%
     mutate(
         PropNoReligion2013 = X2013_Census_religious_affiliation_.total_responses..2._for_the_census_usually_resident_population_count.1._No_Religion /
             X2013_Census_religious_affiliation_.total_responses..2._for_the_census_usually_resident_population_count.1._Total_people_stated,
@@ -127,7 +142,7 @@ indiv2 <- indiv2_orig %>%
         PropStudentAllowance2013 = X2013_Census_sources_of_personal_income.24..25..26._for_the_census_usually_resident_population_count_aged_15_years_and_over_Student_Allowance /
             X2013_Census_sources_of_personal_income.24..25..26._for_the_census_usually_resident_population_count_aged_15_years_and_over_Total_people_Stated
     ) %>%
-    select(MB, PropNoReligion2013, PropSmoker2013, PropSeparated2013, PropPartnered2013,
+    select(Area_Code_and_Description,  PropNoReligion2013, PropSmoker2013, PropSeparated2013, PropPartnered2013,
            PropOwnResidence2013, PropNoChildren2013, PropNoQualification2013, 
            PropBachelor2013, PropDoctorate2013, PropFTStudent2013,
            PropPTStudent2013, MedianIncome2013, PropSelfEmployed2013,
@@ -140,7 +155,10 @@ indiv3a_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand
 # names(indiv3a_orig)[grep("X2013", names(indiv3a_orig))]
 
 indiv3a <- indiv3a_orig %>%
-    rename(MB = Code) %>%
+    filter(Code != "Total New Zealand" & !is.na(Code)) %>%
+    filter(!grepl("Footnote", Area_Code_and_Description)) %>%
+    filter(!grepl("Source", Area_Code_and_Description)) %>%
+    filter(!grepl("Symbols", Area_Code_and_Description)) %>%
     mutate(PropFullTimeEmployed2013 = X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Employed_Full.time /
                X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
            PropPartTimeEmployed2013= X2013_Census_work_and_labour_force_status.2._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Employed_Part.time /
@@ -170,7 +188,7 @@ indiv3a <- indiv3a_orig %>%
            PropProfServices2013 = X2013_Census_industry_.ANZSIC06_division..15..16._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Professional_Scientific_and_Technical_Services /
                X2013_Census_occupation_.ANZSCO_major_group..6..7._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people
     ) %>%
-    select(MB, PropFullTimeEmployed2013, PropPartTimeEmployed2013,
+    select(Area_Code_and_Description,  PropFullTimeEmployed2013, PropPartTimeEmployed2013,
            PropUnemployed2013, PropEmployee2013, PropEmployer2013,
            PropSelfEmployedNoEmployees2013, PropManagers2013,
            PropProfessionals2013, PropTrades2013, PropLabourers2013,
@@ -184,7 +202,10 @@ indiv3b_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand
 # names(indiv3b_orig)[grep("X2013", names(indiv3b_orig))]
 
 indiv3b <- indiv3b_orig %>%
-    rename(MB = Code) %>%
+    filter(Code != "Total New Zealand" & !is.na(Code)) %>%
+    filter(!grepl("Footnote", Area_Code_and_Description)) %>%
+    filter(!grepl("Source", Area_Code_and_Description)) %>%
+    filter(!grepl("Symbols", Area_Code_and_Description)) %>%
     mutate(
         PropWorked40_49hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._40.49_Hours_Worked /
             X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
@@ -203,45 +224,49 @@ indiv3b <- indiv3b_orig %>%
         PropNoUnpaidActivities2013 = X2013_Census_unpaid_activities.8..9._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._No_Activities /
             X2013_Census_unpaid_activities.8..9._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people
     ) %>%
-    select(MB, PropWorked40_49hours2013, PropWorkedHome2013,
+    select(Area_Code_and_Description,  PropWorked40_49hours2013, PropWorkedHome2013,
            PropPublicTransport2013, PropWalkJogBike2013,
            PropNoUnpaidActivities2013)
                
 
 #-----------------------finish-------------------
+
 Combined <- dwelling %>%
-    left_join(hh, by = "MB") %>%
-    left_join(indiv1, by = "MB") %>%
-    left_join(indiv2, by = "MB") %>%
-    left_join(indiv3a, by = "MB") %>%
-    left_join(indiv3b, by = "MB")
+    left_join(hh, by = "Area_Code_and_Description") %>%
+    left_join(indiv1, by = "Area_Code_and_Description") %>%
+    left_join(indiv2, by = "Area_Code_and_Description") %>%
+    left_join(indiv3a, by = "Area_Code_and_Description") %>%
+    left_join(indiv3b, by = "Area_Code_and_Description")
+
 
 # Note - some proportions are > 1.0.  This is because of random rounding.
 # Best to leave them in or else biases are introduced
 
 Meshblocks2013 <- Combined %>%
     filter(substring(Area_Code_and_Description, 1, 2) == "MB")  %>%
+    rename(MB = Code) %>%
     select(-Area_Code_and_Description)
     
 save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda", compress = "xz")
     
 
 AreaUnits2013 <- Combined %>%
-    filter(nchar(MB) == 6) %>%
-    rename(AU2014 = MB)
+    filter(nchar(Code) == 6) %>%
+    rename(AU2014 = Code)
 
 save(AreaUnits2013, file = "pkg/data/AreaUnits2013.rda", compress = "xz")
 
 
 TA2013 <- Combined %>%
     filter(grepl("^[0-9][0-9][0-9] ", Area_Code_and_Description)) %>%
-    rename(TA = MB) %>%
-    mutate(TA2013_NAM = str_sub(Area_Code_and_Description, start = 5))
+    rename(TA = Code) %>%
+    mutate(TA2013_NAM = str_sub(Area_Code_and_Description, start = 5)) %>%
+    select(-Area_Code_and_Description)
 
     
 REGC2013 <- Combined %>%
     filter(grepl("^[0-9][0-9] ", Area_Code_and_Description)) %>%
-    rename(REGC = MB) %>%
+    rename(REGC = Code) %>%
     mutate(REGC2013_N = str_sub(Area_Code_and_Description, start = 4)) %>%
     select(-Area_Code_and_Description)
     

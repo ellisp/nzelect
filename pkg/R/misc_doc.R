@@ -20,7 +20,7 @@
 #' }
 #'
 #' @format A data frame with 136,195 rows and 7 variables.
-#' @source \link{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
+#' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
 #' @seealso \code{\link{Locations2014}}
 #' @examples
 #' # the following matches the results published at
@@ -61,10 +61,10 @@
 #' }
 #'
 #' @format A data frame with 2,568 rows and 9 variables.
-#' @source \link{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} for the voting place locations.
-#' \link{http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx} 
+#' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} for the voting place locations.
+#' \url{http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx} 
 #' for the 2014 shapefiles for Regional Council, Territorial Authority, and Area Unit.  See
-#' \link{https://github.com/ellisp/nzelect/tree/master/prep} for the code linking the two.
+#' \url{https://github.com/ellisp/nzelect/tree/master/prep} for the code linking the two.
 #' @seealso \code{\link{GE2014}}
 "Locations2014"
 

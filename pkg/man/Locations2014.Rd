@@ -6,10 +6,10 @@
 \title{General Election Voting Places 2014}
 \format{A data frame with 2,568 rows and 9 variables.}
 \source{
-\link{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} for the voting place locations.
-\link{http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx} 
+\url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} for the voting place locations.
+\url{http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx} 
 for the 2014 shapefiles for Regional Council, Territorial Authority, and Area Unit.  See
-\link{https://github.com/ellisp/nzelect/tree/master/prep} for the code linking the two.
+\url{https://github.com/ellisp/nzelect/tree/master/prep} for the code linking the two.
 }
 \usage{
 Locations2014
@@ -32,7 +32,7 @@ Voting places for the New Zealand 2014 general election
   \item \code{TA2014_NAM}.  Name of the Territorial Authority in which the voting 
   place is physically located.
   \item \code{REGC2014_n}.  Name of the Regional Council in which the voting place is physically located.
-  \item \code{AU2014_NAM}.  Number of the Area Unit in which the voting place is physically located.
+  \item \code{AU2014}.  Number of the Area Unit in which the voting place is physically located.
   \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located.
 }
 }
