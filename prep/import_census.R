@@ -235,34 +235,29 @@ Combined <- dwelling %>%
 # Note - some proportions are > 1.0.  This is because of random rounding.
 # Best to leave them in or else biases are introduced
 
-Meshblocks2013 <- Combined %>%
+Meshblocks2013_tmp <- Combined %>%
     filter(substring(Area_Code_and_Description, 1, 2) == "MB")  %>%
     rename(MB = Code) %>%
     select(-Area_Code_and_Description)
-    
-save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda", compress = "xz")
-    
+ 
 
-AreaUnits2013 <- Combined %>%
+AreaUnits2013_tmp <- Combined %>%
     filter(nchar(Code) == 6) %>%
     rename(AU2014 = Code)
 
-save(AreaUnits2013, file = "pkg/data/AreaUnits2013.rda", compress = "xz")
 
 
-TA2013 <- Combined %>%
+TA2013_tmp <- Combined %>%
     filter(grepl("^[0-9][0-9][0-9] ", Area_Code_and_Description)) %>%
     rename(TA = Code) %>%
     mutate(TA2013_NAM = str_sub(Area_Code_and_Description, start = 5)) %>%
     select(-Area_Code_and_Description)
 
     
-REGC2013 <- Combined %>%
+REGC2013_tmp <- Combined %>%
     filter(grepl("^[0-9][0-9] ", Area_Code_and_Description)) %>%
     rename(REGC = Code) %>%
     mutate(REGC2013_N = str_sub(Area_Code_and_Description, start = 4)) %>%
     select(-Area_Code_and_Description)
     
 
-save(TA2013, file = "pkg/data/TA2013.rda")
-save(REGC2013, file = "pkg/data/REGC2013.rda")

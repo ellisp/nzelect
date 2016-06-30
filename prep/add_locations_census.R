@@ -1,0 +1,41 @@
+ps <- "+proj=tmerc +lat_0=0.0 +lon_0=173.0 +k=0.9996 +x_0=1600000.0 +y_0=10000000.0 +datum=WGS84 +units=m"
+
+# turn all this next bit into a function so can do with meshblock, TA, etc as well
+add_coords <- function(data, sp_obj, by){
+    
+
+#    sp_obj <- AU; data <- AreaUnits2013; by = "AU2014"
+    
+    centroids <- as.data.frame(coordinates(sp_obj))
+    names(centroids) <- c("NZTM2000Easting", "NZTM2000Northing")
+    # need to convert these to lat and long
+    p <- proj4::project(centroids, proj = ps, inverse=T)
+    spatial_info <- cbind(sp_obj@data, centroids, 
+                          WGS84Longitude = p[[1]], WGS84Latitude = p[[2]])
+    
+    # convert factors to characters
+    data[ , names(data) == by] <- as.character(data[ , names(data) == by])
+    spatial_info[ , names(spatial_info) == by] <- 
+        as.character(spatial_info[ , names(spatial_info) == by])
+    
+    tmp <- data %>%
+        left_join(spatial_info, by = by)
+    
+    return(tmp)
+}
+
+
+Meshblocks2013 <- add_coords(Meshblocks2013_tmp, MB, c("MB" = "MB2014")) # shouldn't this use 2013 meshblocks...
+AreaUnits2013 <- add_coords(AreaUnits2013_tmp, AU, "AU2014")
+TA2013 <- add_coords(TA2013_tmp, TA, c("TA2013_NAM" = "TA2014_NAM"))
+REGC2013 <- add_coords(REGC2013_tmp, REG, c("REGC" = "REGC2014"))
+
+# ggplot(REGC2013, aes(x = WGS84Longitude, y = WGS84Latitude, label = REGC2014_N)) +
+#     geom_text() +
+#     coord_map(xlim = c(165, 180))
+
+save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda", compress = "xz")
+save(AreaUnits2013, file = "pkg/data/AreaUnits2013.rda", compress = "xz")
+save(TA2013, file = "pkg/data/TA2013.rda")
+save(REGC2013, file = "pkg/data/REGC2013.rda")
+

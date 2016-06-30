@@ -9,6 +9,7 @@ library(dplyr)
 library(tidyr)
 library(xlsx)
 library(stringr)
+library(rgdal) # for map functionality
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
 # repeating expensive downloads
@@ -35,6 +36,8 @@ source("prep/import_votingplace_locations.R") # 3 minutes
 source("prep/import_census.R")
 
 # Match census data to shapefiles so we have lat and long
+source("prep/add_locations_census.R")
+
 
 # munge data for Shiny app and prompts to deploy it:
 source("prep/shiny_prep.R")

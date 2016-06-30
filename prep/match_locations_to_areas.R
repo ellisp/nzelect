@@ -10,7 +10,6 @@
 # This script is called from ./prep/import_votingplace_locations.R
 
 
-library(rgdal)
 
 
 
