@@ -7,7 +7,8 @@ library(knitr)
 library(devtools)
 library(dplyr)
 library(tidyr)
-
+library(xlsx)
+library(stringr)
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
 # repeating expensive downloads
@@ -17,6 +18,8 @@ source("prep/download_votingplace_results.R")
 
 # About 130MB of shapefiles / maps, used for locating voting places in areas:
 source("prep/download_map_shapefiles.R")
+
+source("prep/download_census2013.R")
 
 
 #----------tidying----------------
@@ -28,8 +31,10 @@ source("prep/tidy_votingplace_results.R") # 30 seconds
 # (takes a few minutes to run because of importing shapefiles, downloaded earlier):
 source("prep/import_votingplace_locations.R") # 3 minutes
 
-# Down the track there might be some import of economic and sociodemographic
-# data here; currently only in development
+# Import and tidy up census data
+source("prep/import_census.R")
+
+# Match census data to shapefiles so we have lat and long
 
 # munge data for Shiny app and prompts to deploy it:
 source("prep/shiny_prep.R")
