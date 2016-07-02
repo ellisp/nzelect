@@ -19,7 +19,14 @@ vpc <- vpc_orig %>%
     mutate(VotingPlace = gsub(" M..ori ", " Maori ", Voting.Place.Address),
            VotingPlace = gsub("Ng.+ Hau e Wh.+ o Papar.+rangi, 30 Ladbrooke Drive",
                               "Nga Hau e Wha o Papararangi, 30 Ladbrooke Drive",
-                              VotingPlace))
+                              VotingPlace)) %>%
+    mutate(Electorate.Name = str_trim(Electorate.Name),
+           Electorate.Name = gsub("^Te Atat.*$", "Te Atatu", Electorate.Name),
+           Electorate.Name = gsub("^Rangit.*kei$", "Rangitikei", Electorate.Name),
+           Electorate.Name = gsub("^T.*maki$", "Rangitikei", Electorate.Name))
+
+
+
 
 vpa <- unique(vpc$VotingPlace)
 vpv <- unique(GE2014$VotingPlace)
