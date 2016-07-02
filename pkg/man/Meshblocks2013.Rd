@@ -4,7 +4,7 @@
 \name{Meshblocks2013}
 \alias{Meshblocks2013}
 \title{Census results by meshblock 2013}
-\format{A data frame with 46,629 rows and 55 variables.}
+\format{A data frame with 46,629 rows and 83 variables.}
 \source{
 \url{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
 }
@@ -114,6 +114,32 @@ Selected variables from the New Zealand 2013 census results by meshblock
   or rode a bicyle to work
   \item \code{PropNoUnpaidActivities2013} Proportion of residents who perform
   no unapid activities
+  \item \code{AU2014} Area unit code which this meshblock is in
+  \item \code{AU2014_NAM} Area unit name which this meshblock is in
+  \item \code{UA2014} Urban authority code which this meshblock is in
+  \item \code{UA2014_NAM} Urban authority name which this meshblock is in
+  \item \code{TA2014} Territorial Authority unit code which this meshblock is in
+  \item \code{TA2014_NAM} Territorial Authority name which this meshblock is in
+  \item \code{WARD2014} Council Ward code which this meshblock is in
+  \item \code{WARD2014_N} Council Ward name which this meshblock is in
+  \item \code{CB2014} Local board code which this meshblock is in
+  \item \code{CB2014_NAM} Local board name which this meshblock is in
+  \item \code{TASUB2014} Territorial Authority subdivision code which this meshblock is in
+  \item \code{TASUB2014_} Territorial Authority subdivision name which this meshblock is in
+  \item \code{REGC2014} Regional Council code which this meshblock is in
+  \item \code{REGC2014_N} Regional Council name which this meshblock is in
+  \item \code{CON2014} 2014 regional constituency code which this meshblock is in
+  \item \code{CON2014_NA} 2014 regional constituency name which this meshblock is in
+  \item \code{MCON2014} 2014 Maori Constituency which this meshblock is in
+  \item \code{MCON2014_N} 2014 Maori Constituency name which this meshblock is in
+  \item \code{GED2007} 2007 general election division code which this meshblock is in
+  \item \code{GED2007_NA} 2007 general election division  name which this meshblock is in
+  \item \code{LAND20014} Land type code which this meshblock is in
+  \item \code{LAND20014_} Land type name which this meshblock is in
+  \item \code{NZTM2000Easting} Easting NZTM2000 coordinate of the centroid
+  \item \code{NZTM2000Northing} Northing NZTM2000 coordinate of the centroid
+  \item \code{WGS84Longitude} Longitude of the centroid   
+  \item \code{WGS84Latitude} Latitude of the centroid
 }
 Variables have been selected in a somewhat ad hoc fashion.  For example, not
 all forms of travelling to work are shown; the same applies to occupations,
@@ -128,6 +154,8 @@ hence some results are odd (eg proportions greater than one).
 See the source (below) for the definitive and complete form of the original data 
 and its metadata. The exact variables used in the creation of this dataframe 
 can be seen at \url{https://github.com/ellisp/nzelect/blob/master/prep/import_census.R}
+The census data was joined to data from the relevant shapefile by a method seen at
+\url{https://github.com/ellisp/nzelect/blob/master/prep/add_locations_census.R}
 }
 \examples{
 head(Meshblocks2013)

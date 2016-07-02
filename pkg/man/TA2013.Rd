@@ -4,7 +4,7 @@
 \name{TA2013}
 \alias{TA2013}
 \title{Census results by Territorial Authority 2013}
-\format{A data frame with 68 rows and 56 variables.}
+\format{A data frame with 68 rows and 60 variables.}
 \source{
 \url{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
 }
@@ -116,6 +116,10 @@ Authority (Districts and Cities)
   \item \code{PropNoUnpaidActivities2013} Proportion of residents who perform
   no unapid activities
   \item \code{TA2013_NAM} Territorial Authority name
+  \item \code{NZTM2000Easting} Easting NZTM2000 coordinate of the centroid
+  \item \code{NZTM2000Northing} Northing NZTM2000 coordinate of the centroid
+  \item \code{WGS84Longitude} Longitude of the centroid   
+  \item \code{WGS84Latitude} Latitude of the centroid
 }
 Variables have been selected in a somewhat ad hoc fashion.  For example, not
 all forms of travelling to work are shown; the same applies to occupations,
@@ -126,6 +130,8 @@ than to be comprehensive.
 See the source (below) for the definitive and complete form of the original data 
 and its metadata. The exact variables used in the creation of this dataframe 
 can be seen at \url{https://github.com/ellisp/nzelect/blob/master/prep/import_census.R}
+The census data was joined to data from the relevant shapefile by a method seen at
+\url{https://github.com/ellisp/nzelect/blob/master/prep/add_locations_census.R}
 }
 \examples{
 head(TA2013)

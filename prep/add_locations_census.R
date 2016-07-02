@@ -34,6 +34,30 @@ REGC2013 <- add_coords(REGC2013_tmp, REG, c("REGC" = "REGC2014"))
 #     geom_text() +
 #     coord_map(xlim = c(165, 180))
 
+# remove some redundant columns
+AreaUnits2013$Area_Code_and_Description <- NULL
+AreaUnits2013$SHAPE_STAr <- NULL
+AreaUnits2013$SHAPE_STLe <- NULL
+
+TA2013$TA2014 <- NULL
+
+REGC2013$REGC2014_N <- NULL
+REGC2013$SHAPE_STLe <- NULL
+
+# I don't understand the units of length and area; and anyone who really needs
+# them can get them from the shapefiles easily enough so I'm going to knock
+# them out:
+Meshblocks2013$SHAPE_Leng <- NULL
+Meshblocks2013$SHAPE_Area <- NULL
+AreaUnits2013$Shape_Leng <- NULL
+AreaUnits2013$Shape_Area <- NULL
+TA2013$SHAPE_Leng <- NULL
+TA2013$SHAPE_Area <- NULL
+REGC2013$SHAPE_Leng <- NULL
+REGC2013$SHAPE_Area <- NULL
+
+
+
 save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda", compress = "xz")
 save(AreaUnits2013, file = "pkg/data/AreaUnits2013.rda", compress = "xz")
 save(TA2013, file = "pkg/data/TA2013.rda")

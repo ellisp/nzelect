@@ -4,7 +4,7 @@
 \name{AreaUnits2013}
 \alias{AreaUnits2013}
 \title{Census results by Area Unit 2013}
-\format{A data frame with 2012 rows and 56 variables.}
+\format{A data frame with 2012 rows and 60 variables.}
 \source{
 \url{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
 }
@@ -17,7 +17,6 @@ Selected variables from the New Zealand 2013 census results by Area Unit
 \details{
 \itemize{
   \item \code{AU2014}. Area Unit code (as at 2014)
-  \item \code{Area_Code_and_Description}Area Unit code concatenated to its name
   \item \code{MeanBedrooms2013}. Mean number of bedrooms per dwelling. 
   \item \code{PropPrivateDwellings2013}. Proportion of dwellings that are private
   dwellings.  
@@ -115,6 +114,11 @@ Selected variables from the New Zealand 2013 census results by Area Unit
   or rode a bicyle to work
   \item \code{PropNoUnpaidActivities2013} Proportion of residents who perform
   no unapid activities
+  \item \code{AU2014_N} Name of the Area Unit
+  \item \code{NZTM2000Easting} Easting NZTM2000 coordinate of the centroid
+  \item \code{NZTM2000Northing} Northing NZTM2000 coordinate of the centroid
+  \item \code{WGS84Longitude} Longitude of the centroid   
+  \item \code{WGS84Latitude} Latitude of the centroid
 }
 Variables have been selected in a somewhat ad hoc fashion.  For example, not
 all forms of travelling to work are shown; the same applies to occupations,
@@ -129,6 +133,8 @@ hence some results are odd (eg proportions greater than one).
 See the source (below) for the definitive and complete form of the original data 
 and its metadata. The exact variables used in the creation of this dataframe 
 can be seen at \url{https://github.com/ellisp/nzelect/blob/master/prep/import_census.R}
+The census data was joined to data from the relevant shapefile by a method seen at
+\url{https://github.com/ellisp/nzelect/blob/master/prep/add_locations_census.R}
 }
 \examples{
 head(AreaUnits2013)

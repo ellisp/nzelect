@@ -115,6 +115,10 @@ Selected variables from the New Zealand 2013 census results by Regional Council
   \item \code{PropNoUnpaidActivities2013} Proportion of residents who perform
   no unapid activities
   \item \code{REGC2013_N} Regional Council name
+  \item \code{NZTM2000Easting} Easting NZTM2000 coordinate of the centroid
+  \item \code{NZTM2000Northing} Northing NZTM2000 coordinate of the centroid
+  \item \code{WGS84Longitude} Longitude of the centroid   
+  \item \code{WGS84Latitude} Latitude of the centroid
 }
 Variables have been selected in a somewhat ad hoc fashion.  For example, not
 all forms of travelling to work are shown; the same applies to occupations,
@@ -124,7 +128,9 @@ than to be comprehensive.
 
 See the source (below) for the definitive and complete form of the original data 
 and its metadata. The exact variables used in the creation of this dataframe 
-can be seen at \url{https://github.com/ellisp/nzelect/blob/master/prep/import_census.R}
+can be seen at \url{https://github.com/ellisp/nzelect/blob/master/prep/import_census.R}.
+The census data was joined to data from the relevant shapefile by a method seen at
+\url{https://github.com/ellisp/nzelect/blob/master/prep/add_locations_census.R}
 }
 \examples{
 head(REGC2013)

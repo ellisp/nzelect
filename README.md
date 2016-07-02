@@ -34,7 +34,7 @@ GE2014 %>%
 ## Source: local data frame [28 x 3]
 ## 
 ##                               Party PartyVote CandidateVote
-##                               (chr)     (dbl)         (dbl)
+##                               <chr>     <dbl>         <dbl>
 ## 1                    National Party   1131501       1081787
 ## 2                      Labour Party    604535        801287
 ## 3                       Green Party    257359        165718
@@ -53,19 +53,20 @@ GE2014 %>%
 
 ```r
 library(ggplot2, quietly = TRUE)
+```
+
+```
+## Use suppressPackageStartupMessages() to eliminate package startup
+## messages.
+```
+
+```r
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
 ```
 
 ```
-## 
-## Attaching package: 'GGally'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     nasa
+## Error in library(GGally, quietly = TRUE): there is no package called 'GGally'
 ```
 
 ```r
@@ -97,7 +98,9 @@ proportions <- GE2014 %>%
 ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+```
+## Error in eval(expr, envir, enclos): could not find function "ggpairs"
+```
 
 
 
@@ -162,7 +165,7 @@ GE2014 %>%
 ## Source: local data frame [17 x 3]
 ## 
 ##                  REGC2014_N TotalVotes ProportionNational
-##                      (fctr)      (dbl)              (dbl)
+##                      <fctr>      <dbl>              <dbl>
 ## 1           Gisborne Region      14342              0.351
 ## 2             Nelson Region      18754              0.398
 ## 3          Northland Region      53688              0.427
@@ -196,7 +199,7 @@ GE2014 %>%
 ## Source: local data frame [7 x 2]
 ## 
 ##                                               VotingPlace TotalVotes
-##                                                     (chr)      (dbl)
+##                                                     <chr>      <dbl>
 ## 1 Chatham Islands Council Building, 9 Tuku Road, Waitangi         90
 ## 2                       Ordinary Votes BEFORE polling day     630775
 ## 3          Overseas Special Votes including Defence Force      38316
