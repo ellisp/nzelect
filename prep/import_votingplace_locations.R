@@ -13,25 +13,28 @@ download.file("http://www.electionresults.govt.nz/electionresults_2014/2014_Voti
 
 
 # takes 2 minutes:
-vpc_orig <- read.xlsx("downloads/elect2014/vp_coordinates.xls", sheetIndex = 1)
+vpc_orig <- read.xlsx("downloads/elect2014/vp_coordinates.xls", sheetIndex = 1, encoding = "UTF-8")
 
 vpc <- vpc_orig %>%
-    mutate(VotingPlace = gsub(" M..ori ", " Maori ", Voting.Place.Address),
+    mutate(Electorate.Name = str_trim(Electorate.Name)) %>%
+    mutate(VotingPlace = gsub(" M.ori ", " Maori ", Voting.Place.Address),
            VotingPlace = gsub("Ng.+ Hau e Wh.+ o Papar.+rangi, 30 Ladbrooke Drive",
                               "Nga Hau e Wha o Papararangi, 30 Ladbrooke Drive",
-                              VotingPlace)) %>%
-    mutate(Electorate.Name = str_trim(Electorate.Name),
-           Electorate.Name = gsub("^Te Atat.*$", "Te Atatu", Electorate.Name),
-           Electorate.Name = gsub("^Rangit.*kei$", "Rangitikei", Electorate.Name),
-           Electorate.Name = gsub("^T.*maki$", "Rangitikei", Electorate.Name))
-
-
-
+                              VotingPlace))
 
 vpa <- unique(vpc$VotingPlace)
 vpv <- unique(GE2014$VotingPlace)
-sum(!vpa %in% vpv) # 0 voting places not in the votes data
-sum(!vpv %in% vpa) # 6 votes data places not in the list
+
+if(sum(!vpa %in% vpv) > 0){
+    print(vpa[!vpa %in% vpv])
+    stop("Some voting place locations failed to match with voting place results")
+}
+
+if(sum(!vpv %in% vpa) > 6){
+    # should be6 votes data places not in the list
+    print(vpv[!vpv %in% vpa])
+    stop("More than six voting place results failed to match to voting place locations")   
+}
 
 # voting places not in the locations:
 message("Votes registered but no matching geography:")
