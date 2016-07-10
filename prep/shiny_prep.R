@@ -5,7 +5,7 @@
 
 library(nzelect)
 library(dplyr)
-library(shinyapps)
+library(rsconnect)
 
 proportions <- GE2014 %>%
     filter(VotingType == "Party") %>%

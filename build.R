@@ -36,11 +36,9 @@ source("prep/import_votingplace_locations.R") # 3 minutes
 source("prep/import_census.R")
 
 # Match census data to shapefiles so we have lat and long
+
 source("prep/add_locations_census.R")
 
-
-# munge data for Shiny app and prompts to deploy it:
-source("prep/shiny_prep.R")
 
 #--------------build the actual package---------
 # create helpfiles:
@@ -53,7 +51,13 @@ test("pkg")
 knit("README.Rmd", "README.md")
 
 # run pedantic CRAN checks
-check("pkg") # currently fail due to inputenc LaTeX compile prob
+check("pkg") 
 
 # create .tar.gz for CRAN or wherever
 build("pkg")
+
+
+#-----------------shiny app----------------
+# munge data for Shiny app and prompts to deploy it:
+source("prep/shiny_prep.R")
+

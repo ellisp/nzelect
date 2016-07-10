@@ -4,7 +4,7 @@
 \name{TA2013}
 \alias{TA2013}
 \title{Census results by Territorial Authority 2013}
-\format{A data frame with 68 rows and 60 variables.}
+\format{A data frame with 68 rows and 76 variables.}
 \source{
 \url{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
 }
@@ -38,8 +38,6 @@ Authority (Districts and Cities)
   or other state-owned corporation or enterprise
   \item \code{PropNoMotorVehicle2013} Proportion of occupied private dwellings 
   that have no motor vehicle for the household
-  \item \code{PropOld2013} Proportion of individuals aged 65 and over years
-  \item \code{PropEarly20s2013} Proportion of individuals aged 20-24 years
   \item \code{PropAreChildren2013} Proportion of individuals aged under 15 years
   \item \code{PropSameResidence5YearsAgo2013} Proportion of individuals who
   lived in the same residence 5 years ago
@@ -50,11 +48,25 @@ Authority (Districts and Cities)
   \item \code{PropEuropean2013} Proportion of individuals with European ethnic group
   \item \code{PropMaori2013} Proportion of individuals with Maori ethnic group
   \item \code{PropPacific2013} Proportion of individuals with Pacific Peoples ethnic group
-  \item \code{PropAsian2013} Proportion of individuals with Asiam ethnic group
+  \item \code{PropAsian2013} Proportion of individuals with Asia ethnic group
+  \item \code{PropMale2013} Proportion of individuals who are male
+  \item \code{PropFemale2013} Proportion of individuals who are female
+  \item \code{Prop20to24_2013} Proportion of individuals aged 20 to 24  
+  \item \code{Prop25to29_2013} Proportion of individuals aged 25 to 29  
+  \item \code{Prop30to34_2013} Proportion of individuals aged 30 to 34  
+  \item \code{Prop35to39_2013} Proportion of individuals aged 35 to 39  
+  \item \code{Prop40to44_2013} Proportion of individuals aged 40 to 44  
+  \item \code{Prop45to49_2013} Proportion of individuals aged 45 to 49  
+  \item \code{Prop50to54_2013} Proportion of individuals aged 50 to 54  
+  \item \code{Prop55to59_2013} Proportion of individuals aged 55 to 59  
+  \item \code{Prop60to64_2013} Proportion of individuals aged 60 to 64  
+  \item \code{Prop65AndOlder_2013} Proportion of individuals aged 65 or older  
   \item \code{PropNoReligion2013} Proportion of individuals who stated a religion
   with no religion   
   \item \code{PropSmoker2013} Proportion of individuals who stated smoking behaviour
   who smoked   
+  \item \code{PropSeparated2013} Proportion of individuals who stated their status
+  as separated
   \item \code{PropPartnered2013} Proportion of individuals who stated their status
   who had a partner
   \item \code{PropOwnResidence2013} Proportion of individuals who stated their status
@@ -78,9 +90,9 @@ Authority (Districts and Cities)
   who received income from unemployment benefits
   \item \code{PropStudentAllowance2013} Proportion of individuals who stated their status
   who received income from student allowance
-  \item \code{FullTimeEmployed2013} Proportion of individuals resident who are
+  \item \code{PropFullTimeEmployed2013} Proportion of individuals resident who are
   employed full time
-  \item \code{PartTimeEmployed2013} Proportion of individuals resident who are
+  \item \code{PropPartTimeEmployed2013} Proportion of individuals resident who are
   employed part time
   \item \code{PropUnemployed2013} Proportion of individuals resident who are
   unemployed
@@ -106,15 +118,27 @@ Authority (Districts and Cities)
   industry who work in Financial and Insurance Services
   \item \code{PropProfServices2013} Proportion of residents who stated an
   industry who work in Professional, Scientific and Technical Services
+  \item \code{PropWorked1_9hours2013} Proportion of residents who 
+  stated working hours who worked from 1 to 9 hours per week
+  \item \code{PropWorked10_19hours2013} Proportion of residents who 
+  stated working hours who worked from 10 to 19 hours per week
+  \item \code{PropWorked20_29hours2013} Proportion of residents who 
+  stated working hours who worked from 20 to 29 hours per week
+  \item \code{PropWorked30_39hours2013} Proportion of residents who 
+  stated working hours who worked from 30 to 39 hours per week
   \item \code{PropWorked40_49hours2013} Proportion of residents who 
   stated working hours who worked from 40 to 49 hours per week
+  \item \code{PropWorked50_59hours2013} Proportion of residents who 
+  stated working hours who worked from 50 to 59 hours per week
+  \item \code{PropWorkedOver60hours2013} Proportion of residents who 
+  stated working hours who worked over 60 hours per week
   \item \code{PropWorkedHome2013} Proportion of residents who worked at home
   \item \code{PropPublicTransport2013} Proportion of residents who take
   the bus or train to work
   \item \code{PropWalkJogBike2013} Proportion of residents who walked, jogged
   or rode a bicyle to work
   \item \code{PropNoUnpaidActivities2013} Proportion of residents who perform
-  no unapid activities
+  no unpaid activities
   \item \code{TA2013_NAM} Territorial Authority name
   \item \code{NZTM2000Easting} Easting NZTM2000 coordinate of the centroid
   \item \code{NZTM2000Northing} Northing NZTM2000 coordinate of the centroid

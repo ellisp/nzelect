@@ -68,10 +68,6 @@ indiv1 <- indiv1_orig %>%
     filter(!grepl("Source", Area_Code_and_Description)) %>%
     filter(!grepl("Symbols", Area_Code_and_Description)) %>%
     mutate(
-        PropOld2013 = X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._65_years_and_Over / 
-            X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Total_people,
-        PropEarly20s2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._20.24_Years / 
-            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
         PropAreChildren2013 = X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Under_15_years /
             X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Total_people,
         PropSameResidence5YearsAgo2013 = X2013_Census_usual_residence_five_years_ago_.2008._indicator_for_the_census_usually_resident_population_count.1._Same_as_Usual_Residence /
@@ -87,12 +83,40 @@ indiv1 <- indiv1_orig %>%
         PropPacific2013 = X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Pacific_Peoples /
             X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Total_people,
         PropAsian2013 = X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Asian /
-            X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Total_people
+            X2013_Census_ethnic_group_.grouped_total_responses..7..8._for_the_census_usually_resident_population_count.1._Total_people,
+        PropMale2013 = X2013_Census_sex_for_the_census_usually_resident_population_count.1._Male / 
+            X2013_Census_sex_for_the_census_usually_resident_population_count.1._Total_people,
+        PropFemale2013 = X2013_Census_sex_for_the_census_usually_resident_population_count.1._Female / 
+            X2013_Census_sex_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop20to24_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._20.24_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop25to29_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._25.29_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop30to34_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._30.34_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop35to39_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._35.39_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop40to44_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._40.44_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop45to49_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._45.49_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop50to54_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._50.54_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop55to59_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._55.59_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop60to64_2013 = X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._60.64_Years / 
+            X2013_Census_age_in_five.year_groups_for_the_census_usually_resident_population_count.1._Total_people,
+        Prop65AndOlder_2013 = X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._65_years_and_Over / 
+            X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Total_people
      ) %>%
-    select(Area_Code_and_Description, PropOld2013, PropEarly20s2013, PropAreChildren2013, 
+    select(Area_Code_and_Description, PropAreChildren2013, 
            PropSameResidence5YearsAgo2013, PropOverseas5YearsAgo2013, 
            PropNZBorn2013, PropEuropean2013, PropMaori2013, 
-           PropPacific2013, PropAsian2013)
+           PropPacific2013, PropAsian2013,
+           PropMale2013, PropFemale2013,
+           Prop20to24_2013, Prop25to29_2013, Prop30to34_2013, Prop35to39_2013, Prop40to44_2013, Prop45to49_2013, 
+           Prop50to54_2013, Prop55to59_2013, Prop60to64_2013, Prop65AndOlder_2013)
+
 
 #------------selected individuals 2 variables-----------
 indiv2_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Individual-Part-2.csv",
@@ -200,7 +224,19 @@ indiv3b <- indiv3b_orig %>%
     filter(!grepl("Source", Area_Code_and_Description)) %>%
     filter(!grepl("Symbols", Area_Code_and_Description)) %>%
     mutate(
+        PropWorked1_9hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._1.9_Hours_Worked /
+            X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropWorked10_19hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._10.19_Hours_Worked /
+            X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropWorked20_29hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._20.29_Hours_Worked /
+            X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropWorked30_39hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._30.39_Hours_Worked /
+            X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
         PropWorked40_49hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._40.49_Hours_Worked /
+            X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropWorked50_59hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._50.59_Hours_Worked /
+            X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
+        PropWorkedOver60hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._50.59_Hours_Worked /
             X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
         PropWorkedHome2013 = X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Worked_at_Home /
             X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
@@ -217,7 +253,9 @@ indiv3b <- indiv3b_orig %>%
         PropNoUnpaidActivities2013 = X2013_Census_unpaid_activities.8..9._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._No_Activities /
             X2013_Census_unpaid_activities.8..9._for_the_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people
     ) %>%
-    select(Area_Code_and_Description,  PropWorked40_49hours2013, PropWorkedHome2013,
+    select(Area_Code_and_Description, PropWorked1_9hours2013, PropWorked10_19hours2013,
+           PropWorked20_29hours2013, PropWorked30_39hours2013, PropWorked40_49hours2013,
+           PropWorked50_59hours2013, PropWorkedOver60hours2013, PropWorkedHome2013,
            PropPublicTransport2013, PropWalkJogBike2013,
            PropNoUnpaidActivities2013)
                

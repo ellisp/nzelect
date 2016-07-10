@@ -1,6 +1,6 @@
 ps <- "+proj=tmerc +lat_0=0.0 +lon_0=173.0 +k=0.9996 +x_0=1600000.0 +y_0=10000000.0 +datum=WGS84 +units=m"
 
-# turn all this next bit into a function so can do with meshblock, TA, etc as well
+# create a function for efficiently matching locations to our various area unit, TA, region, meshblock datasets:
 add_coords <- function(data, sp_obj, by){
     
 
@@ -26,9 +26,12 @@ add_coords <- function(data, sp_obj, by){
 
 
 Meshblocks2013 <- add_coords(Meshblocks2013_tmp, MB, c("MB" = "MB2014")) # shouldn't this use 2013 meshblocks...
-AreaUnits2013 <- add_coords(AreaUnits2013_tmp, AU, "AU2014")
+AreaUnits2013 <- add_coords(AreaUnits2013_tmp, AU, "AU2014") %>%
+    mutate(AU_NAM = ifelse(is.na(AU2014_NAM), substring(Area_Code_and_Description, 8), as.character(AU2014_NAM)))
 TA2013 <- add_coords(TA2013_tmp, TA, c("TA2013_NAM" = "TA2014_NAM"))
 REGC2013 <- add_coords(REGC2013_tmp, REG, c("REGC" = "REGC2014"))
+
+
 
 # ggplot(REGC2013, aes(x = WGS84Longitude, y = WGS84Latitude, label = REGC2014_N)) +
 #     geom_text() +
@@ -38,6 +41,7 @@ REGC2013 <- add_coords(REGC2013_tmp, REG, c("REGC" = "REGC2014"))
 AreaUnits2013$Area_Code_and_Description <- NULL
 AreaUnits2013$SHAPE_STAr <- NULL
 AreaUnits2013$SHAPE_STLe <- NULL
+AreaUnits2013$AU2014_NAM <- NULL
 
 TA2013$TA2014 <- NULL
 
