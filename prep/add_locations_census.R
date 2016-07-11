@@ -62,8 +62,8 @@ REGC2013$SHAPE_Area <- NULL
 
 
 
-save(Meshblocks2013, file = "pkg/data/Meshblocks2013.rda", compress = "xz")
-save(AreaUnits2013, file = "pkg/data/AreaUnits2013.rda", compress = "xz")
-save(TA2013, file = "pkg/data/TA2013.rda")
-save(REGC2013, file = "pkg/data/REGC2013.rda")
+save(Meshblocks2013, file = "pkg2/data/Meshblocks2013.rda", compress = "xz")
+save(AreaUnits2013, file = "pkg2/data/AreaUnits2013.rda", compress = "xz")
+save(TA2013, file = "pkg2/data/TA2013.rda")
+save(REGC2013, file = "pkg2/data/REGC2013.rda")
 

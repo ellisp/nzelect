@@ -36,26 +36,29 @@ source("prep/import_votingplace_locations.R") # 3 minutes
 source("prep/import_census.R")
 
 # Match census data to shapefiles so we have lat and long
-
 source("prep/add_locations_census.R")
 
 
 #--------------build the actual package---------
 # create helpfiles:
-document("pkg")
+document("pkg1")
+document("pkg2")
+
 
 # unit tests, including check against published totals
-test("pkg")
+test("pkg1")
+test("pkg2") # nothing in the nzcensus tests yet
 
 # create README for GitHub repo:
 knit("README.Rmd", "README.md")
 
 # run pedantic CRAN checks
-check("pkg") 
+check("pkg1") 
+check("pkg2") 
 
 # create .tar.gz for CRAN or wherever
-build("pkg")
-
+build("pkg1")
+build("pkg2")
 
 #-----------------shiny app----------------
 # munge data for Shiny app and prompts to deploy it:

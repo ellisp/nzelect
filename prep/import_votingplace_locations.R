@@ -53,7 +53,7 @@ names(Locations2014) <- gsub(".", "", names(Locations2014), fixed = TRUE)
 # match to mesh blocks, regions, etc
 source("./prep/match_locations_to_areas.R")
 
-save(Locations2014, file = "pkg/data/Locations2014.rda", compress = "xz")
+save(Locations2014, file = "pkg1/data/Locations2014.rda", compress = "xz")
 
 
 

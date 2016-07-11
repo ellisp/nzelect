@@ -121,4 +121,4 @@ GE2014 <- party_results_voting_place %>%
            ApproxLocation = str_trim(ApproxLocation),
            Candidate = str_trim(Candidate))
 
-save(GE2014, file = "pkg/data/GE2014.rda", compress = "xz")
+save(GE2014, file = "pkg1/data/GE2014.rda", compress = "xz")

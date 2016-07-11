@@ -63,6 +63,20 @@ library(GGally, quietly = TRUE) # for ggpairs
 
 ```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
+```
+
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -104,6 +118,16 @@ GE2014 %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
+```
+
+```
+## 
+##  # maps v3.1: updated 'world': all lakes moved to separate new #
+##  # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
+```
+
+```
+## Loading required package: grid
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
