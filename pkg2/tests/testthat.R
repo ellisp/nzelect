@@ -1,3 +1,3 @@
 library(testthat)
 
-test_check("nzelect")
+test_check("nzcensus")

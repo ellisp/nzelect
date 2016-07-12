@@ -186,7 +186,7 @@ The census data was joined to data from the relevant shapefile by a method seen 
 head(Meshblocks2013)
 }
 \seealso{
-\code{\link{Locations2014}}, \code{\link{AreaUnits2013}}
+\code{\link{AreaUnits2013}}
 }
 \keyword{datasets}
 

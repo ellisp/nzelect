@@ -171,7 +171,7 @@
 #' 
 #' @format A data frame with 46,629 rows and 99 variables.  
 #' @source \url{http://www3.stats.govt.nz/meshblock/2013/csv/2013_mb_dataset_Total_New_Zealand_CSV.zip}
-#' @seealso \code{\link{Locations2014}}, \code{\link{AreaUnits2013}}
+#' @seealso \code{\link{AreaUnits2013}}
 #' @examples
 #' head(Meshblocks2013)
 "Meshblocks2013"

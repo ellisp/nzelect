@@ -47,7 +47,7 @@ document("pkg2")
 
 # unit tests, including check against published totals
 test("pkg1")
-test("pkg2") # nothing in the nzcensus tests yet
+test("pkg2") 
 
 # create README for GitHub repo:
 knit("README.Rmd", "README.md")
