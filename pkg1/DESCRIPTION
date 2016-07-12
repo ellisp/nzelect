@@ -10,7 +10,7 @@ Depends:
 License: GPL-3
 LazyData: true
 Suggests:
-    testthat, dplyr, tidyr, knitr, rmarkdown, ggplot2, scales, ggthemes, GGally, maps
+    testthat, dplyr, tidyr, knitr, rmarkdown, ggplot2, scales, ggthemes, GGally, maps, mapproj
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
 

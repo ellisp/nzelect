@@ -9,6 +9,6 @@ Depends:
 License: GPL-3
 LazyData: true
 Suggests:
-    testthat, dplyr, tidyr, knitr, rmarkdown, ggrepel, scales, ggthemes, maps
+    testthat, dplyr, tidyr, knitr, rmarkdown, ggrepel, scales, ggthemes, maps, mapproj
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
