@@ -52,6 +52,10 @@ test("pkg2")
 # create README for GitHub repo:
 knit("README.Rmd", "README.md")
 
+# create vignettes for actual builds
+build_vignettes("pkg1") 
+build_vignettes("pkg2") 
+
 # run pedantic CRAN checks
 check("pkg1") 
 check("pkg2") 
@@ -59,6 +63,7 @@ check("pkg2")
 # run win-builder checks and email results to maintainer (Peter Ellis)
 build_win("pkg1")
 build_win("pkg2")
+
 
 # create .tar.gz for CRAN or wherever
 build("pkg1")

@@ -1,0 +1,52 @@
+---
+title: "nzcensus - convenient access to the New Zealand census meshblock dataset"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{nzcensus - convenient access to the New Zealand census meshblock dataset}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Introduction
+`nzcensus` provides convenient access to some of the variables from the [New Zealand Census meshblock data set](http://www.stats.govt.nz/Census/2013-census/data-tables/meshblock-dataset.aspx) published by Statistics New Zealand.  
+
+70 the variables (mostly counts) at the individual, household and dwelling level have been converted into secondary variables such as proportions which are comparable across areas.  These 70 variables are available for the following regional aggregations:
+
+* Meshblocks x 46,629
+* Area Units x 2,012
+* Territorial Authority x 68 (including "Area Outside Territorial Authority" and Chatham Islands Territory)
+* Regional Council x 17 (including "Area Outisde Regional Council")
+
+## Disclaimer and caveat
+
+Statistics New Zealand had no involvement in the creation of `nzcensus` and bear no responsibility for its accuracy.  `nzcensus` is a very small, voluntary project and there may be errors; in the event of any uncertainty please check against the original source.
+
+## Example usage
+```{r fig.width = 7, fig.height = 7}
+library(nzcensus)
+library(ggrepel)
+library(scales)
+REGC2013$region <- gsub(" Region", "", REGC2013$REGC2013_N)
+
+ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = region) ) +
+    geom_point() +
+    geom_text_repel(colour = "steelblue") +
+    scale_x_continuous("Proportion of workers in public administration", label = percent) +
+    scale_y_continuous("Proportion of individuals who stated status that have partners", label = percent) +
+    ggtitle("New Zealand census 2013")
+```
+
+```{r fig.width = 7, fig.height = 7}
+ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = MedianIncome2013)) +
+    borders("nz", fill = terrain.colors(5)[3], colour = NA) +
+    geom_point(alpha = 0.1) +
+    coord_map(xlim = c(166, 179)) +
+    ggthemes::theme_map() +
+    ggtitle("Locations of centers of meshblocks in 2013 census") +
+    scale_colour_gradientn(colours = c("blue", "white", "red"), label = dollar) +
+    theme(legend.position = c(0.1, 0.6))
+
+```
+
+
+
