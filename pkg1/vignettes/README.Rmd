@@ -1,0 +1,153 @@
+---
+title: "nzelect - convenient access to the New Zealand election results"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{nzcensus - convenient access to the New Zealand census meshblock dataset}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Introduction
+`nzelect` provides convenient access to New Zealand election results.  So far only the results aggregated by voting place of the 2014 General Election are provided, but the intention is to extend this further:
+
+* both backwards and forwards in time for additional elections and possibly referenda; and 
+* incorporate individual level data from the [New Zealand Election study](http://www.nzes.org/).
+
+Source data of the voting place aggregated results comes from the [New Zealand Electoral Commission](http://www.electionresults.govt.nz/).
+
+## Connection to `nzcensus`
+
+Early versions of the `nzelect` package include data from the 2013 New Zealand census to make it easy to combine election results with demographic data.  As of July 2016, the census results were separated into their own `nzcensus` package, which is only available from GitHub (not CRAN), via:
+
+```{r eval=FALSE}
+devvtools::install_github("ellisp/nzelect/pkg2")
+```
+
+The separate was made to allow access to the Census results for agencies that did not want them combined with the election results; and to allow the `nzelect` package to be small enough to publish on CRAN.
+
+## Caveat and disclaimer
+
+The New Zealand Electoral Commission had no involvement in preparing this package and bear no responsibility for any errors.  In the event of any uncertainty, refer to the definitive source materials on their website.
+
+`nzelect` is a very small voluntary project.  Please report any issues or bugs on [GitHub](https://github.com/ellisp/nzelect/issues).
+
+## Usage - 2014 results by voting place
+
+The 2014 results are available in two main data frames:
+
+* `Locations2014` has one row for each of the 2,568 voting places
+* `GE2014` has one row for each combination voting place, party, electorate andvoting type (Party or Candidate)
+
+### Overall results
+The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
+```{r}
+library(nzelect)
+library(tidyr)
+library(dplyr)
+GE2014 %>%
+    mutate(VotingType = paste0(VotingType, "Vote")) %>%
+    group_by(Party, VotingType) %>%
+    summarise(Votes = sum(Votes)) %>%
+    spread(VotingType, Votes) %>%
+    select(Party, PartyVote, CandidateVote) %>%
+    ungroup() %>%
+    arrange(desc(PartyVote))
+
+```
+
+
+### Comparing party and candidate votes of several parties
+```{r fig.width = 7, fig.height = 7}
+
+library(ggplot2, quietly = TRUE)
+library(scales, quietly = TRUE)
+library(GGally, quietly = TRUE) # for ggpairs
+library(dplyr)
+
+proportions <- GE2014 %>%
+    group_by(VotingPlace, VotingType) %>%
+    summarise(ProportionLabour = sum(Votes[Party == "Labour Party"]) / sum(Votes),
+              ProportionNational = sum(Votes[Party == "National Party"]) / sum(Votes),
+              ProportionGreens = sum(Votes[Party == "Green Party"]) / sum(Votes),
+              ProportionNZF = sum(Votes[Party == "New Zealand First Party"]) / sum(Votes),
+              ProportionMaori = sum(Votes[Party == "Maori Party"]) / sum(Votes))
+
+ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
+
+
+```
+
+
+
+### Geographical location of voting places
+```{r fig.width = 7, fig.height = 5}
+library(ggthemes) # for theme_map()
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    group_by(VotingPlace) %>%
+    summarise(ProportionNational = sum(Votes[Party == "National Party"] / sum(Votes))) %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    filter(VotingPlaceSuburb != "Chatham Islands") %>%
+    mutate(MostlyNational = ifelse(ProportionNational > 0.5, 
+                                   "Mostly voted National", "Mostly didn't vote National")) %>%
+    ggplot(aes(x = WGS84Longitude, y = WGS84Latitude, colour = ProportionNational)) +
+    geom_point() +
+    facet_wrap(~MostlyNational) +
+    coord_map() +
+    borders("nz") +
+    scale_colour_gradient2(label = percent, mid = "grey80", midpoint = 0.5) +
+    theme_map() +
+    theme(legend.position = c(0.04, 0.5)) +
+    ggtitle("Voting patterns in the 2014 General Election\n")
+```
+
+See this [detailed interactive map of of the 2014 general election](https://ellisp.shinyapps.io/NZ-general-election-2014/) 
+built as a side product of this project.
+
+### Rolling up results to Regional Council, Territorial Authority, or Area Unit
+Because this package matches the location people actually voted with to boundaries 
+of Regional Council, Territorial Authority and Area Unit it's possible to roll up 
+voting behaviour to those categories.  However, a large number of votes cannot be
+located this way.  And it needs to be remembered that people are not necessarily voting
+near their normal place of residence.
+```{r fig.width=7, fig.height=9}
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    group_by(REGC2014_N) %>%
+    summarise(
+        TotalVotes = sum(Votes),
+        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
+    arrange(ProportionNational)
+    
+# what are all those NA Regions?:
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    filter(is.na(REGC2014_N)) %>%
+    group_by(VotingPlace) %>%
+    summarise(TotalVotes = sum(Votes))
+    
+
+
+GE2014 %>%
+    filter(VotingType == "Party") %>%
+    left_join(Locations2014, by = "VotingPlace") %>%
+    group_by(TA2014_NAM) %>%
+    summarise(
+        TotalVotes = sum(Votes),
+        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
+    arrange(desc(ProportionNational)) %>%
+    mutate(TA = ifelse(is.na(TA2014_NAM), "Special or other", as.character(TA2014_NAM)),
+           TA = gsub(" District", "", TA),
+           TA = gsub(" City", "", TA),
+           TA = factor(TA, levels = TA)) %>%
+    ggplot(aes(x = ProportionNational, y = TA, size = TotalVotes)) +
+    geom_point() +
+    scale_x_continuous("Proportion voting National Party", label = percent) +
+    scale_size("Number of\nvotes cast", label = comma) +
+    labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
+
+
+```
+

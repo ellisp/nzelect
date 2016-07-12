@@ -62,13 +62,6 @@ GE2014 %>%
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
-```
-
-```
-## Error in library(GGally, quietly = TRUE): there is no package called 'GGally'
-```
-
-```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
 library(dplyr)
 
@@ -83,9 +76,7 @@ proportions <- GE2014 %>%
 ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "ggpairs"
-```
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 
 

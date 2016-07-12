@@ -58,7 +58,7 @@ build_vignettes("pkg2")
 
 # run pedantic CRAN checks
 check("pkg1") 
-check("pkg2") 
+check("pkg2") # one note from exceeding 5MB
 
 # run win-builder checks and email results to maintainer (Peter Ellis)
 build_win("pkg1")
