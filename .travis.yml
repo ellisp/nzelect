@@ -10,7 +10,8 @@ r:
 cache: packages
 
 install:
-  - Rscript -e 'install.packages(c("devtools","roxygen2","testthat","dply","tidyr", "knitr", "rmarkdown"));devtools::install_deps("pkg1");devtools::install_deps("pkg2")'
+  - Rscript -e 'install.packages(c("devtools","roxygen2","testthat","dply","tidyr", "knitr", "rmarkdown",
+"ggplot2", "scales", "ggthemes", "GGally", "ggrepel"));devtools::install_deps("pkg1");devtools::install_deps("pkg2")'
 script:
   - Rscript -e 'devtools::check("pkg1")'
   - Rscript -e 'devtools::check("pkg2")'
