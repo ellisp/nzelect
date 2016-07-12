@@ -56,6 +56,10 @@ knit("README.Rmd", "README.md")
 check("pkg1") 
 check("pkg2") 
 
+# run win-builder checks and email results to maintainer (Peter Ellis)
+build_win("pkg1")
+build_win("pkg2")
+
 # create .tar.gz for CRAN or wherever
 build("pkg1")
 build("pkg2")

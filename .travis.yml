@@ -12,8 +12,9 @@ cache: packages
 install:
   - Rscript -e 'install.packages(c("devtools","roxygen2","testthat","dply","tidyr"));devtools::install_deps("pkg")'
 script:
-  - Rscript -e 'devtools::check("pkg")'
-  
+  - Rscript -e 'devtools::check("pkg1")'
+  - Rscript -e 'devtools::check("pkg2")'
+
 notifications:
   email:
     on_success: change

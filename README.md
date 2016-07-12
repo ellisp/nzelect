@@ -1,17 +1,24 @@
-# nzelect
-New Zealand election results data in convenient form of an R package
+# nzelect and nzcensus
+New Zealand election results and census results data in convenient form of two R packages.  Each of the two packages can be installed separately, but they have been developed together and get good results working together.
 
 [![Travis-CI Build Status](https://travis-ci.org/ellisp/nzelect.svg?branch=master)](https://travis-ci.org/ellisp/nzelect)
 
 ## Installation
-Currently only available via GitHub.  I'll consider a CRAN version later.
+Currently only available via GitHub.  `nzelect` will make it CRAN soon, but `nzcensus` is too large so will remain on GitHub only.
 
 ```r
-devtools::install_github("ellisp/nzelect/pkg")
+# install nzelect:
+devtools::install_github("ellisp/nzelect/pkg1")
+
+# install nzcensus:
+devtools::install_github("ellisp/nzelect/pkg2")
+
 library(nzelect)
+library(nzcensus)
 ```
 
 
+# nzelect examples 
 
 ## Overall results
 The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
@@ -63,20 +70,6 @@ library(GGally, quietly = TRUE) # for ggpairs
 
 ```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
-```
-
-```
-## 
-## Attaching package: 'gridExtra'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     combine
-```
-
-```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -118,16 +111,6 @@ GE2014 %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
-```
-
-```
-## 
-##  # maps v3.1: updated 'world': all lakes moved to separate new #
-##  # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
-```
-
-```
-## Loading required package: grid
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
@@ -223,4 +206,9 @@ GE2014 %>%
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
+
+# nzcensus examples
+
+
+# combining nzcensus and nzelect
 
