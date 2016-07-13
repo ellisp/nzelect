@@ -4,13 +4,13 @@ New Zealand election results and census results data in convenient form of two R
 [![Travis-CI Build Status](https://travis-ci.org/ellisp/nzelect.svg?branch=master)](https://travis-ci.org/ellisp/nzelect)
 
 ## Installation
-Currently only available via GitHub.  `nzelect` will make it CRAN soon, but `nzcensus` is too large so will remain on GitHub only.
+`nzelect` is on CRAN soon, but `nzcensus` is too large so will remain on GitHub only.
 
 ```r
-# install nzelect:
-devtools::install_github("ellisp/nzelect/pkg1")
+# install nzelect from CRAN:
+install.packages("nzelect")
 
-# install nzcensus:
+# install nzcensus from GitHub:
 devtools::install_github("ellisp/nzelect/pkg2")
 
 library(nzelect)
