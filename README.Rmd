@@ -17,7 +17,10 @@ library(nzcensus)
 ```
 
 
-# nzelect examples 
+# nzelect
+
+[![CRAN version](http://www.r-pkg.org/badges/version/nzelect)](http://www.r-pkg.org/pkg/nzelect)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/nzelect)](http://www.r-pkg.org/pkg/nzelect)
 
 ## Overall results
 The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
