@@ -236,7 +236,7 @@ indiv3b <- indiv3b_orig %>%
             X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
         PropWorked50_59hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._50.59_Hours_Worked /
             X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
-        PropWorkedOver60hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._50.59_Hours_Worked /
+        PropWorkedOver60hours2013 = X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._60_Hours_or_More__Worked /
             X2013_Census_hours_worked_in_employment_per_week.2..3._for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,
         PropWorkedHome2013 = X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Worked_at_Home /
             X2013_Census_main_means_of_travel_to_work_for_the_employed_census_usually_resident_population_count_aged_15_years_and_over.1._Total_people,

@@ -104,19 +104,19 @@
 #'   industry who work in Financial and Insurance Services
 #'   \item \code{PropProfServices2013} Proportion of residents who stated an
 #'   industry who work in Professional, Scientific and Technical Services
-#'   \item \code{PropWorked1_9hours2013} Proportion of residents who 
+#'   \item \code{PropWorked1_9hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 1 to 9 hours per week
-#'   \item \code{PropWorked10_19hours2013} Proportion of residents who 
+#'   \item \code{PropWorked10_19hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 10 to 19 hours per week
-#'   \item \code{PropWorked20_29hours2013} Proportion of residents who 
+#'   \item \code{PropWorked20_29hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 20 to 29 hours per week
-#'   \item \code{PropWorked30_39hours2013} Proportion of residents who 
+#'   \item \code{PropWorked30_39hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 30 to 39 hours per week
-#'   \item \code{PropWorked40_49hours2013} Proportion of residents who 
+#'   \item \code{PropWorked40_49hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 40 to 49 hours per week
-#'   \item \code{PropWorked50_59hours2013} Proportion of residents who 
+#'   \item \code{PropWorked50_59hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 50 to 59 hours per week
-#'   \item \code{PropWorkedOver60hours2013} Proportion of residents who 
+#'   \item \code{PropWorkedOver60hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked over 60 hours per week
 #'   \item \code{PropWorkedHome2013} Proportion of residents who worked at home
 #'   \item \code{PropPublicTransport2013} Proportion of residents who take
@@ -283,19 +283,19 @@
 #'   industry who work in Financial and Insurance Services
 #'   \item \code{PropProfServices2013} Proportion of residents who stated an
 #'   industry who work in Professional, Scientific and Technical Services
-#'   \item \code{PropWorked1_9hours2013} Proportion of residents who 
+#'   \item \code{PropWorked1_9hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 1 to 9 hours per week
-#'   \item \code{PropWorked10_19hours2013} Proportion of residents who 
+#'   \item \code{PropWorked10_19hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 10 to 19 hours per week
-#'   \item \code{PropWorked20_29hours2013} Proportion of residents who 
+#'   \item \code{PropWorked20_29hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 20 to 29 hours per week
-#'   \item \code{PropWorked30_39hours2013} Proportion of residents who 
+#'   \item \code{PropWorked30_39hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 30 to 39 hours per week
-#'   \item \code{PropWorked40_49hours2013} Proportion of residents who 
+#'   \item \code{PropWorked40_49hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 40 to 49 hours per week
-#'   \item \code{PropWorked50_59hours2013} Proportion of residents who 
+#'   \item \code{PropWorked50_59hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 50 to 59 hours per week
-#'   \item \code{PropWorkedOver60hours2013} Proportion of residents who 
+#'   \item \code{PropWorkedOver60hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked over 60 hours per week
 #'   \item \code{PropWorkedHome2013} Proportion of residents who worked at home
 #'   \item \code{PropPublicTransport2013} Proportion of residents who take
@@ -443,19 +443,19 @@
 #'   industry who work in Financial and Insurance Services
 #'   \item \code{PropProfServices2013} Proportion of residents who stated an
 #'   industry who work in Professional, Scientific and Technical Services
-#'   \item \code{PropWorked1_9hours2013} Proportion of residents who 
+#'   \item \code{PropWorked1_9hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 1 to 9 hours per week
-#'   \item \code{PropWorked10_19hours2013} Proportion of residents who 
+#'   \item \code{PropWorked10_19hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 10 to 19 hours per week
-#'   \item \code{PropWorked20_29hours2013} Proportion of residents who 
+#'   \item \code{PropWorked20_29hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 20 to 29 hours per week
-#'   \item \code{PropWorked30_39hours2013} Proportion of residents who 
+#'   \item \code{PropWorked30_39hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 30 to 39 hours per week
-#'   \item \code{PropWorked40_49hours2013} Proportion of residents who 
+#'   \item \code{PropWorked40_49hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 40 to 49 hours per week
-#'   \item \code{PropWorked50_59hours2013} Proportion of residents who 
+#'   \item \code{PropWorked50_59hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 50 to 59 hours per week
-#'   \item \code{PropWorkedOver60hours2013} Proportion of residents who 
+#'   \item \code{PropWorkedOver60hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked over 60 hours per week
 #'   \item \code{PropWorkedHome2013} Proportion of residents who worked at home
 #'   \item \code{PropPublicTransport2013} Proportion of residents who take
@@ -596,19 +596,19 @@
 #'   industry who work in Financial and Insurance Services
 #'   \item \code{PropProfServices2013} Proportion of residents who stated an
 #'   industry who work in Professional, Scientific and Technical Services
-#'   \item \code{PropWorked1_9hours2013} Proportion of residents who 
+#'   \item \code{PropWorked1_9hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 1 to 9 hours per week
-#'   \item \code{PropWorked10_19hours2013} Proportion of residents who 
+#'   \item \code{PropWorked10_19hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 10 to 19 hours per week
-#'   \item \code{PropWorked20_29hours2013} Proportion of residents who 
+#'   \item \code{PropWorked20_29hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 20 to 29 hours per week
-#'   \item \code{PropWorked30_39hours2013} Proportion of residents who 
+#'   \item \code{PropWorked30_39hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 30 to 39 hours per week
-#'   \item \code{PropWorked40_49hours2013} Proportion of residents who 
+#'   \item \code{PropWorked40_49hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 40 to 49 hours per week
-#'   \item \code{PropWorked50_59hours2013} Proportion of residents who 
+#'   \item \code{PropWorked50_59hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked from 50 to 59 hours per week
-#'   \item \code{PropWorkedOver60hours2013} Proportion of residents who 
+#'   \item \code{PropWorkedOver60hours2013} Proportion of residents aged 15+ who 
 #'   stated working hours who worked over 60 hours per week
 #'   \item \code{PropWorkedHome2013} Proportion of residents who worked at home
 #'   \item \code{PropPublicTransport2013} Proportion of residents who take

@@ -147,8 +147,13 @@ proportions &lt;-<span class="st"> </span>GE2014 %&gt;%
 </div>
 <div id="geographical-location-of-voting-places" class="section level3">
 <h3>Geographical location of voting places</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggthemes) <span class="co"># for theme_map()</span>
-GE2014 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggthemes) <span class="co"># for theme_map()</span></code></pre></div>
+<pre><code>## 
+## Attaching package: 'ggthemes'</code></pre>
+<pre><code>## The following object is masked _by_ '.GlobalEnv':
+## 
+##     theme_map</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GE2014 %&gt;%
 <span class="st">    </span><span class="kw">filter</span>(VotingType ==<span class="st"> &quot;Party&quot;</span>) %&gt;%
 <span class="st">    </span><span class="kw">group_by</span>(VotingPlace) %&gt;%
 <span class="st">    </span><span class="kw">summarise</span>(<span class="dt">ProportionNational =</span> <span class="kw">sum</span>(Votes[Party ==<span class="st"> &quot;National Party&quot;</span>] /<span class="st"> </span><span class="kw">sum</span>(Votes))) %&gt;%
