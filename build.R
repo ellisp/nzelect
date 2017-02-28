@@ -5,12 +5,11 @@
 #----------------functionality------------
 library(knitr)
 library(devtools)
-library(dplyr)
-library(tidyr)
 library(xlsx)
 library(stringr)
 library(rgdal) # for map functionality
 library(tidyverse)
+library(scales)
 library(httr)
 library(rvest)
 library(stringr)

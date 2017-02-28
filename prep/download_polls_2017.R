@@ -56,11 +56,22 @@ polls2017 <- tab %>%
     gather(Party, VotingIntention, -StartDate, -EndDate, -MidDate, -Poll, -WikipediaDates) %>%
     mutate(Poll = gsub("\\[.+\\]", "", Poll),
            VotingIntention = gsub("\\[.+\\]", "", VotingIntention),
-           VotingIntention = as.numeric(VotingIntention)) %>%
+           VotingIntention = as.numeric(VotingIntention) / 100) %>%
     arrange(MidDate)
 
-ggplot(polls2017, aes(x = MidDate, y = VotingIntention, colour = Party)) +
-    geom_line() +
+library(ggplot2)
+library(scales)
+library(forcats)
+
+polls2017 %>%
+    mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
+           Poll = fct_relevel(Poll, "Election result")) %>%
+    ggplot(aes(x = MidDate, y = VotingIntention, colour = Party, shape = Poll, linetype = Poll)) +
+    geom_line(alpha = 0.5) +
     geom_point() +
-    geom_smooth()
+    geom_smooth(aes(group = Party), se = FALSE, colour = "grey15") +
+    scale_colour_manual(values = parties_v) +
+    scale_y_continuous("Voting intention", label = percent) +
+    facet_wrap(~Party, scales = "free_y") +
+    theme_grey()
 
