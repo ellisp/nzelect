@@ -13,6 +13,7 @@ library(scales)
 library(httr)
 library(rvest)
 library(stringr)
+library(testthat)
 
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
@@ -45,7 +46,9 @@ source("prep/add_locations_census.R")
 #-------opinion polls and related-------------------
 
 
-
+source("prep/download_polls_2014.R")
+source("prep/download_polls_2017.R")
+source("prep/combine_polls.R")
 
 #--------------build the actual package---------
 # create helpfiles:

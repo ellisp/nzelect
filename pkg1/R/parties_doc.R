@@ -13,3 +13,21 @@
 #' @format A data frame of colours, shades, short and long names
 #' @source \url{https://en.wikipedia.org/wiki/Wikipedia:Index_of_New_Zealand_political_party_meta_attributes}
 "parties_df"
+
+#' New Zealand Opinion Polls
+#'
+#' Opinion polling of voting intention for New Zealand general elections
+#' 
+#' Intended party vote.  Note the original source says 'Refusals are generally 
+#' excluded from the party vote percentages, while question wording and the 
+#' treatment of "don't know" responses and those not intending to vote may vary 
+#' between survey organisations.'
+#' 
+#' \code{EndData} and \code{StartDate} refer to the data collection period.  These
+#' dates were entered by hand, use with caution and check against \code{WikipediaDates} 
+#' which is the version from the original source.
+#'
+#' @format A data frame of 7 columns
+#' @source \url{https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2014}
+#' \url{https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2017}
+"polls"
