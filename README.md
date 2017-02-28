@@ -41,8 +41,7 @@ GE2014 %>%
 ```
 
 ```
-## Source: local data frame [28 x 3]
-## 
+## # A tibble: 28 × 3
 ##                               Party PartyVote CandidateVote
 ##                               <chr>     <dbl>         <dbl>
 ## 1                    National Party   1131501       1081787
@@ -55,7 +54,7 @@ GE2014 %>%
 ## 8                   ACT New Zealand     16689         27778
 ## 9  Aotearoa Legalise Cannabis Party     10961          4936
 ## 10             Informal Party Votes     10857            NA
-## ..                              ...       ...           ...
+## # ... with 18 more rows
 ```
 
 
@@ -64,6 +63,26 @@ GE2014 %>%
 ```r
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
+```
+
+```
+## 
+## Attaching package: 'scales'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     discard
+```
+
+```
+## The following objects are masked from 'package:readr':
+## 
+##     col_factor, col_numeric
+```
+
+```r
 library(GGally, quietly = TRUE) # for ggpairs
 ```
 
@@ -137,12 +156,22 @@ GE2014 %>%
 
 ```
 ## 
-##  # maps v3.1: updated 'world': all lakes moved to separate new #
-##  # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
+## Attaching package: 'maps'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     map
 ```
 
 ```
 ## Loading required package: grid
+```
+
+```
+## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
+## instead
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
@@ -169,8 +198,7 @@ GE2014 %>%
 ```
 
 ```
-## Source: local data frame [17 x 3]
-## 
+## # A tibble: 17 × 3
 ##                  REGC2014_N TotalVotes ProportionNational
 ##                      <fctr>      <dbl>              <dbl>
 ## 1           Gisborne Region      14342              0.351
@@ -203,8 +231,7 @@ GE2014 %>%
 ```
 
 ```
-## Source: local data frame [7 x 2]
-## 
+## # A tibble: 7 × 2
 ##                                               VotingPlace TotalVotes
 ##                                                     <chr>      <dbl>
 ## 1 Chatham Islands Council Building, 9 Tuku Road, Waitangi         90
@@ -266,6 +293,11 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
     ggtitle("Locations of centers of meshblocks in 2013 census") +
     scale_colour_gradientn(colours = c("blue", "white", "red"), label = dollar) +
     theme(legend.position = c(0.1, 0.6))
+```
+
+```
+## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
+## instead
 ```
 
 ```

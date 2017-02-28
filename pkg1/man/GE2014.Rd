@@ -50,4 +50,3 @@ GE2014 \%>\%
 \code{\link{Locations2014}}
 }
 \keyword{datasets}
-

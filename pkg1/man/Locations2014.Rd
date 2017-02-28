@@ -40,4 +40,3 @@ Voting places for the New Zealand 2014 general election
 \code{\link{GE2014}}
 }
 \keyword{datasets}
-

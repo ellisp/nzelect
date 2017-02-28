@@ -1,10 +1,3 @@
-library(tidyverse)
-library(httr)
-library(rvest)
-library(stringr)
-
-
-
 #=====================polls pre 2017 election===================================
 url <- "https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2017"
 
@@ -71,4 +64,3 @@ ggplot(polls2017, aes(x = MidDate, y = VotingIntention, colour = Party)) +
     geom_point() +
     geom_smooth()
 
-#================================polls pre 2014 election==============

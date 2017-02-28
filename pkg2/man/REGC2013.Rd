@@ -163,4 +163,3 @@ head(REGC2013)
 \code{\link{TA2013}}
 }
 \keyword{datasets}
-

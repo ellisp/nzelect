@@ -10,6 +10,11 @@ library(tidyr)
 library(xlsx)
 library(stringr)
 library(rgdal) # for map functionality
+library(tidyverse)
+library(httr)
+library(rvest)
+library(stringr)
+
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
 # repeating expensive downloads
@@ -37,6 +42,10 @@ source("prep/import_census.R")
 
 # Match census data to shapefiles so we have lat and long
 source("prep/add_locations_census.R")
+
+#-------opinion polls and related-------------------
+
+
 
 
 #--------------build the actual package---------
