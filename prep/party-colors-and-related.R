@@ -19,7 +19,12 @@ parties_df <- tabs2[[1]] %>%
     rbind(data_frame(Shortname = "Progressive",
                      Colour = "#800020",
                      Article = "Jim Anderton's Progressive Party",
-                     Shading = "#808080"))
+                     Shading = "#808080")) %>%
+    rbind(data_frame(Shortname = "Destiny",
+                     Colour = "#ff0000",
+                     Article = "Destiny New Zealand",
+                     Shading = "000000")) %>%
+    rename(Longname = Article)
 
 
 parties_v <- parties_df$Colour
