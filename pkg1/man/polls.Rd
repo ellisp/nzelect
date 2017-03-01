@@ -24,5 +24,8 @@ between survey organisations.'
 \code{EndData} and \code{StartDate} refer to the data collection period.  These
 dates were entered by hand, use with caution and check against \code{WikipediaDates} 
 which is the version from the original source.
+
+Where the date in Wikipedia is given only as "released on X", the start and end dates
+have been deemed to be two days before release.
 }
 \keyword{datasets}
