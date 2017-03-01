@@ -88,13 +88,24 @@ polls %>%
     geom_point(aes(colour = Client), size = 0.7) +
     geom_smooth(aes(group = Party), se = FALSE, colour = "grey15", span = .20) +
     scale_y_continuous("Voting intention", label = percent) +
-    scale_x_date() +
+    scale_x_date("") +
     facet_wrap(~Party, scales = "free_y") +
-    geom_vline(xintercept = as.numeric(election_dates$MidDate), colour = "grey50") +
+    geom_vline(xintercept = as.numeric(election_dates$MidDate), colour = "grey80") +
     theme_grey() 
 
 
-
-
+polls %>%
+    filter(Party == "Green") %>%
+    mutate(Pollster = fct_lump(Pollster, 5)) %>%
+    ggplot(aes(x = MidDate, y = VotingIntention, colour = Pollster)) +
+#    facet_wrap(~ Pollster) +
+    #geom_point(colour = parties_v["Green"]) +
+    geom_point() +
+    geom_smooth(span = 0.2, se = FALSE, colour = "grey10") +
+    geom_vline(xintercept = as.numeric(election_dates$MidDate), colour = "grey80") +
+    scale_y_continuous("Voting intention", label = percent) +
+    labs(x = "") +
+    ggtitle("Voting intention for the Green Party")
+    
 
 # see https://github.com/diegovalle/Elections-2012/blob/master/src/kalman.R to adapt for kalman filter
