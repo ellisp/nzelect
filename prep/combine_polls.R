@@ -8,7 +8,6 @@ polls <- plyr::rbind.fill(polls2008, polls2011, polls2014, polls2017) %>%
     # clean up pollster names:
     mutate(Poll = gsub(".*[Ee]lection result", "Election result", Poll),
            Poll = gsub("Herald.Digi[Pp]oll", "Herald-Digipoll", Poll)) %>%
-    arrange(MidDate) %>%
     mutate(Client = ifelse(grepl("Fairfax", Poll), "Fairfax Media", NA),
            Client = ifelse(grepl("Herald", Poll), "Herald", Client),
            Client = ifelse(grepl("3 New", Poll), "3 News", Client),
@@ -23,6 +22,21 @@ polls <- plyr::rbind.fill(polls2008, polls2011, polls2014, polls2017) %>%
            Poll = ifelse(grepl("Roy Morgan", Poll), "Roy Morgan", Poll),
            Poll = str_trim(gsub("Sunday Star.Times.", "", Poll))) %>%
     rename(Pollster = Poll)
+
+
+# identify non-duplicate version of election results
+elections <- polls %>%
+    dplyr::filter(Pollster == "Election result") %>%
+    distinct()
+
+# remove all the duplicate election results and put the
+# non-duplicates back:
+polls <- polls %>%
+    filter(Pollster != "Election result") %>%
+    rbind(elections) %>%
+    arrange(EndDate)
+    
+
 
 table(polls$Client)
 table(polls$Pollster)
