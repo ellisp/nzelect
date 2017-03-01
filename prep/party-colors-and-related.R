@@ -15,7 +15,11 @@ parties_df <- tabs2[[1]] %>%
     rbind(tabs2[[2]]) %>%
     select(2:5) %>%
     rbind(tabs2[[3]][ , -1]) %>%
-    filter(substring(Shading, 1, 1) == "#")
+    filter(substring(Shading, 1, 1) == "#") %>%
+    rbind(data_frame(Shortname = "Progressive",
+                     Colour = "#800020",
+                     Article = "Jim Anderton's Progressive Party",
+                     Shading = "#808080"))
 
 
 parties_v <- parties_df$Colour
