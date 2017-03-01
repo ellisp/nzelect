@@ -4,6 +4,22 @@
 #'
 #' @format A named vector of colours
 #' @source \url{https://en.wikipedia.org/wiki/Wikipedia:Index_of_New_Zealand_political_party_meta_attributes}
+#' @examples
+#' # Example use of parties_v in a colour scale for ggplot2
+#' if(require(ggplot2) & require(scales) & require(dplyr) & require(forcats)){
+#' polls %>%
+#' filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
+#'     mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
+#'            Party = fct_drop(Party)) %>%
+#'     ggplot(aes(x = MidDate, y = VotingIntention, colour = Party, linetype = Pollster)) +
+#'     geom_line(alpha = 0.5) +
+#'     geom_point(aes(shape = Pollster)) +
+#'     geom_smooth(aes(group = Party), se = FALSE, colour = "grey15", span = .4) +
+#'     scale_colour_manual(values = parties_v) +
+#'     scale_y_continuous("Voting intention", label = percent) +
+#'     scale_x_date("") +
+#'     facet_wrap(~Party, scales = "free_y") 
+#'     }
 "parties_v"
 
 #' New Zealand political parties
@@ -37,4 +53,23 @@
 #' \url{https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2011}
 #' \url{https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2014}
 #' \url{https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2017}
+#' @examples
+#' if(require(ggplot2) & require(scales) & require(dplyr) & require(forcats)){
+#' election_dates <- polls %>%
+#'     filter(Pollster == "Election result") %>%
+#'     select(MidDate) %>%
+#'     distinct()
+#' 
+#' polls %>%
+#'     mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
+#'            Pollster = fct_relevel(Pollster, "Election result")) %>%
+#'     ggplot(aes(x = MidDate, y = VotingIntention, linetype = Pollster)) +
+#'     geom_line(alpha = 0.5) +
+#'     geom_point(aes(colour = Client), size = 0.7) +
+#'     geom_smooth(aes(group = Party), se = FALSE, colour = "grey15", span = .20) +
+#'     scale_y_continuous("Voting intention", label = percent) +
+#'     scale_x_date("") +
+#'     facet_wrap(~Party, scales = "free_y") +
+#'     geom_vline(xintercept = as.numeric(election_dates$MidDate), colour = "grey80") 
+#' }
 "polls"
