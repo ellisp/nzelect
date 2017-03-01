@@ -1,9 +1,9 @@
 url <- "https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2005"
 
-polls <- url %>%
+webpage <- url %>%
     read_html(encoding = "UTF-8") 
 
-tabs <- polls %>%
+tabs <- webpage %>%
     html_nodes("table") 
 
 tab <- html_table(tabs[[1]], fill = TRUE) 
@@ -16,7 +16,7 @@ names(tab)[2] <- "WikipediaDates"
 
 tab$WikipediaDates
 
-tab$StartDate <- as.Date(c(),
+tab$StartDate <- as.Date(c("27/7/2002", ),
                          format = "%d/%m/%Y")
 
 tab$EndDate <- as.Date(c(), 

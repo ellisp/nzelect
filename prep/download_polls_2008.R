@@ -1,9 +1,9 @@
 url <- "https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2008"
 
-polls <- url %>%
+webpage <- url %>%
     read_html(encoding = "UTF-8") 
 
-tabs <- polls %>%
+tabs <- webpage %>%
     html_nodes("table") 
 
 tab <- html_table(tabs[[1]], fill = TRUE) 
