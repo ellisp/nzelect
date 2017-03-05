@@ -45,7 +45,9 @@ source("prep/add_locations_census.R")
 
 #-------opinion polls and related-------------------
 
-
+source("prep/download_polls_2005.R")
+source("prep/download_polls_2008.R")
+source("prep/download_polls_2011.R")
 source("prep/download_polls_2014.R")
 source("prep/download_polls_2017.R")
 source("prep/combine_polls.R")

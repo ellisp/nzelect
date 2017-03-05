@@ -42,10 +42,16 @@ polls <- polls %>%
     rbind(elections) %>%
     arrange(EndDate)
     
+# add in election years
+polls <- polls %>%
+    mutate(ElectionYear = 2017,
+           ElectionYear = ifelse(MidDate <= "2014-09-20", 2014, ElectionYear),
+           ElectionYear = ifelse(MidDate <= "2011-11-26", 2011, ElectionYear),
+           ElectionYear = ifelse(MidDate <= "2008-11-08", 2008, ElectionYear),
+           ElectionYear = ifelse(MidDate <= "2005-09-17", 2005, ElectionYear),
+           ElectionYear = ifelse(MidDate == "2002-07-27", 2002, ElectionYear))
 
 
-table(polls$Client)
-table(polls$Pollster)
 test_that("Right number of pollsters", {
     expect_equal(length(unique(polls$Pollster)), 13)
 })
@@ -54,12 +60,15 @@ test_that("Right number of parties", {
     expect_equal(length(unique(polls$Party)), 11)
 })
 
+
+
 # test all enddate, startdate, MidDate valid
 test_that("Dates Valid", {
     expect_equal(sum(is.na(polls$StartDate)), 0)
     expect_equal(sum(is.na(polls$EndDate)), 0)    
     expect_equal(sum(is.na(polls$MidDate)), 0)    
 })
+# polls %>% filter(is.na(StartDate))
 
 test_that("Date ranges plausible", {
     expect_lt(with(polls, as.numeric(max(EndDate - StartDate))), 32)
