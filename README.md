@@ -65,20 +65,6 @@ library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
 library(gridExtra, quietly = TRUE) # for grid.arrange
-```
-
-```
-## 
-## Attaching package: 'gridExtra'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     combine
-```
-
-```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -118,10 +104,6 @@ GE2014 %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
-```
-
-```
-## Loading required package: grid
 ```
 
 ```
@@ -221,9 +203,9 @@ GE2014 %>%
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 
-## Usage - Opinion polls
+## Opinion polls
 
-Opinion poll data has been tidied and collated into a single data object, `polls`.  Note that at the time of writing, sample sizes are not yet available.  The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the `parties_v` object which provides colours to use in representing political parties in graphics.
+Opinion poll data from 2002 onwards  has been tidied and collated into a single data object, `polls`.  Note that at the time of writing, sample sizes are not yet available.  The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the `parties_v` object which provides colours to use in representing political parties in graphics.
 
 
 ```r
@@ -250,7 +232,7 @@ filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
 
 Note that it is not appropriate to frequently update the version of `nzelect` on CRAN, so polling data will generally be out of date.  The development version of `nzelect` from GitHub will be kept more up to date (but no promises exactly how much).
 
-## Usage - convenience functions
+## Convenience functions
 
 ### Allocating parliamentary seats
 The `allocate_seats` function uses the Sainte-Lague allocation method to allocate seats to a Parliament given proportions or counts of vote per party.  When used with the default settings, it should give the same result as the New Zealand Electoral Commission; this means a five percent threshold to be included in the main algorithm, but parties below five percent of total votes but with at least one electorate seat get total seats proportionate to their votes.  Here is the `allocate_seats` function in action with the actual vote counts from the 2014 General Election:

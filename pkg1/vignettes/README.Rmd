@@ -159,7 +159,7 @@ GE2014 %>%
 
 ## Usage - Opinion polls
 
-Opinion poll data has been tidied and collated into a single data object, `polls`.  Note that at the time of writing, sample sizes are not yet available.  The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the `parties_v` object which provides colours to use in representing political parties in graphics.
+Opinion poll data from 2002 onwards has been tidied and collated into a single data object, `polls`.  Note that at the time of writing, sample sizes are not yet available.  The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the `parties_v` object which provides colours to use in representing political parties in graphics.
 
 ```{r}
 library(forcats)

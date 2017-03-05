@@ -242,7 +242,7 @@ GE2014 %&gt;%
 </div>
 <div id="usage---opinion-polls" class="section level2">
 <h2>Usage - Opinion polls</h2>
-<p>Opinion poll data has been tidied and collated into a single data object, <code>polls</code>. Note that at the time of writing, sample sizes are not yet available. The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the <code>parties_v</code> object which provides colours to use in representing political parties in graphics.</p>
+<p>Opinion poll data from 2002 onwards has been tidied and collated into a single data object, <code>polls</code>. Note that at the time of writing, sample sizes are not yet available. The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the <code>parties_v</code> object which provides colours to use in representing political parties in graphics.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(forcats)
 polls %&gt;%
 <span class="kw">filter</span>(MidDate &gt;<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2014-11-20&quot;</span>) &amp;<span class="st"> </span>!<span class="kw">is.na</span>(VotingIntention)) %&gt;%
