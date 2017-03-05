@@ -127,6 +127,40 @@ allocate_seats <- function(votes, parties = names(votes),
                            nseats = 120, threshold = 0.05,
                            electorate = rep(0, length(votes))){
     
+    ## checks for valid inputs
+    
+    
+    if(class(votes) != "numeric"){
+        stop("votes should be a numeric vector")
+        }
+    
+    if(is.null(parties)){
+        parties <- paste("Party", 1:length(votes))
+    }
+    
+    if(!class(parties) %in% c("character", "factor")){
+        stop("parties should be a character vector")
+    }
+    parties <- as.character(parties)
+    
+    if(length(nseats) != 1 | class(nseats) != "numeric" | round(nseats) != nseats){
+        stop("nseats should be a single number with no decimal places")
+    }
+    
+    if(length(threshold) != 1 | class(threshold) != "numeric" | 
+       threshold > 0.5 | threshold < 0){
+        stop("threshold should be a single number between 0.0 and 0.5")
+    }
+
+    if(class(electorate) != "numeric"){
+        stop("electorate should be a numeric vector of number of electorates won by each party")
+    }
+    
+        
+    if(length(votes) != length(parties) | length(votes) != length(electorate)){
+        stop("votes, parties, and electorates should all be vectors of the same length")
+    }
+    
     # convert votes to a proportion:
     V <- votes / sum(votes) 
     
