@@ -30,6 +30,10 @@ column which is the version from the original source.
 
 Where the date in Wikipedia is given only as "released on X", the start and end dates
 have been deemed to be two days before release.
+
+The data for the 2005 election are particularly unreliable and in some cases it is not 
+clear whether some parties have been omitted.  For example, the Digipoll from 22 March 
+to 30 March 2005 has figures only for National and Labour (47.5 and 34.5).
 }
 \examples{
 if(require(ggplot2) & require(scales) & require(dplyr) & require(forcats)){
