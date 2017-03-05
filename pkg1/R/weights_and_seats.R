@@ -25,7 +25,7 @@
 #' 0 to polls older than 38 days; and a linear interpolation for inbetween.  Note that
 #' this method gives zero weight to many older surveys that would get a weight in the 
 #' pundit method.
-#' @source \url{http://www.curia.co.nz/methodology/}
+#' @references \url{http://www.curia.co.nz/methodology/}
 #' \url{http://www.pundit.co.nz/content/poll-of-polls}
 #' @return a vector of weights, adding up to one, for use in calculating a weighted average of 
 #' opinion polls
@@ -98,7 +98,8 @@ weight_polls <- function(polldates,
 #' @return a list with two elements: a data frame and a vector, each of which has a number
 #' of seats allocated to each party.
 #' @author Peter Ellis
-#' @references  \url{http://www.elections.org.nz/voting-system/mmp-voting-system/sainte-lague-allocation-formula}   \url{https://en.wikipedia.org/wiki/Webster/Sainte-Lagu\%C3\%AB_method}
+#' @references  \url{http://www.elections.org.nz/voting-system/mmp-voting-system/sainte-lague-allocation-formula}   
+#' \url{https://en.wikipedia.org/wiki/Webster/Sainte-Lagu\%C3\%AB_method}
 #' @examples
 #' 
 #' # From Wikipedia; should return 3, 2, 2:
