@@ -94,3 +94,53 @@ GE2014 %>%
 
 
 
+## ------------------------------------------------------------------------
+library(forcats)
+polls %>%
+filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
+    mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
+           Party = fct_drop(Party)) %>%
+    ggplot(aes(x = MidDate, y = VotingIntention, colour = Party, linetype = Pollster)) +
+    geom_line(alpha = 0.5) +
+    geom_point(aes(shape = Pollster)) +
+    geom_smooth(aes(group = Party), se = FALSE, colour = "grey15", span = .4) +
+    scale_colour_manual(values = parties_v) +
+    scale_y_continuous("Voting intention", label = percent) +
+    scale_x_date("") +
+    facet_wrap(~Party, scales = "free_y") 
+
+## ------------------------------------------------------------------------
+votes <- c(National = 1131501, Labour = 604535, Green = 257359,
+           NZFirst = 208300, Cons = 95598, IntMana = 34094, 
+           Maori = 31849, Act = 16689, United = 5286,
+           Other = 20411)
+electorate = c(41, 27, 0, 
+               0, 0, 0, 
+               1, 1, 1,
+               0)
+               
+# Actual result:               
+allocate_seats(votes, electorate = electorate)
+
+# Result if there were no 5% minimum threshold:
+allocate_seats(votes, electorate = electorate, threshold = 0)$seats_v
+
+## ------------------------------------------------------------------------
+# electorate seats for Act, Cons, Green, Labour, Mana, Maori, National, NZFirst, United,
+# assuming that electorates stay as currently allocated.  This is critical particularly
+# for ACT, Maori and United Future, who if they lose their single electorate seat each
+# will not be represented in parliament
+electorates <- c(1,0,0,27,0,1,41,1,1)
+
+polls %>%
+    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1") %>%
+    mutate(wt_p = weight_polls(MidDate, method = "pundit"),
+           wt_c = weight_polls(MidDate, method = "curia")) %>%
+    group_by(Party) %>%
+    summarise(pundit_perc = round(sum(VotingIntention * wt_p, na.rm = TRUE) / sum(wt_p) * 100, 1),
+              curia_perc = round(sum(VotingIntention * wt_c, na.rm = TRUE) / sum(wt_c) * 100, 1)) %>%
+    ungroup() %>%
+    filter(pundit_perc > 0) %>%
+    mutate(pundit_seats = allocate_seats(pundit_perc, electorate = electorates)$seats_v,
+           curia_seats = allocate_seats(curia_perc, electorate = electorates)$seats_v)
+

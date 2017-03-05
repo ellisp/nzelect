@@ -41,6 +41,9 @@ The Curia method gives weight of 1 to all polls that are seven or less days old;
 0 to polls older than 38 days; and a linear interpolation for inbetween.  Note that
 this method gives zero weight to many older surveys that would get a weight in the 
 pundit method.
+
+Caution - as at March 2017, this function had failed to exactly replicate results on the 
+webpages of Curia and Pundit.
 }
 \examples{
 polldates <- tail(unique(polls$MidDate), 20)

@@ -63,41 +63,7 @@ GE2014 %>%
 ```r
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
-```
-
-```
-## 
-## Attaching package: 'scales'
-```
-
-```
-## The following object is masked from 'package:purrr':
-## 
-##     discard
-```
-
-```
-## The following objects are masked from 'package:readr':
-## 
-##     col_factor, col_numeric
-```
-
-```r
 library(GGally, quietly = TRUE) # for ggpairs
-```
-
-```
-## 
-## Attaching package: 'GGally'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     nasa
-```
-
-```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
 ```
 
@@ -152,17 +118,6 @@ GE2014 %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
-```
-
-```
-## 
-## Attaching package: 'maps'
-```
-
-```
-## The following object is masked from 'package:purrr':
-## 
-##     map
 ```
 
 ```
@@ -266,6 +221,131 @@ GE2014 %>%
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 
+## Usage - Opinion polls
+
+Opinion poll data has been tidied and collated into a single data object, `polls`.  Note that at the time of writing, sample sizes are not yet available.  The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the `parties_v` object which provides colours to use in representing political parties in graphics.
+
+
+```r
+library(forcats)
+polls %>%
+filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
+    mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
+           Party = fct_drop(Party)) %>%
+    ggplot(aes(x = MidDate, y = VotingIntention, colour = Party, linetype = Pollster)) +
+    geom_line(alpha = 0.5) +
+    geom_point(aes(shape = Pollster)) +
+    geom_smooth(aes(group = Party), se = FALSE, colour = "grey15", span = .4) +
+    scale_colour_manual(values = parties_v) +
+    scale_y_continuous("Voting intention", label = percent) +
+    scale_x_date("") +
+    facet_wrap(~Party, scales = "free_y") 
+```
+
+```
+## `geom_smooth()` using method = 'loess'
+```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+
+Note that it is not appropriate to frequently update the version of `nzelect` on CRAN, so polling data will generally be out of date.  The development version of `nzelect` from GitHub will be kept more up to date (but no promises exactly how much).
+
+## Usage - convenience functions
+
+### Allocating parliamentary seats
+The `allocate_seats` function uses the Sainte-Lague allocation method to allocate seats to a Parliament given proportions or counts of vote per party.  When used with the default settings, it should give the same result as the New Zealand Electoral Commission; this means a five percent threshold to be included in the main algorithm, but parties below five percent of total votes but with at least one electorate seat get total seats proportionate to their votes.  Here is the `allocate_seats` function in action with the actual vote counts from the 2014 General Election:
+
+
+```r
+votes <- c(National = 1131501, Labour = 604535, Green = 257359,
+           NZFirst = 208300, Cons = 95598, IntMana = 34094, 
+           Maori = 31849, Act = 16689, United = 5286,
+           Other = 20411)
+electorate = c(41, 27, 0, 
+               0, 0, 0, 
+               1, 1, 1,
+               0)
+               
+# Actual result:               
+allocate_seats(votes, electorate = electorate)
+```
+
+```
+## $seats_df
+##    proportionally_allocated electorate_seats final    party
+## 1                        60               41    60 National
+## 2                        32               27    32   Labour
+## 3                        14                0    14    Green
+## 4                        11                0    11  NZFirst
+## 5                         0                0     0     Cons
+## 6                         0                0     0  IntMana
+## 7                         2                1     2    Maori
+## 8                         1                1     1      Act
+## 9                         0                1     1   United
+## 10                        0                0     0    Other
+## 
+## $seats_v
+## National   Labour    Green  NZFirst     Cons  IntMana    Maori      Act 
+##       60       32       14       11        0        0        2        1 
+##   United    Other 
+##        1        0
+```
+
+```r
+# Result if there were no 5% minimum threshold:
+allocate_seats(votes, electorate = electorate, threshold = 0)$seats_v
+```
+
+```
+## National   Labour    Green  NZFirst     Cons  IntMana    Maori      Act 
+##       56       30       13       10        5        2        2        1 
+##   United    Other 
+##        1        1
+```
+
+### Weighting opinion polls
+
+Two techniques are provided in the `weight_polls` function for aggregating opinion polls while giving more weight to more recent polls.  These methods aim to replicate the approaches of the [Pundit Poll of Polls](http://www.pundit.co.nz/content/poll-of-polls), which states it is based on FiveThirtyEight's method; and the [curia Market Research Public Poll Average](http://www.curia.co.nz/).  To date, exact replication of Pundit or curia's results has not been possible, probably due in part to the non-inclusion of sample size data so far in the `polls` data in `nzelect` package.
+
+The example below shows the `weight_polls` function in action in combination with `allocate_seats`, comparing the outcomes of both methods of polling aggregation, on assumption that electorate seats stay as they are in early 2017 (in particular, that ACT, United Future, and Maori party all win at least one electorate seat as needed to keep them in running for the proportional representation part of the seat allocation process).
+
+```r
+# electorate seats for Act, Cons, Green, Labour, Mana, Maori, National, NZFirst, United,
+# assuming that electorates stay as currently allocated.  This is critical particularly
+# for ACT, Maori and United Future, who if they lose their single electorate seat each
+# will not be represented in parliament
+electorates <- c(1,0,0,27,0,1,41,1,1)
+
+polls %>%
+    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1") %>%
+    mutate(wt_p = weight_polls(MidDate, method = "pundit"),
+           wt_c = weight_polls(MidDate, method = "curia")) %>%
+    group_by(Party) %>%
+    summarise(pundit_perc = round(sum(VotingIntention * wt_p, na.rm = TRUE) / sum(wt_p) * 100, 1),
+              curia_perc = round(sum(VotingIntention * wt_c, na.rm = TRUE) / sum(wt_c) * 100, 1)) %>%
+    ungroup() %>%
+    filter(pundit_perc > 0) %>%
+    mutate(pundit_seats = allocate_seats(pundit_perc, electorate = electorates)$seats_v,
+           curia_seats = allocate_seats(curia_perc, electorate = electorates)$seats_v)
+```
+
+```
+## # A tibble: 9 × 5
+##           Party pundit_perc curia_perc pundit_seats curia_seats
+##           <chr>       <dbl>      <dbl>        <dbl>       <dbl>
+## 1           ACT         0.8          1            1           1
+## 2  Conservative         0.2          0            0           0
+## 3         Green        11.8         11           14          13
+## 4        Labour        28.8         30           35          36
+## 5          Mana         0.6          1            0           0
+## 6         Maori         1.2          1            1           1
+## 7      National        46.3         46           57          56
+## 8      NZ First        10.1         11           12          13
+## 9 United Future         0.1          0            1           1
+```
+
+
+
 # nzcensus examples
 
 
@@ -281,7 +361,7 @@ ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC20
     ggtitle("New Zealand census 2013")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
 
 
 ```r
@@ -304,7 +384,7 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 ## Warning: Removed 13 rows containing missing values (geom_point).
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
 
 
 
