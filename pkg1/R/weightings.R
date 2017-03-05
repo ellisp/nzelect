@@ -31,9 +31,9 @@
 #' opinion polls
 #' @examples
 #' polldates <- tail(unique(polls$MidDate), 20)
-#' pollweights(polldates, method = "curia")
-#' pollweights(polldates, method = "pundit")
-pollweights <- function(polldates, 
+#' weight_polls(polldates, method = "curia")
+#' weight_polls(polldates, method = "pundit")
+weight_polls <- function(polldates, 
                         n = rep(1, length(polldates)),
                         method = c("pundit", "curia"),
                         refdate = Sys.Date(),
@@ -78,4 +78,75 @@ pollweights <- function(polldates,
 }
     
 
+
+#' Allocate seats after election
+#' 
+#' Allocates seats in Parliament after an election using the Sainte-Lague 
+#' allocation formula
+#' 
+#' @export
+#' @param parties vector of names of parties
+#' @param votes vector of vote proportions or counts
+#' @param nseats number of seats to allocate.  Note that in mixed systems such as New Zealand's
+#' where \code{electorate} is not all zero, there may be a "hangover" and total number of seats
+#' ends up larger than \code{nseats} due to parties that win an electorate seat but received less
+#' than \code{1/nseats} of the vote.
+#' @param threshold minimum proportion of votes needed to be allocated a seat
+#' @param electorate a numeric vector of same length as parties.  If \code{>0},
+#' the party is allocated seats regardless of whether the party exceeded \code{threshold}.
+#' This is needed in a mixed-member proportional system such as New Zealand's.
+#' @return a list with two elements: a data frame and a vector, each of which has a number
+#' of seats allocated to each party.
+#' @author Peter Ellis
+#' @references  \url{http://www.elections.org.nz/voting-system/mmp-voting-system/sainte-lague-allocation-formula}   \url{https://en.wikipedia.org/wiki/Webster/Sainte-Lagu\%C3\%AB_method}
+#' @examples
+#' 
+#' # From Wikipedia; should return 3, 2, 2:
+#' allocate_seats(c(53000, 24000, 23000), nseats = 7, threshold = 0)
+#' 
+#' # From 2014 New Zealand election
+#' votes <- c(National = 1131501, Labour = 604535, Green = 257359,
+#'            NZFirst = 208300, Cons = 95598, IntMana = 34094, 
+#'            Maori = 31849, Act = 16689, United = 5286,
+#'            Other = 20411)
+#' electorate = c(41, 27, 0, 
+#'                0, 0, 0, 
+#'                1, 1, 1,
+#'                0)
+#'                
+#' # Actual result:               
+#' allocate_seats(votes, electorate = electorate)
+#' 
+#' # Result if there were no 5% minimum threshold:
+#' allocate_seats(votes, electorate = electorate, threshold = 0)$seats_v
+allocate_seats <- function(votes, parties = names(votes), 
+                           nseats = 120, threshold = 0.05,
+                           electorate = rep(0, length(votes))){
+    
+    # convert votes to a proportion:
+    V <- votes / sum(votes) 
+    
+    # only give proportional-based votes to parties with threshold votes
+    # or an electorate seat:
+    V <- V * (electorate > 0 | V > threshold)
+    
+    s <- numeric(length(V))
+    
+    while(sum(s) < nseats){
+        quot <- V / (2 * s + 1)
+        top_party <- which(quot == max(quot))
+        s[top_party] <- s[top_party] + 1
+    }
+    
+    
+    seats <- data.frame(proportionally_allocated = s, 
+                        electorate_seats = electorate)
+    seats$final <- apply(seats, 1, max)
+    seats$party <- parties
+    
+    seats_v <- seats$final
+    names(seats_v) <- parties
+    
+    return(list(seats_df = seats, seats_v = seats_v))
+}
 
