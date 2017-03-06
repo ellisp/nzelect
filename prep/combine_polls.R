@@ -33,6 +33,7 @@ polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017)
 # identify non-duplicate version of election results
 elections <- polls %>%
     dplyr::filter(Pollster == "Election result") %>%
+    dplyr::filter(!is.na(VotingIntention)) %>%
     distinct()
 
 # remove all the duplicate election results and put the

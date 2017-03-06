@@ -52,6 +52,7 @@ source("prep/download_polls_2014.R")
 source("prep/download_polls_2017.R")
 source("prep/combine_polls.R")
 
+
 #--------------build the actual package---------
 # create helpfiles:
 document("pkg1")
