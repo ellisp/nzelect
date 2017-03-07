@@ -52,6 +52,8 @@ source("prep/download_polls_2014.R")
 source("prep/download_polls_2017.R")
 source("prep/combine_polls.R")
 
+# need some tests along the lines of checking this for validity:
+# View(unique(polls[ ,c("WikipediaDates", "MidDate")]))
 
 #--------------build the actual package---------
 # create helpfiles:

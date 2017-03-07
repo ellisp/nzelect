@@ -5,15 +5,19 @@
 #' Create a vector of weights to use in calculating a weighted average
 #' 
 #' @export
-#' @param polldates a vector of dates of polls
-#' @param n a vector of sample sizes of polls
+#' @param polldates a vector of dates of polls.
+#' @param n a vector of sample sizes of polls.
 #' @param method which weighting method to use; either that used in 2017 by Curia or Pundit 
-#' (two New Zealand poll aggregators)
+#' (two New Zealand poll aggregators).
 #' @param refdate date against which to compare polling dates (both methods give more weight
-#' to more recent polls)
+#' to more recent polls).
 #' @param electiondate date of the next election (the Curia weighting method gives more weight
-#' to polls close to the election)
-#' @details This function is to facilitate reproduction of existing poll aggregation methods.
+#' to polls close to the election).
+#' @details 
+#' This function is experimental and so far it has not been possible to match published 
+#' results.  Use with caution.
+#' 
+#' This function is to facilitate reproduction of existing poll aggregation methods.
 #' 
 #' Both methods provide weights proportional to the sample sizes.
 #' 
@@ -88,21 +92,30 @@ weight_polls <- function(polldates,
 #' allocation formula
 #' 
 #' @export
-#' @param parties vector of names of parties
-#' @param votes vector of vote proportions or counts
+#' @param parties vector of names of parties.
+#' @param votes vector of vote proportions or counts.
 #' @param nseats number of seats to allocate.  Note that in mixed systems such as New Zealand's
 #' where \code{electorate} is not all zero, there may be a "hangover" and total number of seats
 #' ends up larger than \code{nseats} due to parties that win an electorate seat but received less
 #' than \code{1/nseats} of the vote.
-#' @param threshold minimum proportion of votes needed to be allocated a seat
-#' @param electorate a numeric vector of same length as parties.  If \code{>0},
-#' the party is allocated seats regardless of whether the party exceeded \code{threshold}.
+#' @param threshold minimum proportion of votes needed to be allocated a seat.
+#' @param electorate a numeric vector of same length as parties, for use in mixed-member
+#' proportional systems such as New Zealand's.  If the ith \code{electorate > 0},
+#' the ith party is allocated seats regardless of whether the party exceeded \code{threshold}.
 #' This is needed in a mixed-member proportional system such as New Zealand's.
-#' @return a list with two elements: a data frame and a vector, each of which has a number
-#' of seats allocated to each party.
+#' @return A list with two elements: a data frame \code{seats_df} and a vector
+#' \code{seats_v}, each of which provides information on the number of seats 
+#' allocated to each party.
+#' 
+#' The data frame has four columns: \code{proportionally_allocated}, 
+#' \code{electorate_seats}, \code{final} and \code{party}.  In New Zealand, the number of
+#' "list MPs" for each party is \code{final - electorate_seats}.
+#' 
+#' The vector is the same as \code{final} in the data frame, with names equal to \code{party}.
 #' @author Peter Ellis
 #' @references  \url{http://www.elections.org.nz/voting-system/mmp-voting-system/sainte-lague-allocation-formula}   
-#' \url{https://en.wikipedia.org/wiki/Webster/Sainte-Lagu\%C3\%AB_method}
+#' 
+#' See also Wikipedia on the Webster/Sainte-Lague method.
 #' @examples
 #' 
 #' # From Wikipedia; should return 3, 2, 2:

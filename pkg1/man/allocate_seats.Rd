@@ -8,24 +8,32 @@ allocate_seats(votes, parties = names(votes), nseats = 120,
   threshold = 0.05, electorate = rep(0, length(votes)))
 }
 \arguments{
-\item{votes}{vector of vote proportions or counts}
+\item{votes}{vector of vote proportions or counts.}
 
-\item{parties}{vector of names of parties}
+\item{parties}{vector of names of parties.}
 
 \item{nseats}{number of seats to allocate.  Note that in mixed systems such as New Zealand's
 where \code{electorate} is not all zero, there may be a "hangover" and total number of seats
 ends up larger than \code{nseats} due to parties that win an electorate seat but received less
 than \code{1/nseats} of the vote.}
 
-\item{threshold}{minimum proportion of votes needed to be allocated a seat}
+\item{threshold}{minimum proportion of votes needed to be allocated a seat.}
 
-\item{electorate}{a numeric vector of same length as parties.  If \code{>0},
-the party is allocated seats regardless of whether the party exceeded \code{threshold}.
+\item{electorate}{a numeric vector of same length as parties, for use in mixed-member
+proportional systems such as New Zealand's.  If the ith \code{electorate > 0},
+the ith party is allocated seats regardless of whether the party exceeded \code{threshold}.
 This is needed in a mixed-member proportional system such as New Zealand's.}
 }
 \value{
-a list with two elements: a data frame and a vector, each of which has a number
-of seats allocated to each party.
+A list with two elements: a data frame \code{seats_df} and a vector
+\code{seats_v}, each of which provides information on the number of seats 
+allocated to each party.
+
+The data frame has four columns: \code{proportionally_allocated}, 
+\code{electorate_seats}, \code{final} and \code{party}.  In New Zealand, the number of
+"list MPs" for each party is \code{final - electorate_seats}.
+
+The vector is the same as \code{final} in the data frame, with names equal to \code{party}.
 }
 \description{
 Allocates seats in Parliament after an election using the Sainte-Lague 
@@ -54,7 +62,8 @@ allocate_seats(votes, electorate = electorate, threshold = 0)$seats_v
 }
 \references{
 \url{http://www.elections.org.nz/voting-system/mmp-voting-system/sainte-lague-allocation-formula}   
-\url{https://en.wikipedia.org/wiki/Webster/Sainte-Lagu\%C3\%AB_method}
+
+See also Wikipedia on the Webster/Sainte-Lague method.
 }
 \author{
 Peter Ellis

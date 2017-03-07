@@ -8,18 +8,18 @@ weight_polls(polldates, n = rep(1, length(polldates)), method = c("pundit",
   "curia"), refdate = Sys.Date(), electiondate = as.Date("2017-09-23"))
 }
 \arguments{
-\item{polldates}{a vector of dates of polls}
+\item{polldates}{a vector of dates of polls.}
 
-\item{n}{a vector of sample sizes of polls}
+\item{n}{a vector of sample sizes of polls.}
 
 \item{method}{which weighting method to use; either that used in 2017 by Curia or Pundit 
-(two New Zealand poll aggregators)}
+(two New Zealand poll aggregators).}
 
 \item{refdate}{date against which to compare polling dates (both methods give more weight
-to more recent polls)}
+to more recent polls).}
 
 \item{electiondate}{date of the next election (the Curia weighting method gives more weight
-to polls close to the election)}
+to polls close to the election).}
 }
 \value{
 a vector of weights, adding up to one, for use in calculating a weighted average of 
@@ -29,6 +29,9 @@ opinion polls
 Create a vector of weights to use in calculating a weighted average
 }
 \details{
+This function is experimental and so far it has not been possible to match published 
+results.  Use with caution.
+
 This function is to facilitate reproduction of existing poll aggregation methods.
 
 Both methods provide weights proportional to the sample sizes.
