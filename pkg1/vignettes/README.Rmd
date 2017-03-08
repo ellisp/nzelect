@@ -2,7 +2,7 @@
 title: "nzelect - convenient access to New Zealand election-related data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{nzcensus - convenient access to the New Zealand census meshblock dataset}
+  %\VignetteIndexEntry{nzelect - convenient access to New Zealand election-related data}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
