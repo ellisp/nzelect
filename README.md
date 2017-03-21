@@ -64,7 +64,35 @@ GE2014 %>%
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
+```
+
+```
+## 
+## Attaching package: 'GGally'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     nasa
+```
+
+```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
+```
+
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -104,6 +132,21 @@ GE2014 %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
+```
+
+```
+## 
+## Attaching package: 'maps'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     map
+```
+
+```
+## Loading required package: grid
 ```
 
 ```
@@ -315,15 +358,15 @@ polls %>%
 ## # A tibble: 9 × 5
 ##           Party pundit_perc curia_perc pundit_seats curia_seats
 ##           <chr>       <dbl>      <dbl>        <dbl>       <dbl>
-## 1           ACT         0.9        1.0            1           1
-## 2  Conservative         0.1        0.0            0           0
-## 3         Green        12.2       11.7           15          14
-## 4        Labour        27.9       28.6           34          35
-## 5          Mana         0.4        0.7            0           0
-## 6         Maori         1.5        1.3            2           2
-## 7      National        46.8       46.7           57          56
-## 8      NZ First         9.4       10.0           11          12
-## 9 United Future         0.1        0.0            1           1
+## 1           ACT         0.6        0.5            1           1
+## 2  Conservative         0.2        0.2            0           0
+## 3         Green        12.4       12.5           15          15
+## 4        Labour        29.4       30.3           36          37
+## 5          Mana         0.2        0.0            0           0
+## 6         Maori         1.4        1.2            2           1
+## 7      National        46.0       45.6           56          56
+## 8      NZ First         8.3        7.7           10          10
+## 9 United Future         0.3        0.4            1           1
 ```
 
 
