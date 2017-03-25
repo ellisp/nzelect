@@ -58,7 +58,7 @@ test_that("Right number of pollsters", {
 })
 
 test_that("Right number of parties", {
-    expect_equal(length(unique(polls$Party)), 11)
+    expect_equal(length(unique(polls$Party)), 12)
 })
 
 

@@ -133,7 +133,7 @@ allocate_seats(votes, electorate = electorate, threshold = 0)$seats_v
 electorates <- c(1,0,0,27,0,1,41,1,1)
 
 polls %>%
-    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1") %>%
+    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1" & Party != "Opportunities") %>%
     mutate(wt_p = weight_polls(MidDate, method = "pundit"),
            wt_c = weight_polls(MidDate, method = "curia")) %>%
     group_by(Party) %>%

@@ -44,6 +44,9 @@ source("prep/import_census.R")
 source("prep/add_locations_census.R")
 
 #-------opinion polls and related-------------------
+load("pkg1/data/polls.rda")
+oldpolls <- polls
+rm(polls)
 
 source("prep/download_polls_2005.R")
 source("prep/download_polls_2008.R")
@@ -52,8 +55,16 @@ source("prep/download_polls_2014.R")
 source("prep/download_polls_2017.R")
 source("prep/combine_polls.R")
 
-# need some tests along the lines of checking this for validity:
+expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
+
+# any mismatches will be from edits to Wikipedia.  Check with variants of these:
+# View(oldpolls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
+# View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
+# rm(oldpolls)
+
+# need some automated tests along the lines of checking this for validity:
 # View(unique(polls[ ,c("WikipediaDates", "MidDate")]))
+
 
 #--------------build the actual package---------
 # create helpfiles:

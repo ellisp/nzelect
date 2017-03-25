@@ -9,7 +9,7 @@ tabs <- webpage %>%
 
 tab <- html_table(tabs[[1]], fill = TRUE) 
 
-tab <- tab[tab[ , 1] != tab[ , 2], 1:11]
+tab <- tab[tab[ , 1] != tab[ , 2], 1:12]
 tab <- tab[tab[ , 1] != "Poll", ]
 names(tab)[2] <- "WikipediaDates"
 
@@ -54,7 +54,7 @@ tab$EndDate <- as.Date(c("20/9/2014", "12/10/2014", "9/11/2014",
                          "19/3/2017"),
                        format = "%d/%m/%Y")
 polls2017 <- tab
-
+View(polls2017)
 
 
 

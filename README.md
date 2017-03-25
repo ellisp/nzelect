@@ -64,35 +64,7 @@ GE2014 %>%
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
-```
-
-```
-## 
-## Attaching package: 'GGally'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     nasa
-```
-
-```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
-```
-
-```
-## 
-## Attaching package: 'gridExtra'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     combine
-```
-
-```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -106,7 +78,7 @@ proportions <- GE2014 %>%
 ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
 
 
 
@@ -135,26 +107,11 @@ GE2014 %>%
 ```
 
 ```
-## 
-## Attaching package: 'maps'
-```
-
-```
-## The following object is masked from 'package:purrr':
-## 
-##     map
-```
-
-```
-## Loading required package: grid
-```
-
-```
 ## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
 ## instead
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
 
 See this [detailed interactive map of of the 2014 general election](https://ellisp.shinyapps.io/NZ-general-election-2014/) 
 built as a side product of this project.
@@ -243,7 +200,7 @@ GE2014 %>%
     labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20-1.png)
 
 
 ## Opinion polls
@@ -271,7 +228,17 @@ filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
 ## `geom_smooth()` using method = 'loess'
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+```
+## Warning: Computation failed in `stat_smooth()`:
+## span is too small
+```
+
+```
+## geom_path: Each group consists of only one observation. Do you need to
+## adjust the group aesthetic?
+```
+
+![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21-1.png)
 
 Note that it is not appropriate to frequently update the version of `nzelect` on CRAN, so polling data will generally be out of date.  The development version of `nzelect` from GitHub will be kept more up to date (but no promises exactly how much).
 
@@ -355,18 +322,7 @@ polls %>%
 ```
 
 ```
-## # A tibble: 9 × 5
-##           Party pundit_perc curia_perc pundit_seats curia_seats
-##           <chr>       <dbl>      <dbl>        <dbl>       <dbl>
-## 1           ACT         0.6        0.5            1           1
-## 2  Conservative         0.2        0.2            0           0
-## 3         Green        12.4       12.5           15          15
-## 4        Labour        29.4       30.3           36          37
-## 5          Mana         0.2        0.0            0           0
-## 6         Maori         1.4        1.2            2           1
-## 7      National        46.0       45.6           56          56
-## 8      NZ First         8.3        7.7           10          10
-## 9 United Future         0.3        0.4            1           1
+## Error in eval(expr, envir, enclos): votes, parties, and electorates should all be vectors of the same length
 ```
 
 
@@ -386,7 +342,7 @@ ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC20
     ggtitle("New Zealand census 2013")
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
+![plot of chunk unnamed-chunk-24](figure/unnamed-chunk-24-1.png)
 
 
 ```r
@@ -409,7 +365,7 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 ## Warning: Removed 13 rows containing missing values (geom_point).
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
+![plot of chunk unnamed-chunk-25](figure/unnamed-chunk-25-1.png)
 
 
 
