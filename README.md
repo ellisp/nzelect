@@ -65,6 +65,20 @@ library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
 library(gridExtra, quietly = TRUE) # for grid.arrange
+```
+
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -78,7 +92,7 @@ proportions <- GE2014 %>%
 ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
 ```
 
-![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 
 
@@ -107,11 +121,15 @@ GE2014 %>%
 ```
 
 ```
+## Loading required package: grid
+```
+
+```
 ## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
 ## instead
 ```
 
-![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 See this [detailed interactive map of of the 2014 general election](https://ellisp.shinyapps.io/NZ-general-election-2014/) 
 built as a side product of this project.
@@ -200,7 +218,7 @@ GE2014 %>%
     labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
 ```
 
-![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20-1.png)
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 
 ## Opinion polls
@@ -229,16 +247,80 @@ filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
 ```
 
 ```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : span too small. fewer data values than degrees of freedom.
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : at 17210
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : radius 0.030625
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : all data on boundary of neighborhood. make span bigger
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 17210
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 0.175
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 1
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : at 17245
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : radius 0.030625
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : all data on boundary of neighborhood. make span bigger
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 0.030625
+```
+
+```
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : zero-width neighborhood. make span bigger
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : zero-width neighborhood. make span bigger
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : zero-width neighborhood. make span bigger
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : zero-width neighborhood. make span bigger
+```
+
+```
 ## Warning: Computation failed in `stat_smooth()`:
-## span is too small
+## NA/NaN/Inf in foreign function call (arg 5)
 ```
 
-```
-## geom_path: Each group consists of only one observation. Do you need to
-## adjust the group aesthetic?
-```
-
-![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21-1.png)
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 Note that it is not appropriate to frequently update the version of `nzelect` on CRAN, so polling data will generally be out of date.  The development version of `nzelect` from GitHub will be kept more up to date (but no promises exactly how much).
 
@@ -342,7 +424,7 @@ ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC20
     ggtitle("New Zealand census 2013")
 ```
 
-![plot of chunk unnamed-chunk-24](figure/unnamed-chunk-24-1.png)
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
 
 
 ```r
@@ -365,7 +447,7 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 ## Warning: Removed 13 rows containing missing values (geom_point).
 ```
 
-![plot of chunk unnamed-chunk-25](figure/unnamed-chunk-25-1.png)
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
 
 
 

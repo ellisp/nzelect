@@ -59,6 +59,7 @@ expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
 
 # any mismatches will be from edits to Wikipedia.  Check with variants of these:
 # View(oldpolls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
+# View(oldpolls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # rm(oldpolls)
 
@@ -79,13 +80,15 @@ test("pkg2")
 # create README for GitHub repo:
 knit("README.Rmd", "README.md")
 
+# run pedantic CRAN checks
+check("pkg1") 
+check("pkg2") # one note from exceeding 5MB
+
 # create vignettes for actual builds
 build_vignettes("pkg1") 
 build_vignettes("pkg2") 
 
-# run pedantic CRAN checks
-check("pkg1") 
-check("pkg2") # one note from exceeding 5MB
+
 
 # run win-builder checks and email results to maintainer (Peter Ellis)
 build_win("pkg1")
