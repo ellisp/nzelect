@@ -229,7 +229,8 @@ Opinion poll data from 2002 onwards  has been tidied and collated into a single 
 ```r
 library(forcats)
 polls %>%
-filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
+    filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
+    filter(Party %in% c("National", "Labour", "Green", "NZ First")) %>%
     mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
            Party = fct_drop(Party)) %>%
     ggplot(aes(x = MidDate, y = VotingIntention, colour = Party, linetype = Pollster)) +
@@ -244,80 +245,6 @@ filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
 
 ```
 ## `geom_smooth()` using method = 'loess'
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : span too small. fewer data values than degrees of freedom.
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : at 17210
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : radius 0.030625
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : all data on boundary of neighborhood. make span bigger
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at 17210
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 0.175
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 1
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : at 17245
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : radius 0.030625
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : all data on boundary of neighborhood. make span bigger
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : There are other near singularities as well. 0.030625
-```
-
-```
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : zero-width neighborhood. make span bigger
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : zero-width neighborhood. make span bigger
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : zero-width neighborhood. make span bigger
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : zero-width neighborhood. make span bigger
-```
-
-```
-## Warning: Computation failed in `stat_smooth()`:
-## NA/NaN/Inf in foreign function call (arg 5)
 ```
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)

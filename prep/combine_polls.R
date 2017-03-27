@@ -80,6 +80,8 @@ test_that("Date ranges plausible", {
 
 save(polls, file = "pkg1/data/polls.rda")
 
+dim(polls)
+polls <- filter(polls, !is.na(VotingIntention))
 
 library(ggplot2)
 library(scales)

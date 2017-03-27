@@ -18,7 +18,8 @@ Colours associated with New Zealand political parties in the early 21st century
 # Example use of parties_v in a colour scale for ggplot2
 if(require(ggplot2) & require(scales) & require(dplyr) & require(forcats)){
 polls \%>\%
-filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) \%>\%
+    filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) \%>\%
+    filter(Party \%in\% c("National", "Labour", "Green", "NZ First")) \%>\%
     mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
            Party = fct_drop(Party)) \%>\%
     ggplot(aes(x = MidDate, y = VotingIntention, colour = Party, linetype = Pollster)) +

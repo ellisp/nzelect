@@ -97,7 +97,8 @@ GE2014 %>%
 ## ----fig.width = 8-------------------------------------------------------
 library(forcats)
 polls %>%
-filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
+    filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
+    filter(Party %in% c("National", "Labour", "Green", "NZ First")) %>%
     mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
            Party = fct_drop(Party)) %>%
     ggplot(aes(x = MidDate, y = VotingIntention, colour = Party, linetype = Pollster)) +

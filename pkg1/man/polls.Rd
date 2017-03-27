@@ -43,6 +43,7 @@ election_dates <- polls \%>\%
     distinct()
 
 polls \%>\%
+    filter(Party \%in\% c("National", "Labour", "Green", "NZ First")) \%>\%
     mutate(Party = fct_reorder(Party, VotingIntention, .desc = TRUE),
            Pollster = fct_relevel(Pollster, "Election result")) \%>\%
     ggplot(aes(x = MidDate, y = VotingIntention, linetype = Pollster)) +
