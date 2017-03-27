@@ -78,10 +78,11 @@ test_that("Date ranges plausible", {
 
 # polls %>% filter(EndDate - StartDate > 32 | EndDate < StartDate)
 
+polls <- filter(polls, !is.na(VotingIntention))
+
 save(polls, file = "pkg1/data/polls.rda")
 
-dim(polls)
-polls <- filter(polls, !is.na(VotingIntention))
+
 
 library(ggplot2)
 library(scales)
