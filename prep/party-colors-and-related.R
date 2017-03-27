@@ -24,7 +24,7 @@ parties_df <- tabs2[[1]] %>%
                      Colour = "#FFFF00",
                      Article = "Destiny New Zealand",
                      Shading = "000000")) %>%
-    rbind(data_frame(Shortname = "Opportunities",
+    rbind(data_frame(Shortname = "TOP",
                      Colour = "#FF4040",
                      Article = "The Opportunities Party",
                      Shading = "000000")) %>%
