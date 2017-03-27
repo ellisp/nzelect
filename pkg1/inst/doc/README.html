@@ -313,7 +313,7 @@ electorate =<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 electorates &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">27</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">41</span>,<span class="dv">1</span>,<span class="dv">1</span>)
 
 polls %&gt;%
-<span class="st">    </span><span class="kw">filter</span>(MidDate &gt;<span class="st"> &quot;2014-12-30&quot;</span> &amp;<span class="st"> </span>MidDate &lt;<span class="st"> &quot;2017-10-1&quot;</span> &amp;<span class="st"> </span>Party !=<span class="st"> &quot;Opportunities&quot;</span>) %&gt;%
+<span class="st">    </span><span class="kw">filter</span>(MidDate &gt;<span class="st"> &quot;2014-12-30&quot;</span> &amp;<span class="st"> </span>MidDate &lt;<span class="st"> &quot;2017-10-1&quot;</span> &amp;<span class="st"> </span>Party !=<span class="st"> &quot;TOP&quot;</span>) %&gt;%
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">wt_p =</span> <span class="kw">weight_polls</span>(MidDate, <span class="dt">method =</span> <span class="st">&quot;pundit&quot;</span>),
            <span class="dt">wt_c =</span> <span class="kw">weight_polls</span>(MidDate, <span class="dt">method =</span> <span class="st">&quot;curia&quot;</span>)) %&gt;%
 <span class="st">    </span><span class="kw">group_by</span>(Party) %&gt;%

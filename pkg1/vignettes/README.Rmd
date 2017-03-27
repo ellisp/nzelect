@@ -215,7 +215,7 @@ The example below shows the `weight_polls` function in action in combination wit
 electorates <- c(1,0,0,27,0,1,41,1,1)
 
 polls %>%
-    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1" & Party != "Opportunities") %>%
+    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1" & Party != "TOP") %>%
     mutate(wt_p = weight_polls(MidDate, method = "pundit"),
            wt_c = weight_polls(MidDate, method = "curia")) %>%
     group_by(Party) %>%
