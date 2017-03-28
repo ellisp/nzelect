@@ -59,7 +59,7 @@ expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
 
 # any mismatches will be from edits to Wikipedia.  Check with variants of these:
 # View(polls[which(oldpolls$Party != polls$Party), ])
-# View(oldpolls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
+# View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(oldpolls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # rm(oldpolls)
@@ -106,4 +106,4 @@ system("Rcmd.exe INSTALL --no-multiarch --with-keep.source pkg1")
 #-----------------shiny app----------------
 # munge data for Shiny app and prompts to deploy it:
 source("prep/shiny_prep.R")
-
+# shiny::runApp("examples/leaflet")
