@@ -8,10 +8,7 @@ vignette: >
 ---
 
 ## Introduction
-`nzelect` primarily provides convenient access to **New Zealand election results**.  So far only the results aggregated by voting place of the 2014 General Election are provided, but the intention is to extend this further:
-
-* both backwards and forwards in time for additional elections and possibly referenda; and 
-* incorporate individual level data from the [New Zealand Election study](http://www.nzes.org/).
+`nzelect` primarily provides convenient access to **New Zealand election results**.  So far only the results aggregated by voting place of the 2014 General Election are provided, but the intention is to extend this further both backwards and forwards in time for additional elections, opinion polls and possibly referenda. 
 
 Source data of the voting place aggregated results comes from the [New Zealand Electoral Commission](http://www.electionresults.govt.nz/).
 

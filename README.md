@@ -64,7 +64,35 @@ GE2014 %>%
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
+```
+
+```
+## 
+## Attaching package: 'GGally'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     nasa
+```
+
+```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
+```
+
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -104,6 +132,21 @@ GE2014 %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.55)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
+```
+
+```
+## 
+## Attaching package: 'maps'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     map
+```
+
+```
+## Loading required package: grid
 ```
 
 ```

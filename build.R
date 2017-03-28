@@ -81,7 +81,7 @@ test("pkg2")
 # create README for GitHub repo:
 knit("README.Rmd", "README.md")
 
-# run pedantic CRAN checks
+# run CRAN checks
 check("pkg1") 
 check("pkg2") # one note from exceeding 5MB
 

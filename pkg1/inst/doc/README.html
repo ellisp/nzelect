@@ -72,11 +72,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p><code>nzelect</code> primarily provides convenient access to <strong>New Zealand election results</strong>. So far only the results aggregated by voting place of the 2014 General Election are provided, but the intention is to extend this further:</p>
-<ul>
-<li>both backwards and forwards in time for additional elections and possibly referenda; and</li>
-<li>incorporate individual level data from the <a href="http://www.nzes.org/">New Zealand Election study</a>.</li>
-</ul>
+<p><code>nzelect</code> primarily provides convenient access to <strong>New Zealand election results</strong>. So far only the results aggregated by voting place of the 2014 General Election are provided, but the intention is to extend this further both backwards and forwards in time for additional elections, opinion polls and possibly referenda.</p>
 <p>Source data of the voting place aggregated results comes from the <a href="http://www.electionresults.govt.nz/">New Zealand Electoral Commission</a>.</p>
 <p><strong>Polling data</strong> back to 2002 is included and is ultimately sourced from a range of polling firms such as Colmar Brunton, Roy Morgan, etc. The data have been scraped from Wikipedia with some manual cleaning and should be treated with caution; see the helpfiles ofr <code>polls</code> to clarify.</p>
 <p>Some <strong>convenience functions</strong> for analysis are also provided eg a function to calculate number of seats awarded in Parliament for a given allocation of votes and electorates won.</p>
@@ -149,8 +145,13 @@ proportions &lt;-<span class="st"> </span>GE2014 %&gt;%
 </div>
 <div id="geographical-location-of-voting-places" class="section level3">
 <h3>Geographical location of voting places</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggthemes) <span class="co"># for theme_map()</span>
-GE2014 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggthemes) <span class="co"># for theme_map()</span></code></pre></div>
+<pre><code>## 
+## Attaching package: 'ggthemes'</code></pre>
+<pre><code>## The following object is masked _by_ '.GlobalEnv':
+## 
+##     theme_map</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GE2014 %&gt;%
 <span class="st">    </span><span class="kw">filter</span>(VotingType ==<span class="st"> &quot;Party&quot;</span>) %&gt;%
 <span class="st">    </span><span class="kw">group_by</span>(VotingPlace) %&gt;%
 <span class="st">    </span><span class="kw">summarise</span>(<span class="dt">ProportionNational =</span> <span class="kw">sum</span>(Votes[Party ==<span class="st"> &quot;National Party&quot;</span>] /<span class="st"> </span><span class="kw">sum</span>(Votes))) %&gt;%
