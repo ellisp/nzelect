@@ -106,4 +106,4 @@ system("Rcmd.exe INSTALL --no-multiarch --with-keep.source pkg1")
 #-----------------shiny app----------------
 # munge data for Shiny app and prompts to deploy it:
 source("prep/shiny_prep.R")
-
+# shiny::runApp("examples/leaflet")
