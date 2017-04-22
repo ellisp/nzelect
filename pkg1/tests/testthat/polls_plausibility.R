@@ -3,7 +3,7 @@ test_that("polls data are plausible", {
     expect_equal(length(dim(polls)), 2)
     expect_equal(names(polls), c("Pollster", "WikipediaDates", "StartDate",
                                  "EndDate", "MidDate", "Party", "VotingIntention",
-                                 "Client"))
+                                 "Client", "ElectionYear"))
     
     # at least five parties on average per poll
     expect_lt(length(unique(polls$MidDate)) / length(polls$MidDate), 1/5)

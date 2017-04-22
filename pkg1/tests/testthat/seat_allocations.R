@@ -3,7 +3,7 @@ test_that("Seats allocation formula works", {
 
     # From Wikipedia; should return 3, 2, 2:
      expect_equal(
-         allocate_seats(c(53000, 24000, 23000), nseats = 7, threshold = 0)$seats_v,
+         as.numeric(allocate_seats(c(53000, 24000, 23000), nseats = 7, threshold = 0)$seats_v),
          c(3,2,2)
          )
         
