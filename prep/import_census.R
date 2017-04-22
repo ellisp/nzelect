@@ -6,7 +6,6 @@
 dwell_orig <- read.csv("downloads/census2013/2013-mb-dataset-Total-New-Zealand-Dwelling.csv",
                      stringsAsFactors = FALSE, na.strings = c("..C", "..C ", "*"))
 
-
 dwelling <- dwell_orig %>%
     filter(Code != "Total New Zealand" & !is.na(Code)) %>%
     filter(!grepl("Footnote", Area_Code_and_Description)) %>%
@@ -18,7 +17,8 @@ dwelling <- dwell_orig %>%
            PropSeparateHouse2013 = X2013_Census_occupied_private_dwelling_type_Separate_House / 
                X2013_Census_occupied_private_dwelling_type_Total_occupied_private_dwellings
            ) %>%
-    select(Code, Area_Code_and_Description, MeanBedrooms2013, PropPrivateDwellings2013, PropSeparateHouse2013)
+    rename(TotalPrivateDwellings2013 = X2013_Census_occupied_private_dwelling_type_Total_occupied_private_dwellings) %>%
+    select(Code, Area_Code_and_Description, MeanBedrooms2013, PropPrivateDwellings2013, PropSeparateHouse2013, TotalPrivateDwellings2013)
 
 
 #-------------------selected household variables--------------------
@@ -52,9 +52,10 @@ hh <- hh_orig %>%
         PropNoMotorVehicle2013 = X2013_Census_number_of_motor_vehicles_for_households_in_occupied_private_dwellings_No_Motor_Vehicle / 
             X2013_Census_number_of_motor_vehicles_for_households_in_occupied_private_dwellings_Total_households_in_occupied_private_dwellings   
         ) %>%
+    rename(TotalOccupiedPrivateDwellings = X2013_Census_total_households_in_occupied_private_dwellings) %>%
     select(Area_Code_and_Description,  NumberInHH2013, PropMultiPersonHH2013, PropInternetHH2013,
            PropNotOwnedHH2013, MedianRentHH2013, PropLandlordPublic2013,
-           PropNoMotorVehicle2013)
+           PropNoMotorVehicle2013, TotalOccupiedPrivateDwellings)
 
 
 #------------selected individuals 1 variables-----------
@@ -109,13 +110,18 @@ indiv1 <- indiv1_orig %>%
         Prop65AndOlder_2013 = X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._65_years_and_Over / 
             X2013_Census_age_in_broad_groups_for_the_census_usually_resident_population_count.1._Total_people
      ) %>%
+    rename(
+        ResidentPop2013 = X2013_Census_census_usually_resident_population_count.1.,
+        CensusNightPop2013 = X2013_Census_census_night_population_count.2.
+    ) %>%
     select(Area_Code_and_Description, PropAreChildren2013, 
            PropSameResidence5YearsAgo2013, PropOverseas5YearsAgo2013, 
            PropNZBorn2013, PropEuropean2013, PropMaori2013, 
            PropPacific2013, PropAsian2013,
            PropMale2013, PropFemale2013,
            Prop20to24_2013, Prop25to29_2013, Prop30to34_2013, Prop35to39_2013, Prop40to44_2013, Prop45to49_2013, 
-           Prop50to54_2013, Prop55to59_2013, Prop60to64_2013, Prop65AndOlder_2013)
+           Prop50to54_2013, Prop55to59_2013, Prop60to64_2013, Prop65AndOlder_2013,
+           ResidentPop2013, CensusNightPop2013)
 
 
 #------------selected individuals 2 variables-----------
