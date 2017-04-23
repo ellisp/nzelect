@@ -100,8 +100,8 @@ build_win("pkg2")
 build("pkg1")
 build("pkg2")
 
-system("Rcmd.exe INSTALL --no-multiarch --with-keep.source pkg2")
 system("Rcmd.exe INSTALL --no-multiarch --with-keep.source pkg1")
+system("Rcmd.exe INSTALL --no-multiarch --with-keep.source pkg2")
 
 #-----------------shiny app----------------
 # munge data for Shiny app and prompts to deploy it:
