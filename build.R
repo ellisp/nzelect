@@ -2,18 +2,20 @@
 # Peter Ellis, April 2016
 # Builds (from scratch if necessary for a fresh clone) the nzelect R package
 
+
 #----------------functionality------------
+library(mbiemaps) # from nz-mbie/mbiemaps-public
 library(knitr)
 library(devtools)
 library(xlsx)
 library(stringr)
 library(rgdal) # for map functionality
-library(tidyverse)
 library(scales)
 library(httr)
 library(rvest)
 library(stringr)
 library(testthat)
+library(tidyverse)
 
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
