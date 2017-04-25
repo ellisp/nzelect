@@ -1,4 +1,3 @@
-data()
 
 #============Regions=============
 data(Region)
@@ -6,11 +5,11 @@ p4s <- proj4string(Region)
 tmp <- Region # from mbiemaps
 
 tmp@data <- REGC2013 %>%
-    rename(NAME = REGC2013_N) %>%
-    filter(!grepl("area outside", NAME, ignore.case = TRUE)) %>%
-    select(NAME, ResidentPop2013) %>%
+    rename(Name = REGC2013_N) %>%
+    filter(!grepl("area outside", Name, ignore.case = TRUE)) %>%
+    select(Name, ResidentPop2013) %>%
     rename(RsPop2013= ResidentPop2013 )%>%
-    right_join(tmp@data, by = "NAME") %>%
+    right_join(tmp@data, by = c("Name" = "NAME")) %>%
     select(-SHAPE_Area, - SHAPE_Leng)
 
 # simplified version, with no Area Outside Region, and less space
@@ -42,11 +41,11 @@ data(TA)
 tmp <- TA
 
 tmp@data <- TA2013 %>%
-    rename(NAME = TA2013_NAM) %>%
-    filter(!grepl("area outside", NAME, ignore.case = TRUE)) %>%
-    select(NAME, ResidentPop2013) %>%
+    rename(Name = TA2013_NAM) %>%
+    filter(!grepl("area outside", Name, ignore.case = TRUE)) %>%
+    select(Name, ResidentPop2013) %>%
     rename(RsPop2013= ResidentPop2013 )%>%
-    right_join(tmp@data, by = "NAME") %>%
+    right_join(tmp@data, by = c("Name" = "NAME")) %>%
     select(-SHAPE_Area, - SHAPE_Leng)
 
 # simplified version, with no Area Outside Region, and less space
@@ -71,3 +70,10 @@ plot(ta_cart, col = sample(viridis::inferno(70), 70))
 
 save(ta_cart, file = "pkg2/data/ta_cart.rda")
 
+
+#=====================once-off===========
+reg_cart@data <- reg_cart@data %>%
+    rename(Name = NAME)
+
+ta_cart@data <- ta_cart@data %>%
+    rename(Name = NAME)

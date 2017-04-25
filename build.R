@@ -40,7 +40,7 @@ source("prep/tidy_votingplace_results.R") # 30 seconds
 source("prep/import_votingplace_locations.R") # 3 minutes
 
 # Import and tidy up census data
-source("prep/import_census.R")
+source("prep/import_census.R") # 30 seconds
 
 # Match census data to shapefiles so we have lat and long
 source("prep/add_locations_census.R")
@@ -70,7 +70,7 @@ expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
 # View(unique(polls[ ,c("WikipediaDates", "MidDate")]))
 
 
-#--------------build the actual package---------
+#--------------build the actual packages---------
 # create helpfiles:
 document("pkg1")
 document("pkg2")
