@@ -71,9 +71,42 @@ plot(ta_cart, col = sample(viridis::inferno(70), 70))
 save(ta_cart, file = "pkg2/data/ta_cart.rda")
 
 
-#=====================once-off===========
-reg_cart@data <- reg_cart@data %>%
-    rename(Name = NAME)
+#============Area Units=============
+AU <- readOGR("downloads/shapefiles/2014 Digital Boundaries Generlised Full",
+              "AU2014_GV_Full")
+plot(AU)
+tmp <- AU
 
-ta_cart@data <- ta_cart@data %>%
-    rename(Name = NAME)
+tmp@data <- AreaUnits2013 %>%
+    rename(Name = AU_NAM) %>%
+    filter(!grepl("area outside", Name, ignore.case = TRUE)) %>%
+    select(Name, ResidentPop2013) %>%
+    rename(RsPop2013= ResidentPop2013 )%>%
+    right_join(tmp@data, by = c("Name" = "AU2014_NAM")) %>%
+    select(-Shape_Area, - Shape_Leng, -SHAPE_STAr, -SHAPE_STLe)
+
+# simplified version, with no Area Outside Region, and less space
+tmp <- rmapshaper::ms_simplify(tmp)
+tmp@data$rmapshaperid <- NULL
+
+writeOGR(tmp, "tmp", layer = "au", driver="ESRI Shapefile")
+
+# Open ScapeToad and do the distortion in there with point-and-click
+
+au_cart <- readOGR("tmp", "au-cart")
+
+proj4string(au_cart) <- p4s
+au_cart <- spTransform(au_cart, CRS("+init=epsg:4326"))
+
+au_cart@data <- au_cart@data %>%
+    mutate(RsPop2013 = as.numeric(as.character(RsP2013))) %>%
+    select(-RsP2013)
+
+# plausibility test:
+par(fg = "white")
+plot(au_cart, col = sample(viridis::inferno(70), 70))
+
+save(au_cart, file = "pkg2/data/au_cart.rda")
+
+AreaUnits2013$AU_NAM[!AreaUnits2013$AU_NAM %in% unique(AU@data$AU2014_NAM)]
+

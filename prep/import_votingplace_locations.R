@@ -1,16 +1,12 @@
 # ./prep/import_votingplace_locations.R
 
-# Downloads and imports voting place locations, cleans them up and matches
+# Imports voting place locations, cleans them up and matches
 # to shapefiles of Regional Council, meshblock, etc
 # Peter Ellis, April 2016
 
 library(xlsx)
 # I couldn't get the text encoding fo the csv or txt versions to work so have
 # downloaded the Excel instead.
-
-download.file("http://www.electionresults.govt.nz/electionresults_2014/2014_Voting_Place_Co-ordinates.xls",
-              destfile = "downloads/elect2014/vp_coordinates.xls", mode = "wb")
-
 
 # takes 2 minutes:
 vpc_orig <- read.xlsx("downloads/elect2014/vp_coordinates.xls", sheetIndex = 1, encoding = "UTF-8")

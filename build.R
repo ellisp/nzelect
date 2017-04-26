@@ -22,13 +22,15 @@ library(tidyverse)
 # repeating expensive downloads
 
 # About 1MB worth of voting results:
-source("prep/download_votingplace_results.R")
+# source("prep/download_votingplace_results.R")
 
 # About 130MB of shapefiles / maps, used for locating voting places in areas:
-source("prep/download_map_shapefiles.R")
+# source("prep/download_map_shapefiles.R")
 
-source("prep/download_census2013.R")
+# source("prep/download_census2013.R")
 
+# download.file("http://www.electionresults.govt.nz/electionresults_2014/2014_Voting_Place_Co-ordinates.xls",
+#              destfile = "downloads/elect2014/vp_coordinates.xls", mode = "wb")
 
 #----------tidying----------------
 # import all the voting results CVS and amalgamate into a single object
@@ -44,6 +46,9 @@ source("prep/import_census.R") # 30 seconds
 
 # Match census data to shapefiles so we have lat and long
 source("prep/add_locations_census.R")
+
+# Create cartograms
+source("prep/create-cartograms.R")
 
 #-------opinion polls and related-------------------
 load("pkg1/data/polls.rda")
