@@ -48,7 +48,7 @@ source("prep/import_census.R") # 30 seconds
 source("prep/add_locations_census.R")
 
 # Create cartograms
-source("prep/create-cartograms.R")
+# go to "prep/create-cartograms.R" and run by hand; requires some manual steps with ScapeToad
 
 #-------opinion polls and related-------------------
 load("pkg1/data/polls.rda")
