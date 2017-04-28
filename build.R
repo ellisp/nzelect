@@ -51,6 +51,8 @@ source("prep/add_locations_census.R")
 # go to "prep/create-cartograms.R" and run by hand; requires some manual steps with ScapeToad
 
 #-------opinion polls and related-------------------
+# Load in the existing version of the polls to facilitate checking and seeing
+# if anything has gone wrong with the source material on Wikipedia
 load("pkg1/data/polls.rda")
 oldpolls <- polls
 rm(polls)
