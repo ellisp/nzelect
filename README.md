@@ -313,7 +313,7 @@ polls %>%
 ```
 
 ```
-## Error in eval(expr, envir, enclos): votes, parties, and electorates should all be vectors of the same length
+## Error in mutate_impl(.data, dots): votes, parties, and electorates should all be vectors of the same length
 ```
 
 

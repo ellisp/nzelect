@@ -3,8 +3,9 @@
 # Builds (from scratch if necessary for a fresh clone) the nzelect R package
 
 
+
 #----------------functionality------------
-library(mbiemaps) # from nz-mbie/mbiemaps-public
+library(mbiemaps) # from nz-mbie/mbiemaps-public/pkg
 library(knitr)
 library(devtools)
 library(xlsx)
@@ -71,6 +72,8 @@ expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
 # View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(oldpolls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
+# View(polls[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])
+# View(oldpolls[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])
 # rm(oldpolls)
 
 # need some automated tests along the lines of checking this for validity:
