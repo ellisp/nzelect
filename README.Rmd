@@ -193,7 +193,7 @@ The example below shows the `weight_polls` function in action in combination wit
 # assuming that electorates stay as currently allocated.  This is critical particularly
 # for ACT, Maori and United Future, who if they lose their single electorate seat each
 # will not be represented in parliament
-electorates <- c(1,0,0,27,0,1,41,1,1)
+electorates <- c(1,0,0,27,0,1,41,1,1,0)
 
 polls %>%
     filter(MidDate > "2014-12-30" & MidDate < "2017-10-1") %>%
