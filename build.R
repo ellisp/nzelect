@@ -67,10 +67,12 @@ source("prep/combine_polls.R")
 
 expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
 
+polls_both <- cbind(oldpolls, polls[1:nrow(oldpolls), ])
+
 # any mismatches will be from edits to Wikipedia.  Check with variants of these:
-# View(polls[which(oldpolls$Party != polls$Party), ])
-# View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
-# View(oldpolls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
+# View(polls_both[which(oldpolls$Party != polls$Party), ])
+# View(polls_both[which(oldpolls$VotingIntention != polls$VotingIntention), ])
+# View(polls_both[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(polls[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])
 # View(oldpolls[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])

@@ -41,18 +41,18 @@ GE2014 %>%
 ```
 
 ```
-## # A tibble: 28 × 3
+## # A tibble: 28 x 3
 ##                               Party PartyVote CandidateVote
 ##                               <chr>     <dbl>         <dbl>
-## 1                    National Party   1131501       1081787
-## 2                      Labour Party    604535        801287
-## 3                       Green Party    257359        165718
-## 4           New Zealand First Party    208300         73384
-## 5                      Conservative     95598         81075
-## 6                     Internet MANA     34094            NA
-## 7                       Maori Party     31849         42108
-## 8                   ACT New Zealand     16689         27778
-## 9  Aotearoa Legalise Cannabis Party     10961          4936
+##  1                   National Party   1131501       1081787
+##  2                     Labour Party    604535        801287
+##  3                      Green Party    257359        165718
+##  4          New Zealand First Party    208300         73384
+##  5                     Conservative     95598         81075
+##  6                    Internet MANA     34094            NA
+##  7                      Maori Party     31849         42108
+##  8                  ACT New Zealand     16689         27778
+##  9 Aotearoa Legalise Cannabis Party     10961          4936
 ## 10             Informal Party Votes     10857            NA
 ## # ... with 18 more rows
 ```
@@ -64,35 +64,7 @@ GE2014 %>%
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
-```
-
-```
-## 
-## Attaching package: 'GGally'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     nasa
-```
-
-```r
 library(gridExtra, quietly = TRUE) # for grid.arrange
-```
-
-```
-## 
-## Attaching package: 'gridExtra'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     combine
-```
-
-```r
 library(dplyr)
 
 proportions <- GE2014 %>%
@@ -135,21 +107,6 @@ GE2014 %>%
 ```
 
 ```
-## 
-## Attaching package: 'maps'
-```
-
-```
-## The following object is masked from 'package:purrr':
-## 
-##     map
-```
-
-```
-## Loading required package: grid
-```
-
-```
 ## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
 ## instead
 ```
@@ -178,18 +135,18 @@ GE2014 %>%
 ```
 
 ```
-## # A tibble: 17 × 3
+## # A tibble: 17 x 3
 ##                  REGC2014_N TotalVotes ProportionNational
 ##                      <fctr>      <dbl>              <dbl>
-## 1           Gisborne Region      14342              0.351
-## 2             Nelson Region      18754              0.398
-## 3          Northland Region      53688              0.427
-## 4         Wellington Region     165207              0.430
-## 5  Manawatu-Wanganui Region      78841              0.447
-## 6              Otago Region      75933              0.447
-## 7                        NA     934589              0.451
-## 8        Hawke's Bay Region      53833              0.460
-## 9             Tasman Region      17935              0.465
+##  1          Gisborne Region      14342              0.351
+##  2            Nelson Region      18754              0.398
+##  3         Northland Region      53688              0.427
+##  4        Wellington Region     165207              0.430
+##  5 Manawatu-Wanganui Region      78841              0.447
+##  6             Otago Region      75933              0.447
+##  7                       NA     934589              0.451
+##  8       Hawke's Bay Region      53833              0.460
+##  9            Tasman Region      17935              0.465
 ## 10        West Coast Region      12226              0.465
 ## 11     Bay of Plenty Region      89065              0.473
 ## 12          Auckland Region     478760              0.486
@@ -211,7 +168,7 @@ GE2014 %>%
 ```
 
 ```
-## # A tibble: 7 × 2
+## # A tibble: 7 x 2
 ##                                               VotingPlace TotalVotes
 ##                                                     <chr>      <dbl>
 ## 1 Chatham Islands Council Building, 9 Tuku Road, Waitangi         90
@@ -356,19 +313,19 @@ polls %>%
 ```
 
 ```
-## # A tibble: 10 × 5
+## # A tibble: 10 x 5
 ##            Party pundit_perc curia_perc pundit_seats curia_seats
 ##            <chr>       <dbl>      <dbl>        <dbl>       <dbl>
-## 1            ACT         0.7        0.8            1           1
-## 2   Conservative         0.5        0.6            0           0
-## 3          Green        11.8       11.3           14          14
-## 4         Labour        28.1       27.7           35          34
-## 5           Mana         0.1        0.0            0           0
-## 6          Maori         0.9        0.7            1           1
-## 7       National        46.8       48.0           57          58
-## 8       NZ First         9.3        9.3           11          11
-## 9            TOP         0.9        1.0            1           1
-## 10 United Future         0.2        0.2            0           0
+##  1           ACT         0.8        0.9            1           1
+##  2  Conservative         0.3        0.4            0           0
+##  3         Green        12.4       12.4           15          15
+##  4        Labour        27.4       26.7           34          33
+##  5          Mana         0.2        0.2            0           0
+##  6         Maori         1.1        0.9            1           1
+##  7      National        46.7       47.4           57          58
+##  8      NZ First         9.2        9.2           11          11
+##  9           TOP         0.9        0.9            1           1
+## 10 United Future         0.1        0.2            0           0
 ```
 
 
@@ -379,6 +336,13 @@ polls %>%
 
 ```r
 library(nzcensus)
+```
+
+```
+## Error in library(nzcensus): there is no package called 'nzcensus'
+```
+
+```r
 library(ggrepel)
 ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC2013_N) ) +
     geom_point() +
@@ -388,7 +352,9 @@ ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC20
     ggtitle("New Zealand census 2013")
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
+```
+## Error in ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, : object 'REGC2013' not found
+```
 
 
 ```r
@@ -403,15 +369,8 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 ```
 
 ```
-## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
-## instead
+## Error in ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, : object 'Meshblocks2013' not found
 ```
-
-```
-## Warning: Removed 13 rows containing missing values (geom_point).
-```
-
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
 
 
 
