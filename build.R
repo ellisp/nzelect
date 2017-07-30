@@ -17,7 +17,8 @@ library(rvest)
 library(stringr)
 library(testthat)
 library(tidyverse)
-
+library(GGally)
+library(gridExtra)
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
 # repeating expensive downloads

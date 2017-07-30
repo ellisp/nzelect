@@ -316,16 +316,16 @@ polls %>%
 ## # A tibble: 10 x 5
 ##            Party pundit_perc curia_perc pundit_seats curia_seats
 ##            <chr>       <dbl>      <dbl>        <dbl>       <dbl>
-##  1           ACT         0.8        0.9            1           1
-##  2  Conservative         0.3        0.4            0           0
-##  3         Green        12.4       12.4           15          15
-##  4        Labour        27.4       26.7           34          33
+##  1           ACT         0.6        0.4            1           1
+##  2  Conservative         0.2        0.1            0           0
+##  3         Green        13.4       13.9           16          17
+##  4        Labour        26.5       25.9           32          31
 ##  5          Mana         0.2        0.2            0           0
-##  6         Maori         1.1        0.9            1           1
-##  7      National        46.7       47.4           57          58
-##  8      NZ First         9.2        9.2           11          11
-##  9           TOP         0.9        0.9            1           1
-## 10 United Future         0.1        0.2            0           0
+##  6         Maori         1.2        1.3            1           2
+##  7      National        46.3       46.2           56          56
+##  8      NZ First        10.1       10.4           12          12
+##  9           TOP         1.6        1.8            2           2
+## 10 United Future         0.1        0.1            0           0
 ```
 
 
@@ -336,13 +336,6 @@ polls %>%
 
 ```r
 library(nzcensus)
-```
-
-```
-## Error in library(nzcensus): there is no package called 'nzcensus'
-```
-
-```r
 library(ggrepel)
 ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC2013_N) ) +
     geom_point() +
@@ -352,9 +345,7 @@ ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC20
     ggtitle("New Zealand census 2013")
 ```
 
-```
-## Error in ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, : object 'REGC2013' not found
-```
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
 
 
 ```r
@@ -369,8 +360,15 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 ```
 
 ```
-## Error in ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, : object 'Meshblocks2013' not found
+## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
+## instead
 ```
+
+```
+## Warning: Removed 13 rows containing missing values (geom_point).
+```
+
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
 
 
 
