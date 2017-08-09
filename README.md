@@ -316,16 +316,16 @@ polls %>%
 ## # A tibble: 10 x 5
 ##            Party pundit_perc curia_perc pundit_seats curia_seats
 ##            <chr>       <dbl>      <dbl>        <dbl>       <dbl>
-##  1           ACT         0.5        0.4            1           1
+##  1           ACT         0.6        0.5            1           1
 ##  2  Conservative         0.1        0.0            0           0
-##  3         Green        13.3       13.9           16          17
-##  4        Labour        25.8       24.2           31          29
+##  3         Green        11.7       11.7           14          14
+##  4        Labour        28.1       27.7           34          34
 ##  5          Mana         0.1        0.0            0           0
-##  6         Maori         1.1        0.9            1           1
-##  7      National        46.0       46.1           56          56
-##  8      NZ First        10.9       11.9           13          15
-##  9           TOP         1.5        1.7            2           2
-## 10 United Future         0.1        0.2            0           0
+##  6         Maori         1.2        1.2            1           1
+##  7      National        45.5       45.4           55          55
+##  8      NZ First        10.4       10.9           13          13
+##  9           TOP         1.7        1.8            2           2
+## 10 United Future         0.1        0.1            0           0
 ```
 
 

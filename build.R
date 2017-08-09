@@ -76,8 +76,8 @@ polls_both <- cbind(oldpolls, polls[1:nrow(oldpolls), ])
 # View(polls_both[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
 # View(polls[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])
-# View(oldpolls[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])
-# View(oldpolls[which(oldpolls$StartDate != polls$StartDate), ])
+# View(polls_both[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])
+# View(polls_both[which(oldpolls$StartDate != polls$StartDate), ])
 # rm(oldpolls)
 
 # need some automated tests along the lines of checking this for validity:
