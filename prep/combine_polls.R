@@ -27,6 +27,8 @@ polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017)
            Poll = gsub("Herald.", "", Poll),
            Poll = ifelse(grepl("Roy Morgan", Poll), "Roy Morgan", Poll),
            Poll = str_trim(gsub("Sunday Star.Times.", "", Poll))) %>%
+    mutate(Party = gsub("\n", " ", Party, fixed = TRUE),
+           Party = gsub("^Con$", "Conservative", Party)) %>%
     rename(Pollster = Poll)
 
 
@@ -41,7 +43,7 @@ elections <- polls %>%
 polls <- polls %>%
     filter(Pollster != "Election result") %>%
     rbind(elections) %>%
-    arrange(EndDate)
+    arrange(EndDate, Party)
     
 # add in election years
 polls <- polls %>%
