@@ -67,8 +67,10 @@ source("prep/download_polls_2017.R")
 source("prep/combine_polls.R")
 
 expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
-
 polls_both <- cbind(oldpolls, polls[1:nrow(oldpolls), ])
+names(polls_both)[1:ncol(polls)] <- paste0(names(oldpolls), "_old")
+
+polls_both %>%    filter(Party_old != Party) %>% View
 
 # any mismatches will be from edits to Wikipedia.  Check with variants of these:
 # View(polls_both[which(oldpolls$Party != polls$Party), ])
