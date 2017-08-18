@@ -71,15 +71,8 @@ polls_both <- cbind(oldpolls, polls[1:nrow(oldpolls), ])
 names(polls_both)[1:ncol(polls)] <- paste0(names(oldpolls), "_old")
 
 polls_both %>%    filter(Party_old != Party) %>% View
+polls_both %>%    filter(Pollster_old != Pollster) %>% View
 
-# any mismatches will be from edits to Wikipedia.  Check with variants of these:
-# View(polls_both[which(oldpolls$Party != polls$Party), ])
-# View(polls_both[which(oldpolls$VotingIntention != polls$VotingIntention), ])
-# View(polls_both[which(oldpolls$VotingIntention != polls$VotingIntention), ])
-# View(polls[which(oldpolls$VotingIntention != polls$VotingIntention), ])
-# View(polls[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])
-# View(polls_both[which(oldpolls$WikipediaDates != polls$WikipediaDates), ])
-# View(polls_both[which(oldpolls$StartDate != polls$StartDate), ])
 # rm(oldpolls)
 
 # need some automated tests along the lines of checking this for validity:
