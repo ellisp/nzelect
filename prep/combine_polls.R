@@ -36,6 +36,7 @@ polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017)
 elections <- polls %>%
     dplyr::filter(Pollster == "Election result") %>%
     dplyr::filter(!is.na(VotingIntention)) %>%
+    mutate(WikipediaDates = ifelse(WikipediaDates == "20 Sep 2014", "20 September 2014", WikipediaDates)) %>%
     distinct()
 
 # remove all the duplicate election results and put the
