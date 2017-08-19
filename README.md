@@ -318,12 +318,12 @@ polls %>%
 ##            <chr>       <dbl>      <dbl>        <dbl>       <dbl>
 ##  1           ACT         0.5        0.5            1           1
 ##  2  Conservative         0.3        0.3            0           0
-##  3         Green         9.2        8.8           11          11
-##  4        Labour        31.3       31.8           38          38
+##  3         Green         9.2        8.6           11          10
+##  4        Labour        31.3       32.1           38          39
 ##  5          Mana         0.3        0.3            0           0
 ##  6         Maori         1.4        1.4            2           2
 ##  7      National        44.5       44.2           53          53
-##  8      NZ First        10.5       10.7           13          13
+##  8      NZ First        10.5       10.6           13          13
 ##  9           TOP         1.9        2.0            2           2
 ## 10 United Future         0.1        0.1            0           0
 ```
