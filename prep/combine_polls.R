@@ -44,7 +44,7 @@ elections <- polls %>%
 polls <- polls %>%
     filter(Pollster != "Election result") %>%
     rbind(elections) %>%
-    arrange(EndDate, Party)
+    arrange(EndDate, Pollster, Party)
     
 # add in election years
 polls <- polls %>%

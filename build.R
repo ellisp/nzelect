@@ -19,6 +19,7 @@ library(testthat)
 library(tidyverse)
 library(GGally)
 library(gridExtra)
+library(maps)
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
 # repeating expensive downloads
