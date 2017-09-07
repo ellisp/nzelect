@@ -20,6 +20,7 @@ library(tidyverse)
 library(GGally)
 library(gridExtra)
 library(maps)
+library(grid)
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
 # repeating expensive downloads
@@ -73,6 +74,8 @@ names(polls_both)[1:ncol(polls)] <- paste0(names(oldpolls), "_old")
 
 polls_both %>%    filter(Party_old != Party) %>% View
 polls_both %>%    filter(Pollster_old != Pollster) %>% View
+polls_both %>%    filter(WikipediaDates_old != WikipediaDates) %>% View
+polls_both %>%    filter(VotingIntention_old != VotingIntention) %>% View
 
 # rm(oldpolls)
 

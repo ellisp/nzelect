@@ -37,6 +37,7 @@ elections <- polls %>%
     dplyr::filter(Pollster == "Election result") %>%
     dplyr::filter(!is.na(VotingIntention)) %>%
     mutate(WikipediaDates = ifelse(WikipediaDates == "20 Sep 2014", "20 September 2014", WikipediaDates)) %>%
+    mutate(WikipediaDates = ifelse(WikipediaDates == "26 Nov 2011", "26 November 2011", WikipediaDates)) %>%
     distinct()
 
 # remove all the duplicate election results and put the
@@ -110,7 +111,7 @@ polls %>%
     theme_grey() 
 
 
-polls %>%
+print(polls %>%
     filter(Party == "Green") %>%
     mutate(Pollster = fct_lump(Pollster, 5)) %>%
     ggplot(aes(x = MidDate, y = VotingIntention, colour = Pollster)) +
@@ -122,6 +123,6 @@ polls %>%
     scale_y_continuous("Voting intention", label = percent) +
     labs(x = "") +
     ggtitle("Voting intention for the Green Party")
-    
+)
 
 # see https://github.com/diegovalle/Elections-2012/blob/master/src/kalman.R to adapt for kalman filter
