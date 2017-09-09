@@ -15,7 +15,9 @@ polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017)
            Client = ifelse(grepl("NBR", Poll), "NBR", Client),
            Client = ifelse(grepl("One News", Poll), "One News", Client),
            Client = ifelse(grepl("Sunday Star", Poll), "Sunday Star Times", Client),
-           Client = ifelse(grepl("Newshub", Poll), "Newshub", Client)) %>%
+           Client = ifelse(grepl("Newshub", Poll), "Newshub", Client),
+           Client = ifelse(grepl("Listener", Poll), "Listener", Client),
+           Client = ifelse(grepl("Newsroom", Poll), "Newsroom", Client)) %>%
     mutate(Poll = gsub("Fairfax Media.", "", Poll),
            Poll = gsub("Fairfax New Zealand.", "", Poll),
            Poll = gsub("AC Niels.n", "Nielsen", Poll),
@@ -26,6 +28,8 @@ polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017)
            Poll = gsub("Newshub ", "", Poll),
            Poll = gsub("Herald.", "", Poll),
            Poll = ifelse(grepl("Roy Morgan", Poll), "Roy Morgan", Poll),
+           Poll = ifelse(grepl("SSI", Poll), "SSI", Poll),
+           Poll = ifelse(grepl("Bauer Media Insights", Poll), "Bauer Media Insights", Poll),
            Poll = str_trim(gsub("Sunday Star.Times.", "", Poll))) %>%
     mutate(Party = gsub("\n", " ", Party, fixed = TRUE),
            Party = gsub("^Con$", "Conservative", Party)) %>%
@@ -58,7 +62,7 @@ polls <- polls %>%
 
 
 test_that("Right number of pollsters", {
-    expect_equal(length(unique(polls$Pollster)), 13)
+    expect_equal(length(unique(polls$Pollster)), 15)
 })
 
 test_that("Right number of parties", {
