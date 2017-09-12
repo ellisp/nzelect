@@ -8,7 +8,7 @@ tabs <- webpage %>%
     html_nodes("table") 
 
 # number below depends on the webpage...
-tab <- html_table(tabs[[2]], fill = TRUE) 
+tab <- html_table(tabs[[1]], fill = TRUE) 
 
 tab <- tab[tab[ , 1] != tab[ , 2], 1:12]
 tab <- tab[tab[ , 1] != "Poll", ]

@@ -27,6 +27,7 @@ polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017)
            Poll = gsub("NBR.", "", Poll),
            Poll = gsub("Newshub ", "", Poll),
            Poll = gsub("Herald.", "", Poll),
+           Poll = ifelse(grepl("Colmar Brunton", Poll), "Colmar Brunton", Poll),
            Poll = ifelse(grepl("Roy Morgan", Poll), "Roy Morgan", Poll),
            Poll = ifelse(grepl("SSI", Poll), "SSI", Poll),
            Poll = ifelse(grepl("Bauer Media Insights", Poll), "Bauer Media Insights", Poll),

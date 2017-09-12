@@ -32,7 +32,7 @@ p <- polls %>%
     ggtitle("Fifteen years of opinion polls in New Zealand",
             "Intended party vote for the next election (election results shown in black)\nPolling results taken from Wikipedia, compiled in the nzelect R package")
 
-svg("examples/all-polls-and-years.svg", 8, 6)
+svg("examples/all-polls-and-years.svg", 9, 6)
 print(p)
 dev.off()
 
