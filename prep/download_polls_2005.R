@@ -74,4 +74,4 @@ tab$EndDate <- as.Date(c("27/7/2002", "1/9/2002", "22/9/2002",
                          "14/9/2005", "13/9/2005", "17/9/2005"), 
                        format = "%d/%m/%Y")
 
-polls2005 <- tab
+polls2005 <- tab[, !is.na(names(tab))]

@@ -5,6 +5,9 @@ polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017)
     mutate(Poll = str_trim(gsub("\\[.+\\]", "", Poll)),
            VotingIntention = gsub("\\[.+\\]", "", VotingIntention),
            VotingIntention = as.numeric(VotingIntention) / 100) %>%
+    # clean up party names
+    mutate(Party = ifelse(grepl("^Prog", Party), "Progressive", Party)) %>%
+    
     # clean up pollster names:
     mutate(Poll = gsub(".*[Ee]lection result", "Election result", Poll),
            Poll = gsub("Herald.Digi[Pp]oll", "Herald-Digipoll", Poll)) %>%
@@ -43,6 +46,8 @@ elections <- polls %>%
     dplyr::filter(!is.na(VotingIntention)) %>%
     mutate(WikipediaDates = ifelse(WikipediaDates == "20 Sep 2014", "20 September 2014", WikipediaDates)) %>%
     mutate(WikipediaDates = ifelse(WikipediaDates == "26 Nov 2011", "26 November 2011", WikipediaDates)) %>%
+    mutate(WikipediaDates = ifelse(WikipediaDates == "17 Sep 2005", "17 September 2005", WikipediaDates)) %>%
+    mutate(WikipediaDates = ifelse(WikipediaDates == "8 Nov 2008", "8 November 2008", WikipediaDates)) %>%
     distinct()
 
 # remove all the duplicate election results and put the
