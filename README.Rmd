@@ -203,7 +203,6 @@ polls %>%
     summarise(pundit_perc = round(sum(VotingIntention * wt_p, na.rm = TRUE) / sum(wt_p) * 100, 1),
               curia_perc = round(sum(VotingIntention * wt_c, na.rm = TRUE) / sum(wt_c) * 100, 1)) %>%
     ungroup() %>%
-    filter(pundit_perc > 0) %>%
     mutate(pundit_seats = allocate_seats(pundit_perc, electorate = electorates)$seats_v,
            curia_seats = allocate_seats(curia_perc, electorate = electorates)$seats_v)
 ```
