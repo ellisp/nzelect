@@ -144,7 +144,7 @@ GE2014 %>%
 ##  4        Wellington Region     165207              0.430
 ##  5 Manawatu-Wanganui Region      78841              0.447
 ##  6             Otago Region      75933              0.447
-##  7                       NA     934589              0.451
+##  7                     <NA>     934589              0.451
 ##  8       Hawke's Bay Region      53833              0.460
 ##  9            Tasman Region      17935              0.465
 ## 10        West Coast Region      12226              0.465
@@ -328,10 +328,10 @@ polls %>%
 ##  1           ACT         0.7        0.7            1           1
 ##  2  Conservative         0.5        0.5            0           0
 ##  3         Green         6.9        6.4            8           8
-##  4        Labour        40.0       41.1           49          49
+##  4        Labour        40.0       41.1           49          50
 ##  5          Mana         0.1        0.1            0           0
-##  6         Maori         1.2        1.3            1           2
-##  7      National        40.3       39.8           49          48
+##  6         Maori         1.2        1.2            1           1
+##  7      National        40.3       39.7           49          48
 ##  8      NZ First         8.2        8.0           10          10
 ##  9           TOP         1.9        1.9            2           2
 ## 10 United Future         0.0        0.0            0           0
