@@ -229,16 +229,6 @@ polls %>%
 ## `geom_smooth()` using method = 'loess'
 ```
 
-```
-## Warning: The shape palette can deal with a maximum of 6 discrete values
-## because more than 6 becomes difficult to discriminate; you have 7.
-## Consider specifying shapes manually if you must have them.
-```
-
-```
-## Warning: Removed 4 rows containing missing values (geom_point).
-```
-
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 Note that it is not appropriate to frequently update the version of `nzelect` on CRAN, so polling data will generally be out of date.  The development version of `nzelect` from GitHub will be kept more up to date (but no promises exactly how much).
@@ -325,16 +315,16 @@ polls %>%
 ## # A tibble: 10 x 5
 ##            Party pundit_perc curia_perc pundit_seats curia_seats
 ##            <chr>       <dbl>      <dbl>        <dbl>       <dbl>
-##  1           ACT         0.7        0.7            1           1
-##  2  Conservative         0.5        0.5            0           0
-##  3         Green         6.9        6.4            8           8
-##  4        Labour        40.0       41.1           49          50
+##  1           ACT         0.5        0.6            1           1
+##  2  Conservative         0.3        0.4            0           0
+##  3         Green         7.2        6.5            9           8
+##  4        Labour        39.1       41.0           47          49
 ##  5          Mana         0.1        0.1            0           0
-##  6         Maori         1.2        1.2            1           1
-##  7      National        40.3       39.7           49          48
-##  8      NZ First         8.2        8.0           10          10
-##  9           TOP         1.9        1.9            2           2
-## 10 United Future         0.0        0.0            0           0
+##  6         Maori         1.2        1.3            1           2
+##  7      National        42.5       40.8           52          49
+##  8      NZ First         6.9        7.3            8           9
+##  9           TOP         1.8        1.8            2           2
+## 10 United Future         0.1        0.1            0           0
 ```
 
 

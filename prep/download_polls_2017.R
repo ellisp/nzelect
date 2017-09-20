@@ -42,7 +42,7 @@ tab$StartDate <-
               "31/7/2017", "12/8/2017", "22/8/2017",
               "26/8/2017", "1/9/2017", "2/9/2017",
               "4/9/2017", "28/8/2017", "6/9/2017", 
-              "9/9/2017", "9/9/2017"), 
+              "9/9/2017"), 
             format = "%d/%m/%Y")
 
 tab$EndDate <- as.Date(c("20/9/2014", "12/10/2014", "9/11/2014",
@@ -72,10 +72,28 @@ tab$EndDate <- as.Date(c("20/9/2014", "12/10/2014", "9/11/2014",
                          "13/8/2017", "16/8/2017", "30/8/2017",
                          "30/8/2017", "5/9/2017", "6/9/2017",
                          "6/9/2017", "10/9/2017", "11/9/2017", 
-                         "13/9/2017", "14/9/2017"),
+                         "13/9/2017"),
                        format = "%d/%m/%Y")
 polls2017 <- tab
 
+latest <- data_frame(Poll = "One News Colmar Brunton", 
+                     WikipediaDates = "", 
+                     National = 46,
+                     Labour = 37,
+                     Green = 8,
+                     `NZ First` = 5,
+                     Māori = 1,
+                     ACT = 0.3,
+                     `United\nFuture` = "-",
+                     Con = "-",
+                     Mana = "-", 
+                     TOP = "-",
+                     StartDate = as.Date("2017-09-16"),
+                     EndDate = as.Date("2017-09-19"))
+
+names(latest) <- names(polls2017)
+
+polls2017 <- rbind(polls2017, latest)
 
 
 

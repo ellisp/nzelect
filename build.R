@@ -76,6 +76,7 @@ polls_both %>%    filter(Party_old != Party) %>% View
 polls_both %>%    filter(Pollster_old != Pollster) %>% View
 polls_both %>%    filter(WikipediaDates_old != WikipediaDates) %>% View
 polls_both %>%    filter(VotingIntention_old != VotingIntention) %>% View
+polls_both %>%    filter(VotingIntention_old != VotingIntention) %>% View
 
 # rm(oldpolls)
 

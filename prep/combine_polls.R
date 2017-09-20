@@ -68,7 +68,7 @@ polls <- polls %>%
 
 
 test_that("Right number of pollsters", {
-    expect_equal(length(unique(polls$Pollster)), 16)
+    expect_equal(length(unique(polls$Pollster)), 15)
 })
 
 test_that("Right number of parties", {
