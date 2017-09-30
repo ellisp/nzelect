@@ -25,7 +25,7 @@ library(grid)
 # These are one-offs, and separated from the rest of the grooming to avoid
 # repeating expensive downloads
 
-# About 1MB worth of voting results:
+# About 5MB worth of voting results from 2002 to 2014:
 # source("prep/election_results/download_votingplace_results.R")
 
 # About 130MB of shapefiles / maps, used for locating voting places in areas:
