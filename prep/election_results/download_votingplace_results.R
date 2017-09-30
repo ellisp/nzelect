@@ -49,6 +49,27 @@ download_results("http://www.electionresults.govt.nz/electionresults_2002/e9/csv
                  "downloads/elect2002/",
                  number_electorates = 69)
 
+#=================voting place locations==================
+# these are only published from 2008 onwards
+
+download.file(
+    "http://www.electionresults.govt.nz/electionresults_2014/2014_Voting_Place_Co-ordinates.xls",    
+    destfile = "downloads/elect2014/vp_coordinates.xls",
+    mode = "wb"
+)
+
+download.file(
+    "http://www.electionresults.govt.nz/electionresults_2011/2011_Polling_Place_Co-ordinates.xls",    
+    destfile = "downloads/elect2011/vp_coordinates.xls",
+    mode = "wb"
+)
+
+download.file(
+    "http://www.electionresults.govt.nz/electionresults_2008/2008_Polling_Place_Co-ordinates.xls",    
+    destfile = "downloads/elect2008/vp_coordinates.xls",
+    mode = "wb"
+)
+
 
 
 
