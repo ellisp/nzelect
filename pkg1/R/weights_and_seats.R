@@ -143,7 +143,7 @@ allocate_seats <- function(votes, parties = names(votes),
     ## checks for valid inputs
     
     
-    if(class(votes) != "numeric"){
+    if(!class(votes) %in% c("integer", "numeric")){
         stop("votes should be a numeric vector")
         }
     
@@ -165,7 +165,7 @@ allocate_seats <- function(votes, parties = names(votes),
         stop("threshold should be a single number between 0.0 and 0.5")
     }
 
-    if(class(electorate) != "numeric"){
+    if(!class(electorate) %in% c("numeric", "integer") ){
         stop("electorate should be a numeric vector of number of electorates won by each party")
     }
     
