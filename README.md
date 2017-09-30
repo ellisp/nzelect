@@ -141,17 +141,17 @@ GE2014 %>%
 ##  1          Gisborne Region      14342              0.351
 ##  2            Nelson Region      18754              0.398
 ##  3         Northland Region      53688              0.427
-##  4        Wellington Region     165207              0.430
+##  4        Wellington Region     164913              0.430
 ##  5 Manawatu-Wanganui Region      78841              0.447
 ##  6             Otago Region      75933              0.447
-##  7                     <NA>     934589              0.451
+##  7                     <NA>     935376              0.451
 ##  8       Hawke's Bay Region      53833              0.460
 ##  9            Tasman Region      17935              0.465
 ## 10        West Coast Region      12226              0.465
 ## 11     Bay of Plenty Region      89065              0.473
-## 12          Auckland Region     478760              0.486
+## 12          Auckland Region     478724              0.486
 ## 13           Waikato Region     134511              0.512
-## 14        Canterbury Region     192577              0.520
+## 14        Canterbury Region     192120              0.520
 ## 15       Marlborough Region      17474              0.520
 ## 16         Southland Region      36158              0.528
 ## 17          Taranaki Region      42586              0.552
@@ -168,16 +168,19 @@ GE2014 %>%
 ```
 
 ```
-## # A tibble: 7 x 2
-##                                               VotingPlace TotalVotes
-##                                                     <chr>      <dbl>
-## 1 Chatham Islands Council Building, 9 Tuku Road, Waitangi         90
-## 2                       Ordinary Votes BEFORE polling day     630775
-## 3          Overseas Special Votes including Defence Force      38316
-## 4                        Special Votes BEFORE polling day      71362
-## 5                            Special Votes On polling day     151530
-## 6                            Votes Allowed for Party Only      40986
-## 7        Voting places where less than 6 votes were taken       1530
+## # A tibble: 10 x 2
+##                                                VotingPlace TotalVotes
+##                                                      <chr>      <dbl>
+##  1 Chatham Islands Council Building, 9 Tuku Road, Waitangi         90
+##  2  Mount Pleasant Community Centre, 3 Mccormacks Bay Road        457
+##  3                       Ordinary Votes BEFORE polling day     630775
+##  4               Otaki Surf Lifesaving Club, Marine Parade        294
+##  5          Overseas Special Votes including Defence Force      38316
+##  6              Port Fitzroy Aotea Centre (Nurses Cottage)         36
+##  7                        Special Votes BEFORE polling day      71362
+##  8                            Special Votes On polling day     151530
+##  9                            Votes Allowed for Party Only      40986
+## 10        Voting places where less than 6 votes were taken       1530
 ```
 
 ```r
@@ -301,8 +304,8 @@ electorates <- c(1,0,0,27,0,1,41,1,1,0)
 
 polls %>%
     filter(MidDate > "2014-12-30" & MidDate < "2017-10-1") %>%
-    mutate(wt_p = weight_polls(MidDate, method = "pundit"),
-           wt_c = weight_polls(MidDate, method = "curia")) %>%
+    mutate(wt_p = weight_polls(MidDate, method = "pundit", refdate = as.Date("2017-09-22")),
+           wt_c = weight_polls(MidDate, method = "curia", refdate = as.Date("2017-09-22"))) %>%
     group_by(Party) %>%
     summarise(pundit_perc = round(sum(VotingIntention * wt_p, na.rm = TRUE) / sum(wt_p) * 100, 1),
               curia_perc = round(sum(VotingIntention * wt_c, na.rm = TRUE) / sum(wt_c) * 100, 1)) %>%
@@ -364,7 +367,7 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 ```
 
 ```
-## Warning: Removed 13 rows containing missing values (geom_point).
+## Warning: Removed 642 rows containing missing values (geom_point).
 ```
 
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)

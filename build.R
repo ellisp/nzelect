@@ -26,33 +26,33 @@ library(grid)
 # repeating expensive downloads
 
 # About 1MB worth of voting results:
-# source("prep/download_votingplace_results.R")
+# source("prep/election_results/download_votingplace_results.R")
 
 # About 130MB of shapefiles / maps, used for locating voting places in areas:
-# source("prep/download_map_shapefiles.R")
+# source("prep/census_related/download_map_shapefiles.R")
 
-# source("prep/download_census2013.R")
+# source("prep/census_related/download_census2013.R")
 
 # download.file("http://www.electionresults.govt.nz/electionresults_2014/2014_Voting_Place_Co-ordinates.xls",
 #              destfile = "downloads/elect2014/vp_coordinates.xls", mode = "wb")
 
 #----------tidying----------------
 # import all the voting results CVS and amalgamate into a single object
-source("prep/tidy_votingplace_results.R") # 30 seconds
+source("prep/election_results/tidy_votingplace_results.R") # 30 seconds
 
 # download and import the actual locations.  Includes a 575KB download.
 # This script also calls ./prep/match_locations_to_areas.R from within itself 
 # (takes a few minutes to run because of importing shapefiles, downloaded earlier):
-source("prep/import_votingplace_locations.R") # 3 minutes
+source("prep/election_results/import_votingplace_locations.R") # 3 minutes
 
 # Import and tidy up census data
-source("prep/import_census.R") # 30 seconds
+source("prep/census_related/import_census.R") # 30 seconds
 
 # Match census data to shapefiles so we have lat and long
-source("prep/add_locations_census.R")
+source("prep/census_related/add_locations_census.R")
 
 # Create cartograms
-# go to "prep/create-cartograms.R" and run by hand; requires some manual steps with ScapeToad
+# go to "prep/census_related/create-cartograms.R" and run by hand; requires some manual steps with ScapeToad
 
 #-------opinion polls and related-------------------
 # Load in the existing version of the polls to facilitate checking and seeing
@@ -61,12 +61,12 @@ load("pkg1/data/polls.rda")
 oldpolls <- polls
 rm(polls)
 
-source("prep/download_polls_2005.R")
-source("prep/download_polls_2008.R")
-source("prep/download_polls_2011.R")
-source("prep/download_polls_2014.R")
-source("prep/download_polls_2017.R")
-source("prep/combine_polls.R")
+source("prep/polls/download_polls_2005.R")
+source("prep/polls/download_polls_2008.R")
+source("prep/polls/download_polls_2011.R")
+source("prep/polls/download_polls_2014.R")
+source("prep/polls/download_polls_2017.R")
+source("prep/polls/combine_polls.R")
 
 expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
 polls_both <- cbind(oldpolls, polls[1:nrow(oldpolls), ])
@@ -99,7 +99,7 @@ knit("README.Rmd", "README.md")
 
 # run CRAN checks
 check("pkg1") 
-check("pkg2") # one note from exceeding 5MB
+check("pkg2") # one note from exceeding 5MB, and the cartograms need helpfiles
 
 # create vignettes for actual builds
 build_vignettes("pkg1") 
