@@ -122,27 +122,24 @@
 #'   the vote).  In New Zealand each voter has to vote for both an individual
 #'   candidate to represent their electorate, and a party vote for the overall makeup
 #'   of Parliament.
-#'   \item \code{candidate}. If VotingType == "Candidate", the name of the candidate; 
+#'   \item \code{candidate}. If voting_type == "Candidate", the name of the candidate; 
 #'   otherwise NA
 #'   \item \code{election_year}.  Year of the election.
 #' }
 #'
-#' @format A data frame with 136,195 rows and 7 variables.
-#' @details \code{GE2014} is deprecated; please use \code{nzge} instead - it has results back to 2002 and is the one we 
-#' will update in future.
+#' @format A data frame with 728,602 rows and 8 variables.
 #' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
-#' @seealso \code{\link{Locations2014}}
+#' @seealso \code{\link{voting_places}}
 #' @examples
 #' # the following matches the results published at
 #' # http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
 #' library(tidyr)
 #' library(dplyr)
-#' GE2014 %>%
-#'     mutate(VotingType = paste0(VotingType, "Vote")) %>%
-#'     group_by(Party, VotingType) %>%
-#'     summarise(Votes = sum(Votes)) %>%
-#'     spread(VotingType, Votes) %>%
-#'     select(Party, PartyVote, CandidateVote) %>%
+#' nzge %>%
+#'     mutate(voting_type = paste0(voting_type, " vote")) %>%
+#'     group_by(party, voting_type, election_year) %>%
+#'     summarise(votes = sum(votes)) %>%
+#'     spread(voting_type, votes) %>%
 #'     ungroup() %>%
-#'     arrange(desc(PartyVote))
+#'     arrange(election_year, desc(`Party vote`))
 "nzge"
