@@ -12,15 +12,18 @@
 
 
 
-
+nztmp4s <- "+proj=tmerc +lat_0=0.0 +lon_0=173.0 +k=0.9996 +x_0=1600000.0 +y_0=10000000.0 +datum=WGS84 +units=m"
 
 #-------------Import Territorial Authority map------------------
 TA <- readOGR("downloads/shapefiles/2014 Digital Boundaries Generlised Clipped",
               "TA2014_GV_Clipped")
 
 #------------------convert locations to sp format-----------
-locs <- SpatialPoints(coords = voting_places[, c("NZTM2000Easting", "NZTM2000Northing")],
-                      proj4string = TA@proj4string)
+# first, project them back to NZTM2000 so they are the same as the maps
+locs_nztm <- rgdal::project(as.matrix(voting_places[, c("longitude", "latitude")]), proj = nztmp4s, inv = FALSE)
+
+# then convert  into SpatialPoints objects
+locs <- SpatialPoints(coords = locs_nztm, proj4string = TA@proj4string)
 
 #-------------Match to Territorial Authority-------
 locs2 <- over(locs, TA)
