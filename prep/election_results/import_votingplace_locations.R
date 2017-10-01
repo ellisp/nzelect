@@ -54,7 +54,15 @@ print(vpv[!vpv %in% vpa])
 
 voting_places <- vpc %>%
     select(-Voting.Place.Address) 
+
 names(voting_places) <- gsub(".", "", names(voting_places), fixed = TRUE)
+
+# Chatham Islands has wrong or coordinates in 2014 and 2011
+voting_places <- voting_places %>%
+    mutate(NZTM2000Northing = ifelse(VotingPlaceSuburb == "Chatham Islands", 395114, NZTM2000Northing),
+           NZTM2000Easting = ifelse(VotingPlaceSuburb == "Chatham Islands", 805299, NZTM2000Easting))
+
+
 
 # match to mesh blocks, regions, etc
 source("./prep/election_results/match_locations_to_areas.R")

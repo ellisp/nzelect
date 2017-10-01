@@ -133,6 +133,8 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
                candidate = str_trim(Candidate),
                election_year = election_year)
     
+    names(combined) <- tolower(names(combined))
+    
     return(combined)
     
 }
