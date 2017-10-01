@@ -67,7 +67,7 @@ voting_places <- voting_places %>%
 # match to mesh blocks, regions, etc
 source("./prep/election_results/match_locations_to_areas.R")
 
-save(voting_places, file = "pkg1/data/Locations2014.rda", compress = "xz")
+save(voting_places, file = "pkg1/data/voting_places.rda", compress = "xz")
 
 
 

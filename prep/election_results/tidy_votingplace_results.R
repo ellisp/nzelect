@@ -34,9 +34,9 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
         # read in the candidate names and parties  
         first_blank <- which(tmp[,2] == "")
         candidates_parties <- tmp[(first_blank + 2) : nrow(tmp), 1:2]
-        names(candidates_parties) <- c("Candidate", "Party")
+        names(candidates_parties) <- c("candidate", "party")
         candidates_parties <- rbind(candidates_parties,
-                                    data.frame(Candidate="Informal Candidate Votes", Party="Informal Candidate Votes"))
+                                    data.frame(candidate="Informal Candidate Votes", party="Informal Candidate Votes"))
         
         # we knock out all the rows from (first_blank - 1) (which is the total)
         tmp <- tmp[-((first_blank - 1) : nrow(tmp)), ]
@@ -58,18 +58,18 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
         
         # normalise / tidy
         tmp <- tmp[names(tmp) != "Total Valid Candidate Votes"] %>%
-            gather(Candidate, Votes, -approx_location, -voting_place)
+            gather(candidate, votes, -approx_location, -voting_place)
         
         tmp$Electorate <- electorate
         tmp <- tmp %>%
-            left_join(candidates_parties, by = "Candidate")
+            left_join(candidates_parties, by = "candidate")
         results_voting_place[[i]] <- tmp
     }
     
     # combine all electorates
     candidate_results_voting_place <- do.call("rbind", results_voting_place) %>%
-        mutate(Votes = as.numeric(Votes),
-               Party = gsub("M..ori Party", "Maori Party", Party),
+        mutate(votes = as.numeric(votes),
+               party = gsub("M..ori Party", "Maori Party", party),
                voting_type = "Candidate")
     
     #-------------------party votes--------------------
@@ -113,24 +113,24 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
         }  
         
         tmp <- tmp[names(tmp) != "Total Valid Party Votes"] %>%
-            gather(Party, Votes, -approx_location, -voting_place)
+            gather(party, votes, -approx_location, -voting_place)
         
         tmp$Electorate <- electorate
         results_voting_place[[i]] <- tmp
     }
     
     party_results_voting_place <- do.call("rbind", results_voting_place) %>%
-        mutate(Votes = as.numeric(Votes),
-               Party = gsub("M..ori Party", "Maori Party", Party),
+        mutate(votes = as.numeric(votes),
+               party = gsub("M..ori Party", "Maori Party", party),
                voting_type = "Party")
     
     #---------------combine the party and candidate voting place results--------------
     combined <- party_results_voting_place %>%
-        mutate(Candidate = NA) %>%
+        mutate(candidate = NA) %>%
         rbind(candidate_results_voting_place)  %>%
         mutate(voting_place = str_trim(voting_place),
                approx_location = str_trim(approx_location),
-               candidate = str_trim(Candidate),
+               candidate = str_trim(candidate),
                election_year = election_year)
     
     names(combined) <- tolower(names(combined))
