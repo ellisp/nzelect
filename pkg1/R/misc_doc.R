@@ -82,10 +82,10 @@
 #'   \item \code{ElectorateName}.  Name of electorate in which the voting place is 
 #'   physically located.
 #'   \item \code{VotingPlaceID}.
-#'   \item \code{NZTM2000Northing}
-#'   \item \code{NZTM2000Easting}
-#'   \item \code{WGS84Latitude}
-#'   \item \code{WGS84Longitude}
+#'   \item \code{northing} Coordinates, either NZTM2000 or NZMG - see the \code{coordinate_system} variable for which
+#'   \item \code{easting} as \code{northing}
+#'   \item \code{longitude}
+#'   \item \code{latitude}
 #'   \item \code{voting_place}.  Address of the VotingPlace.  Cross-references to
 #'    \code{nzge$voting_place}.
 #'    \item \code{election_year}.  Year in which this was a voting place for the election.

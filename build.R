@@ -93,7 +93,7 @@ document("pkg2")
 
 # unit tests, including check against published totals
 test("pkg1")
-test("pkg2") 
+test("pkg2") # wrong number of cols in REGC2013...
 
 # create README for GitHub repo:
 knit("README.Rmd", "README.md")

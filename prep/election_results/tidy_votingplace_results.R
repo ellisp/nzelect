@@ -1,6 +1,5 @@
 # ./prep/tidy_votingplace_results.R
 # imports previously downloaded CSVs of election results by voting place.
-# So far only for 2014 General Election
 # Peter Ellis, April 2016
 
 #===================define a function================
@@ -131,7 +130,15 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
         mutate(voting_place = str_trim(voting_place),
                approx_location = str_trim(approx_location),
                candidate = str_trim(candidate),
-               election_year = election_year)
+               election_year = election_year,
+               party = gsub("M.ori", "Maori", party),
+               party = gsub("^ACT$", "ACT New Zealand", party),
+               party = gsub("^Aotearoa NZ Youth$", "Aotearoa NZ Youth Party", party),
+               party = gsub("^Conservative$", "Conservative Party", party),
+               party = gsub("^Human Rights$", "Human Rights Party", party),
+               party = gsub("^NZ Economic Euthenics$", "NZ Economic Euthenics Party", party),
+               party = gsub("^NZ First$", "New Zealand First Party", party),
+               party = gsub("United Future New Zealand", "United Future", party))
     
     names(combined) <- tolower(names(combined))
     
