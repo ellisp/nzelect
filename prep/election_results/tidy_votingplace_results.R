@@ -40,25 +40,25 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
         
         # we knock out all the rows from (first_blank - 1) (which is the total)
         tmp <- tmp[-((first_blank - 1) : nrow(tmp)), ]
-        names(tmp)[1:2] <- c("ApproxLocation", "VotingPlace")
+        names(tmp)[1:2] <- c("approx_location", "voting_place")
         
         # in some of the data there are annoying subheadings in the second column.  We can
         # identify these as rows that return NA when you sum up where the votes should be
         tmp <- tmp[!is.na(apply(tmp[, -(1:2)], 1, function(x){sum(as.numeric(x))})), ]
         
         # need to fill in the gaps where there is no polling location
-        last_ApproxLocation <- tmp[1, 1]
+        last_approx_location <- tmp[1, 1]
         for(j in 1: nrow(tmp)){
             if(tmp[j, 1] == "") {
-                tmp[j, 1] <- last_ApproxLocation
+                tmp[j, 1] <- last_approx_location
             } else {
-                last_ApproxLocation <- tmp[j, 1]
+                last_approx_location <- tmp[j, 1]
             }
         }  
         
         # normalise / tidy
         tmp <- tmp[names(tmp) != "Total Valid Candidate Votes"] %>%
-            gather(Candidate, Votes, -ApproxLocation, -VotingPlace)
+            gather(Candidate, Votes, -approx_location, -voting_place)
         
         tmp$Electorate <- electorate
         tmp <- tmp %>%
@@ -70,7 +70,7 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
     candidate_results_voting_place <- do.call("rbind", results_voting_place) %>%
         mutate(Votes = as.numeric(Votes),
                Party = gsub("M..ori Party", "Maori Party", Party),
-               VotingType = "Candidate")
+               voting_type = "Candidate")
     
     #-------------------party votes--------------------
     filenames <- paste0(origin, "party_", 1:number_electorates, ".csv")
@@ -96,24 +96,24 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
         
         # we knock out all the rows from (first_blank - 1) (which is the total)
         tmp <- tmp[-((first_blank - 1) : nrow(tmp)), ]
-        names(tmp)[1:2] <- c("ApproxLocation", "VotingPlace")
+        names(tmp)[1:2] <- c("approx_location", "voting_place")
         
         # in some of the data there are annoying subheadings in the second column.  We can
         # identify these as rows that return NA when you sum up where the votes should be
         tmp <- tmp[!is.na(apply(tmp[, -(1:2)], 1, function(x){sum(as.numeric(x))})), ]
         
         # need to fill in the gaps where there is no polling location
-        last_ApproxLocation <- tmp[1, 1]
+        last_approx_location <- tmp[1, 1]
         for(j in 1: nrow(tmp)){
             if(tmp[j, 1] == "") {
-                tmp[j, 1] <- last_ApproxLocation
+                tmp[j, 1] <- last_approx_location
             } else {
-                last_ApproxLocation <- tmp[j, 1]
+                last_approx_location <- tmp[j, 1]
             }
         }  
         
         tmp <- tmp[names(tmp) != "Total Valid Party Votes"] %>%
-            gather(Party, Votes, -ApproxLocation, -VotingPlace)
+            gather(Party, Votes, -approx_location, -voting_place)
         
         tmp$Electorate <- electorate
         results_voting_place[[i]] <- tmp
@@ -122,14 +122,14 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
     party_results_voting_place <- do.call("rbind", results_voting_place) %>%
         mutate(Votes = as.numeric(Votes),
                Party = gsub("M..ori Party", "Maori Party", Party),
-               VotingType = "Party")
+               voting_type = "Party")
     
     #---------------combine the party and candidate voting place results--------------
     combined <- party_results_voting_place %>%
         mutate(Candidate = NA) %>%
         rbind(candidate_results_voting_place)  %>%
-        mutate(voting_place = str_trim(VotingPlace),
-               approx_location = str_trim(ApproxLocation),
+        mutate(voting_place = str_trim(voting_place),
+               approx_location = str_trim(approx_location),
                candidate = str_trim(Candidate),
                election_year = election_year)
     
