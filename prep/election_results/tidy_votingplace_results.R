@@ -59,7 +59,7 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
         tmp <- tmp[names(tmp) != "Total Valid Candidate Votes"] %>%
             gather(candidate, votes, -approx_location, -voting_place)
         
-        tmp$Electorate <- electorate
+        tmp$electorate <- electorate
         tmp <- tmp %>%
             left_join(candidates_parties, by = "candidate")
         results_voting_place[[i]] <- tmp
@@ -114,7 +114,7 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
         tmp <- tmp[names(tmp) != "Total Valid Party Votes"] %>%
             gather(party, votes, -approx_location, -voting_place)
         
-        tmp$Electorate <- electorate
+        tmp$electorate <- electorate
         results_voting_place[[i]] <- tmp
     }
     
@@ -138,9 +138,9 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
                party = gsub("^Human Rights$", "Human Rights Party", party),
                party = gsub("^NZ Economic Euthenics$", "NZ Economic Euthenics Party", party),
                party = gsub("^NZ First$", "New Zealand First Party", party),
-               party = gsub("United Future New Zealand", "United Future", party))
-    
-    names(combined) <- tolower(names(combined))
+               party = gsub("United Future New Zealand", "United Future", party)) %>%
+        mutate(electorate_number = as.numeric(str_trim(str_sub(electorate, -2))),
+               electorate = gsub(" [0-9]+$", "", electorate))
     
     return(combined)
     
@@ -150,5 +150,7 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
 
 results <- lapply(c(2002, 2005, 2008, 2011, 2014), tidy_results)
 nzge <- do.call("rbind", results)
+
+
 
 save("nzge", file = "pkg1/data/nzge.rda", compress = "xz")

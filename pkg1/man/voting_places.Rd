@@ -4,7 +4,7 @@
 \name{voting_places}
 \alias{voting_places}
 \title{General Election Voting Places 2008 and onwards}
-\format{A data frame with 7,909 rows and 13 variables.}
+\format{A data frame with 7,909 rows and 15 variables.}
 \source{
 \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} (and similar for earlier years) 
 for the voting place locations.
@@ -20,23 +20,29 @@ Voting places for the New Zealand general elections in 2008, 2011 and 2014
 }
 \details{
 \itemize{
-  \item \code{ElectorateNumber}
-  \item \code{ElectorateName}.  Name of electorate in which the voting place is 
+  \item \code{electorate_number}
+  \item \code{electorate}.  Name of electorate in which the voting place is 
   physically located.
-  \item \code{VotingPlaceID}.
-  \item \code{northing} Coordinates, either NZTM2000 or NZMG - see the \code{coordinate_system} variable for which
-  \item \code{easting} as \code{northing}
-  \item \code{longitude}
-  \item \code{latitude}
+  \item \code{voting_place_id}.
+  \item \code{voting_place_suburb}
+  \item \code{northing} Coordinates, on one of two incompatible systems - either NZTM2000 or NZMG - 
+  see the \code{coordinate_system} variable for which.
+  \item \code{easting} as per \code{northing}
+  \item \code{longitude} Use with caution.
+  \item \code{latitude} Use with caution.
   \item \code{voting_place}.  Address of the VotingPlace.  Cross-references to
    \code{nzge$voting_place}.
    \item \code{election_year}.  Year in which this was a voting place for the election.
+   \item \code{coordinate_system}.  Either NZMG (New Zealand Map Grid) or NZTM2000 (New Zealand Transverse 
+   Mercator Projection)
   \item \code{TA2014_NAM}.  Name of the Territorial Authority in which the voting 
-  place is physically located.
-  \item \code{REGC2014_n}.  Name of the Regional Council in which the voting place is physically located.
-  \item \code{AU2014}.  Number of the Area Unit in which the voting place is physically located.
-  \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located.
+  place is physically located.  Use with caution.
+  \item \code{REGC2014_n}.  Name of the Regional Council in which the voting place is physically located. Use with caution.
+  \item \code{AU2014}.  Number of the Area Unit in which the voting place is physically located.  Use with caution.
+  \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located. Use with caution.
 }
+
+There are problems with the locations of many voting places which will be resolved in future versions.
 }
 \seealso{
 \code{\link{nzge}}

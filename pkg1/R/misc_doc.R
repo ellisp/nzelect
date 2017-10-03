@@ -18,10 +18,9 @@
 #'   \item \code{Candidate}. If VotingType == "Candidate", the name of the candidate; 
 #'   otherwise NA
 #' }
-#'
-#' @format A data frame with 136,195 rows and 7 variables.
-#' @details \code{GE2014} is deprecated; please use \code{nzge} instead - it has results back to 2002 and is the one we 
+#' \code{GE2014} is deprecated; please use \code{nzge} instead - it has results back to 2002 and is the one we 
 #' will update in future.
+#' @format A data frame with 136,195 rows and 7 variables.
 #' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
 #' @seealso \code{\link{Locations2014}}
 #' @examples
@@ -44,6 +43,7 @@
 #'
 #' Voting places for the New Zealand 2014 general election 
 #'
+#' @details
 #' \itemize{
 #'   \item \code{ElectorateNumber}
 #'   \item \code{ElectorateName}.  Name of electorate in which the voting place is 
@@ -61,10 +61,10 @@
 #'   \item \code{AU2014}.  Number of the Area Unit in which the voting place is physically located.
 #'   \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located.
 #' }
+#' \code{Locations2014} is deprecated; please use \code{voting_places} instead - it has locations back to 
+#' 2008 and is the one we will update in future.
 #'
 #' @format A data frame with 2,568 rows and 9 variables.
-#' #' @details \code{Locations2014} is deprecated; please use \code{voting_places} instead - it has locations back to 
-#' 2008 and is the one we will update in future.
 #' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} for the voting place locations.
 #' \url{http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx} 
 #' for the 2014 shapefiles for Regional Council, Territorial Authority, and Area Unit.  See
@@ -78,25 +78,30 @@
 #' Voting places for the New Zealand general elections in 2008, 2011 and 2014 
 #'
 #' \itemize{
-#'   \item \code{ElectorateNumber}
-#'   \item \code{ElectorateName}.  Name of electorate in which the voting place is 
+#'   \item \code{electorate_number}
+#'   \item \code{electorate}.  Name of electorate in which the voting place is 
 #'   physically located.
-#'   \item \code{VotingPlaceID}.
-#'   \item \code{northing} Coordinates, either NZTM2000 or NZMG - see the \code{coordinate_system} variable for which
-#'   \item \code{easting} as \code{northing}
-#'   \item \code{longitude}
-#'   \item \code{latitude}
+#'   \item \code{voting_place_id}.
+#'   \item \code{voting_place_suburb}
+#'   \item \code{northing} Coordinates, on one of two incompatible systems - either NZTM2000 or NZMG - 
+#'   see the \code{coordinate_system} variable for which.
+#'   \item \code{easting} as per \code{northing}
+#'   \item \code{longitude} Use with caution.
+#'   \item \code{latitude} Use with caution.
 #'   \item \code{voting_place}.  Address of the VotingPlace.  Cross-references to
 #'    \code{nzge$voting_place}.
 #'    \item \code{election_year}.  Year in which this was a voting place for the election.
+#'    \item \code{coordinate_system}.  Either NZMG (New Zealand Map Grid) or NZTM2000 (New Zealand Transverse 
+#'    Mercator Projection)
 #'   \item \code{TA2014_NAM}.  Name of the Territorial Authority in which the voting 
-#'   place is physically located.
-#'   \item \code{REGC2014_n}.  Name of the Regional Council in which the voting place is physically located.
-#'   \item \code{AU2014}.  Number of the Area Unit in which the voting place is physically located.
-#'   \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located.
+#'   place is physically located.  Use with caution.
+#'   \item \code{REGC2014_n}.  Name of the Regional Council in which the voting place is physically located. Use with caution.
+#'   \item \code{AU2014}.  Number of the Area Unit in which the voting place is physically located.  Use with caution.
+#'   \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located. Use with caution.
 #' }
 #'
-#' @format A data frame with 7,909 rows and 13 variables.
+#' @format A data frame with 7,909 rows and 15 variables.
+#' @details There are problems with the locations of many voting places which will be resolved in future versions.
 #' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} (and similar for earlier years) 
 #' for the voting place locations.
 #' \url{http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx} 
@@ -111,13 +116,13 @@
 #'
 #' \itemize{
 #'   \item \code{approx_location}. Approximate location of voting place
-#'   \item \code{vorting_place}. Exact location of voting place
+#'   \item \code{vorting_place}. Description of exact location of voting place
 #'   \item \code{party}. Party voted for (party vote) or party of candidate voted for
 #'   (candidate vote)
 #'   \item \code{votes}. Number of votes
 #'   \item \code{electorate}. Electorate in which voters were enrolled.  Note that this 
-#'   is not necessarily the physical location of the VotingPlace, so VotingPlace
-#'   and Electorate have a many to many relationship
+#'   is not necessarily the physical location of the voting_place, so voting_place
+#'   and electorate have a many to many relationship
 #'   \item \code{voting_type}. Party (proportional representation) or Candidate (first past 
 #'   the vote).  In New Zealand each voter has to vote for both an individual
 #'   candidate to represent their electorate, and a party vote for the overall makeup
@@ -125,9 +130,10 @@
 #'   \item \code{candidate}. If voting_type == "Candidate", the name of the candidate; 
 #'   otherwise NA
 #'   \item \code{election_year}.  Year of the election.
+#'   \item \code{electorate_number}.  Number of the electorate.
 #' }
 #'
-#' @format A data frame with 728,602 rows and 8 variables.
+#' @format A data frame with 728,602 rows and 9 variables.
 #' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
 #' @seealso \code{\link{voting_places}}
 #' @examples

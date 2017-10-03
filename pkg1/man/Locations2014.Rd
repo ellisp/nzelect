@@ -4,9 +4,7 @@
 \name{Locations2014}
 \alias{Locations2014}
 \title{General Election Voting Places 2014}
-\format{A data frame with 2,568 rows and 9 variables.
-#' @details \code{Locations2014} is deprecated; please use \code{voting_places} instead - it has locations back to 
-2008 and is the one we will update in future.}
+\format{A data frame with 2,568 rows and 9 variables.}
 \source{
 \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} for the voting place locations.
 \url{http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx} 
@@ -37,6 +35,8 @@ Voting places for the New Zealand 2014 general election
   \item \code{AU2014}.  Number of the Area Unit in which the voting place is physically located.
   \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located.
 }
+\code{Locations2014} is deprecated; please use \code{voting_places} instead - it has locations back to 
+2008 and is the one we will update in future.
 }
 \seealso{
 \code{\link{GE2014}}

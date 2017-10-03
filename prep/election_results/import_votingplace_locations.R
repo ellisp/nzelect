@@ -90,7 +90,9 @@ names(voting_places) <- gsub(".", "", names(voting_places), fixed = TRUE)
 # Chatham Islands has wrong or coordinates in 2014 and 2011
 voting_places <- voting_places %>%
     mutate(longitude = ifelse(VotingPlaceSuburb == "Chatham Islands", 175.9, longitude),
-           latitude = ifelse(VotingPlaceSuburb == "Chatham Islands", -44.0, latitude))
+           latitude = ifelse(VotingPlaceSuburb == "Chatham Islands", -44.0, latitude)) %>%
+    rename(electorate_number = ElectorateNumber, electorate = ElectorateName,
+           voting_place_id = VotingPlaceID, voting_place_suburb = VotingPlaceSuburb)
 
 # match to mesh blocks, regions, etc
 source("./prep/election_results/match_locations_to_areas.R")

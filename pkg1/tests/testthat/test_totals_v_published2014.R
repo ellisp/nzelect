@@ -21,6 +21,11 @@ expect_equal(
 )
 
 expect_equal(
+    sum(filter(nzge, election_year == 2014 & party == "Labour Party" & voting_type == "Party")$votes),
+    604535
+)
+
+expect_equal(
     sum(filter(GE2014, Party == "Labour Party" & VotingType == "Candidate")$Votes),
     801287
 )
@@ -32,6 +37,11 @@ expect_equal(
 
 expect_equal(
     sum(filter(GE2014, Party == "New Zealand First Party" & VotingType == "Candidate")$Votes),
+    73384
+)
+
+expect_equal(
+    sum(filter(nzge, election_year == 2014 & party == "New Zealand First Party" & voting_type == "Candidate")$votes),
     73384
 )
 

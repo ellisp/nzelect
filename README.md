@@ -339,6 +339,13 @@ polls %>%
 ```r
 library(nzcensus)
 library(ggrepel)
+```
+
+```
+## Warning: package 'ggrepel' was built under R version 3.4.2
+```
+
+```r
 ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC2013_N) ) +
     geom_point() +
     geom_text_repel(colour = "steelblue") +
@@ -367,7 +374,7 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 ```
 
 ```
-## Warning: Removed 642 rows containing missing values (geom_point).
+## Warning: Removed 13 rows containing missing values (geom_point).
 ```
 
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)

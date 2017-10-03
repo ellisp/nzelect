@@ -31,7 +31,6 @@ New Zealand 2014 general election results by voting place
   \item \code{Candidate}. If VotingType == "Candidate", the name of the candidate; 
   otherwise NA
 }
-
 \code{GE2014} is deprecated; please use \code{nzge} instead - it has results back to 2002 and is the one we 
 will update in future.
 }

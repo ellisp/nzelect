@@ -4,7 +4,7 @@
 \name{nzge}
 \alias{nzge}
 \title{General Election Results 2002 and onwards}
-\format{A data frame with 728,602 rows and 8 variables.}
+\format{A data frame with 728,602 rows and 9 variables.}
 \source{
 \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
 }
@@ -17,13 +17,13 @@ New Zealand general election results by voting place for 2002, 2005, 2008, 2011 
 \details{
 \itemize{
   \item \code{approx_location}. Approximate location of voting place
-  \item \code{vorting_place}. Exact location of voting place
+  \item \code{vorting_place}. Description of exact location of voting place
   \item \code{party}. Party voted for (party vote) or party of candidate voted for
   (candidate vote)
   \item \code{votes}. Number of votes
   \item \code{electorate}. Electorate in which voters were enrolled.  Note that this 
-  is not necessarily the physical location of the VotingPlace, so VotingPlace
-  and Electorate have a many to many relationship
+  is not necessarily the physical location of the voting_place, so voting_place
+  and electorate have a many to many relationship
   \item \code{voting_type}. Party (proportional representation) or Candidate (first past 
   the vote).  In New Zealand each voter has to vote for both an individual
   candidate to represent their electorate, and a party vote for the overall makeup
@@ -31,6 +31,7 @@ New Zealand general election results by voting place for 2002, 2005, 2008, 2011 
   \item \code{candidate}. If voting_type == "Candidate", the name of the candidate; 
   otherwise NA
   \item \code{election_year}.  Year of the election.
+  \item \code{electorate_number}.  Number of the electorate.
 }
 }
 \examples{

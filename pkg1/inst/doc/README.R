@@ -5,14 +5,14 @@
 library(nzelect)
 library(tidyr)
 library(dplyr)
-GE2014 %>%
-    mutate(VotingType = paste0(VotingType, "Vote")) %>%
-    group_by(Party, VotingType) %>%
-    summarise(Votes = sum(Votes)) %>%
-    spread(VotingType, Votes) %>%
-    select(Party, PartyVote, CandidateVote) %>%
+nzge %>%
+    filter(election_year == 2011) %>%
+    mutate(voting_type = paste0(voting_type, " Vote")) %>%
+    group_by(party, voting_type) %>%
+    summarise(votes = sum(votes)) %>%
+    spread(voting_type, votes) %>%
     ungroup() %>%
-    arrange(desc(PartyVote))
+    arrange(desc(`Party Vote`))
 
 
 ## ----fig.width = 7, fig.height = 7---------------------------------------
@@ -22,31 +22,32 @@ library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
 library(dplyr)
 
-proportions <- GE2014 %>%
-    group_by(VotingPlace, VotingType) %>%
-    summarise(ProportionLabour = sum(Votes[Party == "Labour Party"]) / sum(Votes),
-              ProportionNational = sum(Votes[Party == "National Party"]) / sum(Votes),
-              ProportionGreens = sum(Votes[Party == "Green Party"]) / sum(Votes),
-              ProportionNZF = sum(Votes[Party == "New Zealand First Party"]) / sum(Votes),
-              ProportionMaori = sum(Votes[Party == "Maori Party"]) / sum(Votes))
+proportions <- nzge %>%
+    filter(election_year == 2014) %>%
+    group_by(voting_place, voting_type) %>%
+    summarise(`proportion Labour` = sum(votes[party == "Labour Party"]) / sum(votes),
+              `proportion National` = sum(votes[party == "National Party"]) / sum(votes),
+              `proportion Greens` = sum(votes[party == "Green Party"]) / sum(votes),
+              `proportion NZF` = sum(votes[party == "New Zealand First Party"]) / sum(votes),
+              `proportion Maori` = sum(votes[party == "Maori Party"]) / sum(votes))
 
-ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
+ggpairs(proportions, aes(colour = voting_type), columns = 3:5)
 
 
 
 ## ----fig.width = 7, fig.height = 5---------------------------------------
 library(ggthemes) # for theme_map()
-GE2014 %>%
-    filter(VotingType == "Party") %>%
-    group_by(VotingPlace) %>%
-    summarise(ProportionNational = sum(Votes[Party == "National Party"] / sum(Votes))) %>%
-    left_join(Locations2014, by = "VotingPlace") %>%
-    filter(VotingPlaceSuburb != "Chatham Islands") %>%
-    mutate(MostlyNational = ifelse(ProportionNational > 0.5, 
+nzge %>%
+    filter(voting_type == "Party" & election_year == 2014) %>%
+    group_by(voting_place, election_year) %>%
+    summarise(proportion_national = sum(votes[party == "National Party"] / sum(votes))) %>%
+    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    filter(voting_place_suburb != "Chatham Islands") %>%
+    mutate(mostly_national = ifelse(proportion_national > 0.5, 
                                    "Mostly voted National", "Mostly didn't vote National")) %>%
-    ggplot(aes(x = WGS84Longitude, y = WGS84Latitude, colour = ProportionNational)) +
+    ggplot(aes(x = longitude, y = latitude, colour = proportion_national)) +
     geom_point() +
-    facet_wrap(~MostlyNational) +
+    facet_wrap(~mostly_national) +
     coord_map() +
     borders("nz") +
     scale_colour_gradient2(label = percent, mid = "grey80", midpoint = 0.5) +
@@ -55,38 +56,39 @@ GE2014 %>%
     ggtitle("Voting patterns in the 2014 General Election\n")
 
 ## ----fig.width=7, fig.height=9-------------------------------------------
-GE2014 %>%
-    filter(VotingType == "Party") %>%
-    left_join(Locations2014, by = "VotingPlace") %>%
+nzge %>%
+    filter(election_year == 2014) %>%
+    filter(voting_type == "Party") %>%
+    left_join(voting_places, by = c("voting_place", "election_year")) %>%
     group_by(REGC2014_N) %>%
     summarise(
-        TotalVotes = sum(Votes),
-        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
-    arrange(ProportionNational)
+        total_votes = sum(votes),
+        proportion_national = round(sum(votes[party == "National Party"]) / total_votes, 3)) %>%
+    arrange(proportion_national)
     
 # what are all those NA Regions?:
-GE2014 %>%
-    filter(VotingType == "Party") %>%
-    left_join(Locations2014, by = "VotingPlace") %>%
+nzge %>%
+    filter(voting_type == "Party" & election_year == 2014) %>%
+    left_join(voting_places, by = c("voting_place", "election_year")) %>%
     filter(is.na(REGC2014_N)) %>%
-    group_by(VotingPlace) %>%
-    summarise(TotalVotes = sum(Votes))
+    group_by(voting_place) %>%
+    summarise(total_votes = sum(votes))
     
 
 
-GE2014 %>%
-    filter(VotingType == "Party") %>%
-    left_join(Locations2014, by = "VotingPlace") %>%
+nzge %>%
+    filter(voting_type == "Party" & election_year == 2014) %>%
+    left_join(voting_places, by = c("voting_place", "election_year")) %>%
     group_by(TA2014_NAM) %>%
     summarise(
-        TotalVotes = sum(Votes),
-        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
-    arrange(desc(ProportionNational)) %>%
+        total_votes = sum(votes),
+        proportion_national = round(sum(votes[party == "National Party"]) / total_votes, 3)) %>%
+    arrange(desc(proportion_national)) %>%
     mutate(TA = ifelse(is.na(TA2014_NAM), "Special or other", as.character(TA2014_NAM)),
            TA = gsub(" District", "", TA),
            TA = gsub(" City", "", TA),
            TA = factor(TA, levels = TA)) %>%
-    ggplot(aes(x = ProportionNational, y = TA, size = TotalVotes)) +
+    ggplot(aes(x = proportion_national, y = TA, size = total_votes)) +
     geom_point() +
     scale_x_continuous("Proportion voting National Party", label = percent) +
     scale_size("Number of\nvotes cast", label = comma) +
