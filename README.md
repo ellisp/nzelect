@@ -1,5 +1,5 @@
 # nzelect and nzcensus
-New Zealand election results and census results data in convenient form of two R packages.  Each of the two packages can be installed separately, but they have been developed together and get good results working together.
+New Zealand election results, polling data and census results data in convenient form of two R packages.  Each of the two packages can be installed separately, but they have been developed together and get good results working together.
 
 [![Travis-CI Build Status](https://travis-ci.org/ellisp/nzelect.svg?branch=master)](https://travis-ci.org/ellisp/nzelect)
 
@@ -7,8 +7,12 @@ New Zealand election results and census results data in convenient form of two R
 `nzelect` is on CRAN, but `nzcensus` is too large so will remain on GitHub only.
 
 ```r
-# install nzelect from CRAN:
+# install stable version of nzelect from CRAN:
 install.packages("nzelect")
+
+# or install dev version of nzelect (with the very latest data) from GitHub:
+devtools::install_github("ellisp/nzelect/pkg1")
+
 
 # install nzcensus from GitHub:
 devtools::install_github("ellisp/nzelect/pkg2")
@@ -23,86 +27,101 @@ library(nzcensus)
 [![CRAN version](http://www.r-pkg.org/badges/version/nzelect)](http://www.r-pkg.org/pkg/nzelect)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/nzelect)](http://www.r-pkg.org/pkg/nzelect)
 
-## Overall results
-The code below replicates the published results at http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
+## Caveat and disclaimer
+
+The New Zealand Electoral Commission had no involvement in preparing this package and bear no responsibility for any errors.  In the event of any uncertainty, refer to the definitive source materials on their website.
+
+`nzelect` is a very small voluntary project.  Please report any issues or bugs on [GitHub](https://github.com/ellisp/nzelect/issues).
+
+## Usage - 2002 to 2014 results by voting place
+
+The election results are available in two main data frames:
+
+* `voting_places` has one row for each of election year - voting place combination
+* `nzge` has one row for each combination of election year, voting place, party, electorate and voting type (Party or Candidate)
+
+### Overall results
+The code below replicates the published results for the 2011 election at http://www.electionresults.govt.nz/electionresults_2011/e9/html/e9_part1.html
 
 ```r
 library(nzelect)
 library(tidyr)
 library(dplyr)
-GE2014 %>%
-    mutate(VotingType = paste0(VotingType, "Vote")) %>%
-    group_by(Party, VotingType) %>%
-    summarise(Votes = sum(Votes)) %>%
-    spread(VotingType, Votes) %>%
-    select(Party, PartyVote, CandidateVote) %>%
+nzge %>%
+    filter(election_year == 2011) %>%
+    mutate(voting_type = paste0(voting_type, " Vote")) %>%
+    group_by(party, voting_type) %>%
+    summarise(votes = sum(votes)) %>%
+    spread(voting_type, votes) %>%
     ungroup() %>%
-    arrange(desc(PartyVote))
+    arrange(desc(`Party Vote`))
 ```
 
 ```
-## # A tibble: 28 x 3
-##                               Party PartyVote CandidateVote
-##                               <chr>     <dbl>         <dbl>
-##  1                   National Party   1131501       1081787
-##  2                     Labour Party    604535        801287
-##  3                      Green Party    257359        165718
-##  4          New Zealand First Party    208300         73384
-##  5                     Conservative     95598         81075
-##  6                    Internet MANA     34094            NA
-##  7                      Maori Party     31849         42108
-##  8                  ACT New Zealand     16689         27778
-##  9 Aotearoa Legalise Cannabis Party     10961          4936
-## 10             Informal Party Votes     10857            NA
-## # ... with 18 more rows
+## # A tibble: 25 x 3
+##                      party `Candidate Vote` `Party Vote`
+##                      <chr>            <dbl>        <dbl>
+##  1          National Party          1027696      1058636
+##  2            Labour Party           762897       614937
+##  3             Green Party           155492       247372
+##  4 New Zealand First Party            39892       147544
+##  5      Conservative Party            51678        59237
+##  6             Maori Party            39320        31982
+##  7                    Mana            29872        24168
+##  8         ACT New Zealand            31001        23889
+##  9    Informal Party Votes               NA        19872
+## 10           United Future            18792        13443
+## # ... with 15 more rows
 ```
 
 
-## Comparing party and candidate votes of several parties
+### Comparing party and candidate votes of several parties
 
 ```r
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(GGally, quietly = TRUE) # for ggpairs
-library(gridExtra, quietly = TRUE) # for grid.arrange
 library(dplyr)
 
-proportions <- GE2014 %>%
-    group_by(VotingPlace, VotingType) %>%
-    summarise(ProportionLabour = sum(Votes[Party == "Labour Party"]) / sum(Votes),
-              ProportionNational = sum(Votes[Party == "National Party"]) / sum(Votes),
-              ProportionGreens = sum(Votes[Party == "Green Party"]) / sum(Votes),
-              ProportionNZF = sum(Votes[Party == "New Zealand First Party"]) / sum(Votes),
-              ProportionMaori = sum(Votes[Party == "Maori Party"]) / sum(Votes))
+proportions <- nzge %>%
+    filter(election_year == 2014) %>%
+    group_by(voting_place, voting_type) %>%
+    summarise(`proportion Labour` = sum(votes[party == "Labour Party"]) / sum(votes),
+              `proportion National` = sum(votes[party == "National Party"]) / sum(votes),
+              `proportion Greens` = sum(votes[party == "Green Party"]) / sum(votes),
+              `proportion NZF` = sum(votes[party == "New Zealand First Party"]) / sum(votes),
+              `proportion Maori` = sum(votes[party == "Maori Party"]) / sum(votes))
 
-ggpairs(proportions, aes(colour = VotingType), columns = 3:5)
+ggpairs(proportions, aes(colour = voting_type), columns = 3:5)
 ```
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 
 
-## Geographical location of voting places
+### Geographical location of voting places
+
+These are most reliable and checked for 2014.  Please raise an issue on GitHub if you spot anything.
+
 
 ```r
-source("https://gist.githubusercontent.com/briatte/4718656/raw/2c4e71efe6d46f37e7ea264f5c9e1610511bcb09/ggplot2-map-theme.R")
-
-GE2014 %>%
-    filter(VotingType == "Party") %>%
-    group_by(VotingPlace) %>%
-    summarise(ProportionNational = sum(Votes[Party == "National Party"] / sum(Votes))) %>%
-    left_join(Locations2014, by = "VotingPlace") %>%
-    filter(VotingPlaceSuburb != "Chatham Islands") %>%
-    mutate(MostlyNational = ifelse(ProportionNational > 0.5, 
+library(ggthemes) # for theme_map()
+nzge %>%
+    filter(voting_type == "Party" & election_year == 2014) %>%
+    group_by(voting_place, election_year) %>%
+    summarise(proportion_national = sum(votes[party == "National Party"] / sum(votes))) %>%
+    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    filter(voting_place_suburb != "Chatham Islands") %>%
+    mutate(mostly_national = ifelse(proportion_national > 0.5, 
                                    "Mostly voted National", "Mostly didn't vote National")) %>%
-    ggplot(aes(x = WGS84Longitude, y = WGS84Latitude, colour = ProportionNational)) +
+    ggplot(aes(x = longitude, y = latitude, colour = proportion_national)) +
     geom_point() +
-    facet_wrap(~MostlyNational) +
+    facet_wrap(~mostly_national) +
     coord_map() +
     borders("nz") +
     scale_colour_gradient2(label = percent, mid = "grey80", midpoint = 0.5) +
     theme_map() +
-    theme(legend.position = c(0.04, 0.55)) +
+    theme(legend.position = c(0.04, 0.5)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
 ```
 
@@ -116,7 +135,7 @@ GE2014 %>%
 See this [detailed interactive map of of the 2014 general election](https://ellisp.shinyapps.io/NZ-general-election-2014/) 
 built as a side product of this project.
 
-## Rolling up results to Regional Council, Territorial Authority, or Area Unit
+### Rolling up results to Regional Council, Territorial Authority, or Area Unit
 Because this package matches the location people actually voted with to boundaries 
 of Regional Council, Territorial Authority and Area Unit it's possible to roll up 
 voting behaviour to those categories.  However, a large number of votes cannot be
@@ -124,79 +143,80 @@ located this way.  And it needs to be remembered that people are not necessarily
 near their normal place of residence.
 
 ```r
-GE2014 %>%
-    filter(VotingType == "Party") %>%
-    left_join(Locations2014, by = "VotingPlace") %>%
+nzge %>%
+    filter(election_year == 2014) %>%
+    filter(voting_type == "Party") %>%
+    left_join(voting_places, by = c("voting_place", "election_year")) %>%
     group_by(REGC2014_N) %>%
     summarise(
-        TotalVotes = sum(Votes),
-        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
-    arrange(ProportionNational)
+        total_votes = sum(votes),
+        proportion_national = round(sum(votes[party == "National Party"]) / total_votes, 3)) %>%
+    arrange(proportion_national)
 ```
 
 ```
 ## # A tibble: 17 x 3
-##                  REGC2014_N TotalVotes ProportionNational
-##                      <fctr>      <dbl>              <dbl>
-##  1          Gisborne Region      14342              0.351
-##  2            Nelson Region      18754              0.398
-##  3         Northland Region      53688              0.427
-##  4        Wellington Region     164913              0.430
-##  5 Manawatu-Wanganui Region      78841              0.447
-##  6             Otago Region      75933              0.447
-##  7                     <NA>     935376              0.451
-##  8       Hawke's Bay Region      53833              0.460
-##  9            Tasman Region      17935              0.465
-## 10        West Coast Region      12226              0.465
-## 11     Bay of Plenty Region      89065              0.473
-## 12          Auckland Region     478724              0.486
-## 13           Waikato Region     134511              0.512
-## 14        Canterbury Region     192120              0.520
-## 15       Marlborough Region      17474              0.520
-## 16         Southland Region      36158              0.528
-## 17          Taranaki Region      42586              0.552
+##                  REGC2014_N total_votes proportion_national
+##                      <fctr>       <dbl>               <dbl>
+##  1          Gisborne Region       14342               0.351
+##  2            Nelson Region       18754               0.398
+##  3         Northland Region       53688               0.427
+##  4        Wellington Region      164913               0.430
+##  5 Manawatu-Wanganui Region       78841               0.447
+##  6             Otago Region       75933               0.447
+##  7                     <NA>      935376               0.451
+##  8       Hawke's Bay Region       53833               0.460
+##  9            Tasman Region       17935               0.465
+## 10        West Coast Region       12226               0.465
+## 11     Bay of Plenty Region       89065               0.473
+## 12          Auckland Region      478724               0.486
+## 13           Waikato Region      134511               0.512
+## 14        Canterbury Region      192120               0.520
+## 15       Marlborough Region       17474               0.520
+## 16         Southland Region       36158               0.528
+## 17          Taranaki Region       42586               0.552
 ```
 
 ```r
 # what are all those NA Regions?:
-GE2014 %>%
-    filter(VotingType == "Party") %>%
-    left_join(Locations2014, by = "VotingPlace") %>%
+nzge %>%
+    filter(voting_type == "Party" & election_year == 2014) %>%
+    left_join(voting_places, by = c("voting_place", "election_year")) %>%
     filter(is.na(REGC2014_N)) %>%
-    group_by(VotingPlace) %>%
-    summarise(TotalVotes = sum(Votes))
+    group_by(voting_place) %>%
+    summarise(total_votes = sum(votes))
 ```
 
 ```
 ## # A tibble: 10 x 2
-##                                                VotingPlace TotalVotes
-##                                                      <chr>      <dbl>
-##  1 Chatham Islands Council Building, 9 Tuku Road, Waitangi         90
-##  2  Mount Pleasant Community Centre, 3 Mccormacks Bay Road        457
-##  3                       Ordinary Votes BEFORE polling day     630775
-##  4               Otaki Surf Lifesaving Club, Marine Parade        294
-##  5          Overseas Special Votes including Defence Force      38316
-##  6              Port Fitzroy Aotea Centre (Nurses Cottage)         36
-##  7                        Special Votes BEFORE polling day      71362
-##  8                            Special Votes On polling day     151530
-##  9                            Votes Allowed for Party Only      40986
-## 10        Voting places where less than 6 votes were taken       1530
+##                                               voting_place total_votes
+##                                                      <chr>       <dbl>
+##  1 Chatham Islands Council Building, 9 Tuku Road, Waitangi          90
+##  2  Mount Pleasant Community Centre, 3 Mccormacks Bay Road         457
+##  3                       Ordinary Votes BEFORE polling day      630775
+##  4               Otaki Surf Lifesaving Club, Marine Parade         294
+##  5          Overseas Special Votes including Defence Force       38316
+##  6              Port Fitzroy Aotea Centre (Nurses Cottage)          36
+##  7                        Special Votes BEFORE polling day       71362
+##  8                            Special Votes On polling day      151530
+##  9                            Votes Allowed for Party Only       40986
+## 10        Voting places where less than 6 votes were taken        1530
 ```
 
 ```r
-GE2014 %>%
-    filter(VotingType == "Party") %>%
-    left_join(Locations2014, by = "VotingPlace") %>%
+nzge %>%
+    filter(voting_type == "Party" & election_year == 2014) %>%
+    left_join(voting_places, by = c("voting_place", "election_year")) %>%
     group_by(TA2014_NAM) %>%
     summarise(
-        TotalVotes = sum(Votes),
-        ProportionNational = round(sum(Votes[Party == "National Party"]) / TotalVotes, 3)) %>%
-    arrange(desc(ProportionNational)) %>%
+        total_votes = sum(votes),
+        proportion_national = round(sum(votes[party == "National Party"]) / total_votes, 3)) %>%
+    arrange(desc(proportion_national)) %>%
     mutate(TA = ifelse(is.na(TA2014_NAM), "Special or other", as.character(TA2014_NAM)),
            TA = gsub(" District", "", TA),
            TA = gsub(" City", "", TA),
            TA = factor(TA, levels = TA)) %>%
-    ggplot(aes(x = ProportionNational, y = TA, size = TotalVotes)) +
+    ggplot(aes(x = proportion_national, y = TA, size = total_votes)) +
     geom_point() +
     scale_x_continuous("Proportion voting National Party", label = percent) +
     scale_size("Number of\nvotes cast", label = comma) +
@@ -205,10 +225,9 @@ GE2014 %>%
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
+## Usage - Opinion polls
 
-## Opinion polls
-
-Opinion poll data from 2002 onwards  has been tidied and collated into a single data object, `polls`.  Note that at the time of writing, sample sizes are not yet available.  The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the `parties_v` object which provides colours to use in representing political parties in graphics.
+Opinion poll data from 2002 onwards has been tidied and collated into a single data object, `polls`.  Note that at the time of writing, sample sizes are not yet available.  The example below illustrates use of the few years of polling data since the 2014 election, in conjunction with the `parties_v` object which provides colours to use in representing political parties in graphics.
 
 
 ```r
@@ -236,7 +255,7 @@ polls %>%
 
 Note that it is not appropriate to frequently update the version of `nzelect` on CRAN, so polling data will generally be out of date.  The development version of `nzelect` from GitHub will be kept more up to date (but no promises exactly how much).
 
-## Convenience functions
+## Usage - convenience functions
 
 ### Allocating parliamentary seats
 The `allocate_seats` function uses the Sainte-Lague allocation method to allocate seats to a Parliament given proportions or counts of vote per party.  When used with the default settings, it should give the same result as the New Zealand Electoral Commission; this means a five percent threshold to be included in the main algorithm, but parties below five percent of total votes but with at least one electorate seat get total seats proportionate to their votes.  Here is the `allocate_seats` function in action with the actual vote counts from the 2014 General Election:
@@ -300,10 +319,10 @@ The example below shows the `weight_polls` function in action in combination wit
 # assuming that electorates stay as currently allocated.  This is critical particularly
 # for ACT, Maori and United Future, who if they lose their single electorate seat each
 # will not be represented in parliament
-electorates <- c(1,0,0,27,0,1,41,1,1,0)
+electorates <- c(1,0,0,27,0,1,41,1,1)
 
 polls %>%
-    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1") %>%
+    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1" & Party != "TOP") %>%
     mutate(wt_p = weight_polls(MidDate, method = "pundit", refdate = as.Date("2017-09-22")),
            wt_c = weight_polls(MidDate, method = "curia", refdate = as.Date("2017-09-22"))) %>%
     group_by(Party) %>%
@@ -315,19 +334,18 @@ polls %>%
 ```
 
 ```
-## # A tibble: 10 x 5
-##            Party pundit_perc curia_perc pundit_seats curia_seats
-##            <chr>       <dbl>      <dbl>        <dbl>       <dbl>
-##  1           ACT         0.5        0.6            1           1
-##  2  Conservative         0.3        0.4            0           0
-##  3         Green         7.1        6.5            9           8
-##  4        Labour        39.3       41.0           48          49
-##  5          Mana         0.1        0.1            0           0
-##  6         Maori         1.2        1.3            1           2
-##  7      National        42.3       40.8           51          49
-##  8      NZ First         7.0        7.2            8           9
-##  9           TOP         1.9        1.8            2           2
-## 10 United Future         0.1        0.1            0           0
+## # A tibble: 9 x 5
+##           Party pundit_perc curia_perc pundit_seats curia_seats
+##           <chr>       <dbl>      <dbl>        <dbl>       <dbl>
+## 1           ACT         0.5        0.6            1           1
+## 2  Conservative         0.3        0.4            0           0
+## 3         Green         7.1        6.5            9           8
+## 4        Labour        39.3       41.0           48          50
+## 5          Mana         0.1        0.1            0           0
+## 6         Maori         1.2        1.3            1           2
+## 7      National        42.3       40.8           52          50
+## 8      NZ First         7.0        7.2            9           9
+## 9 United Future         0.1        0.1            1           1
 ```
 
 
@@ -339,13 +357,6 @@ polls %>%
 ```r
 library(nzcensus)
 library(ggrepel)
-```
-
-```
-## Warning: package 'ggrepel' was built under R version 3.4.2
-```
-
-```r
 ggplot(REGC2013, aes(x = PropPubAdmin2013, y = PropPartnered2013, label = REGC2013_N) ) +
     geom_point() +
     geom_text_repel(colour = "steelblue") +
