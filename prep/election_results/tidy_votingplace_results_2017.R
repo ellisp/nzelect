@@ -3,7 +3,10 @@
 # Peter Ellis, April 2016
 
 #===================define a function================
-tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
+tidy_results_2017 <- function(election_year = 2017, encoding = "UTF-8-BOM"){
+    
+    
+    
     
     # where are the files and how many?
     origin <- paste0("downloads/elect", election_year, "/")
@@ -28,22 +31,29 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
             # message(paste0("Got warnings with UTF-8-BOM encoding for file #", i, ", so trying without it"))
             tmp <- read.csv(filenames[i], skip=2, check.names=FALSE, stringsAsFactors=FALSE)    
         })
+        
+        tmp <- tmp[!tmp[ ,1] %in% c("Voting Places", "Advance Voting Places"), ]
+        party_start <- which(tmp[ ,2] == "Party") + 1
+        junk_starts <- party_start - 1
 
-      
+        
         # read in the candidate names and parties  
-        first_blank <- which(tmp[,2] == "")
-        candidates_parties <- tmp[(first_blank + 2) : nrow(tmp), 1:2]
+        
+        candidates_parties <- tmp[party_start : nrow(tmp), 1:2]
         names(candidates_parties) <- c("candidate", "party")
         candidates_parties <- rbind(candidates_parties,
-                                    data.frame(candidate="Informal Candidate Votes", party="Informal Candidate Votes"))
+                                    data.frame(candidate="Informal Candidate Votes", 
+                                               party="Informal Candidate Votes"))
         
-        # we knock out all the rows from (first_blank - 1) (which is the total)
-        tmp <- tmp[-((first_blank - 1) : nrow(tmp)), ]
+        # we knock out all the bottom rows
+        tmp <- tmp[-(junk_starts : nrow(tmp)), ]
         names(tmp)[1:2] <- c("approx_location", "voting_place")
         
         # in some of the data there are annoying subheadings in the second column.  We can
         # identify these as rows that return NA when you sum up where the votes should be
         tmp <- tmp[!is.na(apply(tmp[, -(1:2)], 1, function(x){sum(as.numeric(x))})), ]
+        # we also need to knock out the helpful totals:
+        tmp <- tmp[!grepl("Total", tmp[ , 2]), ]
         
         # need to fill in the gaps where there is no polling location
         last_approx_location <- tmp[1, 1]
@@ -91,12 +101,9 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
             tmp <- read.csv(filenames[i], skip=2, check.names=FALSE, stringsAsFactors=FALSE)    
         })
         
-        first_blank <- which(tmp[, 2] == "")[1]
-        
-        # we knock out all the rows from (first_blank - 1) (which is the total)
-        tmp <- tmp[-((first_blank - 1) : nrow(tmp)), ]
-        names(tmp)[1:2] <- c("approx_location", "voting_place")
-        
+        tmp <- tmp[!tmp[ ,1] %in% c("Voting Places", "Advance Voting Places"), ]
+        tmp <- tmp[!grepl("Total", tmp[ , 2]), ]
+
         # in some of the data there are annoying subheadings in the second column.  We can
         # identify these as rows that return NA when you sum up where the votes should be
         tmp <- tmp[!is.na(apply(tmp[, -(1:2)], 1, function(x){sum(as.numeric(x))})), ]
@@ -110,6 +117,8 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
                 last_approx_location <- tmp[j, 1]
             }
         }  
+        
+        names(tmp)[1:2] <- c("approx_location", "voting_place")
         
         tmp <- tmp[names(tmp) != "Total Valid Party Votes"] %>%
             gather(party, votes, -approx_location, -voting_place)
@@ -148,9 +157,9 @@ tidy_results <- function(election_year = 2014, encoding = "UTF-8-BOM"){
 
 #==============execute for the various years===============
 
-results <- lapply(c(2002, 2005, 2008, 2011, 2014), tidy_results)
-nzge_pre2017 <- do.call("rbind", results)
+
+nzge_2017 <- tidy_results_2017()
+nzge <- rbind(nzge_pre2017, nzge_2017)
 
 
-
-
+save("nzge", file = "pkg1/data/nzge.rda", compress = "xz")

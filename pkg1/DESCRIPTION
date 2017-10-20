@@ -1,6 +1,6 @@
 Package: nzelect
 Title: New Zealand Election Data
-Version: 0.4.0
+Version: 0.5.0
 Authors@R: person("Peter", "Ellis", email = "peter.ellis2013nz@gmail.com", role = c("aut", "cre"))
 Description: Convenient access to New Zealand election
     results by voting place.  Voting places have been matched to Regional Council,

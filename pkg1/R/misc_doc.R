@@ -133,7 +133,7 @@
 #'   \item \code{electorate_number}.  Number of the electorate.
 #' }
 #'
-#' @format A data frame with 728,602 rows and 9 variables.
+#' @format A data frame with 900,531 rows and 9 variables.
 #' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
 #' @seealso \code{\link{voting_places}}
 #' @examples
