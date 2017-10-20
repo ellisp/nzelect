@@ -40,6 +40,7 @@ library(grid)
 #----------tidying----------------
 # import all the voting results CVS and amalgamate into a single object
 source("prep/election_results/tidy_votingplace_results.R") # 30 seconds
+source("prep/election_results/tidy_votingplace_results_2017.R") # 30 seconds
 
 # download and import the actual locations.  Includes a 575KB download.
 # This script also calls ./prep/match_locations_to_areas.R from within itself 

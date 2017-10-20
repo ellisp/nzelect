@@ -81,13 +81,13 @@
 #'   \item \code{electorate_number}
 #'   \item \code{electorate}.  Name of electorate in which the voting place is 
 #'   physically located.
-#'   \item \code{voting_place_id}.
 #'   \item \code{voting_place_suburb}
 #'   \item \code{northing} Coordinates, on one of two incompatible systems - either NZTM2000 or NZMG - 
 #'   see the \code{coordinate_system} variable for which.
 #'   \item \code{easting} as per \code{northing}
 #'   \item \code{longitude} Use with caution.
 #'   \item \code{latitude} Use with caution.
+#'   \item \code{type} 'Advance' or 'Election Day' (2017 only; NA otherwise)
 #'   \item \code{voting_place}.  Address of the VotingPlace.  Cross-references to
 #'    \code{nzge$voting_place}.
 #'    \item \code{election_year}.  Year in which this was a voting place for the election.
@@ -100,7 +100,7 @@
 #'   \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located. Use with caution.
 #' }
 #'
-#' @format A data frame with 7,909 rows and 15 variables.
+#' @format A data frame with 10,774 rows and 15 variables.
 #' @details There are problems with the locations of many voting places which will be resolved in future versions.
 #' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} (and similar for earlier years) 
 #' for the voting place locations.

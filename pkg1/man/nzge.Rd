@@ -4,7 +4,7 @@
 \name{nzge}
 \alias{nzge}
 \title{General Election Results 2002 and onwards}
-\format{A data frame with 728,602 rows and 9 variables.}
+\format{A data frame with 900,531 rows and 9 variables.}
 \source{
 \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
 }

@@ -125,11 +125,6 @@ nzge %>%
     ggtitle("Voting patterns in the 2014 General Election\n")
 ```
 
-```
-## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
-## instead
-```
-
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 See this [detailed interactive map of of the 2014 general election](https://ellisp.shinyapps.io/NZ-general-election-2014/) 
@@ -377,11 +372,6 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
     ggtitle("Locations of centers of meshblocks in 2013 census") +
     scale_colour_gradientn(colours = c("blue", "white", "red"), label = dollar) +
     theme(legend.position = c(0.1, 0.6))
-```
-
-```
-## Warning: `panel.margin` is deprecated. Please use `panel.spacing` property
-## instead
 ```
 
 ```

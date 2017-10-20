@@ -9,10 +9,13 @@
 
 # We have three elections worth of voting places, obviously nearly all of them duplicates
 # takes 6 minutes:
+vpc_orig_2017 <- read.csv("http://www.electionresults.govt.nz/electionresults_2017/statistics/csv/voting-place-coordinates.csv",
+                          encoding = "UTF-8")
 vpc_orig_2014 <- read.xlsx("downloads/elect2014/vp_coordinates.xls", sheetIndex = 1, encoding = "UTF-8")[ ,1:7]
 vpc_orig_2011 <- read.xlsx("downloads/elect2011/vp_coordinates.xls", sheetIndex = 1, encoding = "UTF-8")
 vpc_orig_2008 <- read.xlsx("downloads/elect2008/vp_coordinates.xls", sheetIndex = 1, encoding = "UTF-8")
 
+vpc_2017 <- vpc_orig_2017
 vpc_2014 <- vpc_orig_2014
 vpc_2011 <- vpc_orig_2011
 vpc_2008 <- vpc_orig_2008
@@ -44,8 +47,17 @@ tmp <- rgdal::project(as.matrix(vpc_orig_2014[7:6]), proj = nztmp4s, inv = TRUE)
 vpc_2014$longitude <- tmp[ , 1]
 vpc_2014$latitude <- tmp[ , 2]
 
+vpc_2017 <- vpc_2017 %>%
+    dplyr::rename(latitude = WSG84.Latitude,
+           longitude = WSG84.Longitude,
+           easting = NZTM.Easting,
+           northing = NZTM.Northing)
+
 #-----------------check the voting places have votes and vice versa-----------
 vpc <- rbind(vpc_2014, vpc_2011, vpc_2008) %>%
+    select(-Voting.Place.ID) %>%
+    mutate(Type = NA) %>%
+    rbind(vpc_2017) %>%
     mutate(Electorate.Name = str_trim(Electorate.Name)) %>%
     mutate(voting_place = gsub(" M.ori ", " Maori ", Voting.Place.Address),
            voting_place = gsub("Ng.+ Hau e Wh.+ o Papar.+rangi, 30 Ladbrooke Drive",
@@ -53,10 +65,11 @@ vpc <- rbind(vpc_2014, vpc_2011, vpc_2008) %>%
                               voting_place),
            voting_place = str_trim(voting_place))
 
-vpc$election_year <- rep(c(2014, 2011, 2008), times = c(
+vpc$election_year <- rep(c(2014, 2011, 2008, 2017), times = c(
     nrow(vpc_2014),
     nrow(vpc_2011),
-    nrow(vpc_2008)
+    nrow(vpc_2008),
+    nrow(vpc_2017)
 ))
 
 
@@ -92,7 +105,8 @@ voting_places <- voting_places %>%
     mutate(longitude = ifelse(VotingPlaceSuburb == "Chatham Islands", 175.9, longitude),
            latitude = ifelse(VotingPlaceSuburb == "Chatham Islands", -44.0, latitude)) %>%
     rename(electorate_number = ElectorateNumber, electorate = ElectorateName,
-           voting_place_id = VotingPlaceID, voting_place_suburb = VotingPlaceSuburb)
+           voting_place_suburb = VotingPlaceSuburb,
+           type = Type)
 
 # match to mesh blocks, regions, etc
 source("./prep/election_results/match_locations_to_areas.R")
