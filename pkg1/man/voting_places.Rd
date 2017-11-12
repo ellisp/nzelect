@@ -4,7 +4,7 @@
 \name{voting_places}
 \alias{voting_places}
 \title{General Election Voting Places 2008 and onwards}
-\format{A data frame with 10,774 rows and 15 variables.}
+\format{A data frame with 10,783 rows and 16 variables.}
 \source{
 \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} (and similar for earlier years) 
 for the voting place locations.
@@ -16,7 +16,7 @@ for the 2014 shapefiles for Regional Council, Territorial Authority, and Area Un
 voting_places
 }
 \description{
-Voting places for the New Zealand general elections in 2008, 2011 and 2014
+Voting places for the New Zealand general elections in 2008, 2011, 2014 and 2017
 }
 \details{
 \itemize{
@@ -30,7 +30,7 @@ Voting places for the New Zealand general elections in 2008, 2011 and 2014
   \item \code{longitude} Use with caution.
   \item \code{latitude} Use with caution.
   \item \code{type} 'Advance' or 'Election Day' (2017 only; NA otherwise)
-  \item \code{voting_place}.  Address of the VotingPlace.  Cross-references to
+  \item \code{voting_place}.  Address of the voting_place.  Cross-references to
    \code{nzge$voting_place}.
    \item \code{election_year}.  Year in which this was a voting place for the election.
    \item \code{coordinate_system}.  Either NZMG (New Zealand Map Grid) or NZTM2000 (New Zealand Transverse 
@@ -40,9 +40,20 @@ Voting places for the New Zealand general elections in 2008, 2011 and 2014
   \item \code{REGC2014_n}.  Name of the Regional Council in which the voting place is physically located. Use with caution.
   \item \code{AU2014}.  Number of the Area Unit in which the voting place is physically located.  Use with caution.
   \item \code{MB2014}.  Number of the Mesh Block in which the voting place is physically located. Use with caution.
+  \item \code{voting_place_id}.  Unique ID of a voting_place.  This is assigned during the nzelect build and is unstable
+  over nzelect versions.  A single voting_place can be listed multiple times in any election year, and of
+  course also the same location is used in multiple election years.  Some arbitrary judgements were needed on how close
+  a voting place has to be to one used in previous years to be treated as identical.
 }
 
-There are problems with the locations of many voting places which will be resolved in future versions.
+These are the point locations of voting_places as described by the Electoral Commission.  Voting places
+that cannot be resolved to a single point (eg Mobile Teams) are not included in this data frame, although
+they are in the \code{nzge} object with the actual election results.  Hence not all voting_place entires in
+\code{nzge} map on to voting_place in \code{voting_places}.
+
+Naming is not consistent across years (eg sometimes a street number is included, sometimes not) so there is
+duplication; the \code{voting_place_id} identifier is an attempt to deal with this but is subject to matching
+error.
 }
 \seealso{
 \code{\link{nzge}}

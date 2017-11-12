@@ -76,21 +76,24 @@ vpc$election_year <- rep(c(2014, 2011, 2008, 2017), times = c(
 vpa <- unique(vpc$voting_place)
 vpv <- unique(nzge[nzge$election_year >= 2008, "voting_place"])
 
-if(sum(!vpa %in% vpv) > 2){
-    print(sort(vpa[!vpa %in% vpv]))
-    stop("More than 2 voting place locations failed to match with voting place results")
-}
-
-
-if(sum(!vpv %in% vpa) > 72){
-    # should be6 votes data places not in the list
-    print(sort(vpv[!vpv %in% vpa]))
-    stop("More than 72 voting place results failed to match to voting place locations")   
-}
-
-# voting places not in the locations:
-message("Votes registered but no matching geography:")
-print(vpv[!vpv %in% vpa])
+# From 2017 there are hundreds of extra non-point locations eg special votes etc
+# The voting_place data really is quite moot.
+# 
+# if(sum(!vpa %in% vpv) > 2){
+#     print(sort(vpa[!vpa %in% vpv]))
+#     stop("More than 2 voting place locations failed to match with voting place results")
+# }
+# 
+# 
+# if(sum(!vpv %in% vpa) > 72){
+#     # should be6 votes data places not in the list
+#     print(sort(vpv[!vpv %in% vpa]))
+#     stop("More than 72 voting place results failed to match to voting place locations")   
+# }
+# 
+# # voting places not in the locations:
+# message("Votes registered but no matching geography:")
+# print(vpv[!vpv %in% vpa])
 
 
 #-------------------compile the voting_places object------------
@@ -108,8 +111,49 @@ voting_places <- voting_places %>%
            voting_place_suburb = VotingPlaceSuburb,
            type = Type)
 
+#------------------------add in some missing ones--------
+actually_missing <- nzge %>%
+    as_tibble() %>%
+    select(approx_location, voting_place, election_year) %>%
+    filter(election_year >= 2008) %>%
+    distinct() %>%
+    anti_join(voting_places, by = c("voting_place" = "voting_place", 
+                                    "election_year" = "election_year")) %>%
+    filter(!grepl("votes", voting_place, ignore.case = TRUE),
+           !grepl("Team", voting_place, ignore.case = TRUE),
+           !grepl("Mobile", voting_place, ignore.case = TRUE)) %>%
+    distinct() 
+
+
+# we can find 10 of these 11 locations with Google's geo coding service
+ggcodes <- geocode(paste(actually_missing$voting_place, 
+                         actually_missing$approx_location,
+                         "New Zealand",
+                         sep= ", "),
+                   source = "google")
+# The missing one is a genuine non-point, Wiri Hospital, Rest Home and Prison - Taken in Maurewa
+# One location is definitely wrong with longitude -89 and lat 31 even though it's definiteluy
+# meant to be in Tauranga
+
+voting_places <-  cbind(actually_missing, ggcodes) %>%
+    filter(voting_place != "Hosptial, Rest Home and Prison - Taken in Murewa") %>%
+    filter(lon > 0) %>%
+    select(-approx_location) %>%
+    rename(longitude = lon,
+           latitude = lat) %>%
+        mutate(electorate_number = NA, 
+               electorate = NA,
+               voting_place_suburb = NA,
+               northing = NA,
+               easting = NA,
+               type = "Election Day",
+               coordinate_system = NA) %>% 
+    rbind(voting_places)
+
 # match to mesh blocks, regions, etc
 source("./prep/election_results/match_locations_to_areas.R")
+
+source("./prep/election_results/find_voting_place_duplicates.R")
 
 save(voting_places, file = "pkg1/data/voting_places.rda", compress = "xz")
 

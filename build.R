@@ -21,6 +21,8 @@ library(GGally)
 library(gridExtra)
 library(maps)
 library(grid)
+library(ggmap)
+library(stringdist)
 
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
