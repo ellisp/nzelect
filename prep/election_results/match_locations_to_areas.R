@@ -20,14 +20,14 @@ TA <- readOGR("downloads/shapefiles/2014 Digital Boundaries Generlised Clipped",
 
 #------------------convert locations to sp format-----------
 # first, project them back to NZTM2000 so they are the same as the maps
-locs_nztm <- rgdal::project(as.matrix(voting_places[, c("longitude", "latitude")]), proj = nztmp4s, inv = FALSE)
+locs_nztm <- rgdal::project(as.matrix(distinct_voting_places[, c("longitude", "latitude")]), proj = nztmp4s, inv = FALSE)
 
 # then convert  into SpatialPoints objects
 locs <- SpatialPoints(coords = locs_nztm, proj4string = TA@proj4string)
 
 #-------------Match to Territorial Authority-------
 locs2 <- over(locs, TA)
-voting_places$TA2014_NAM <- locs2$TA2014_NAM
+distinct_voting_places$TA2014_NAM <- locs2$TA2014_NAM
 
 
 #-------------Match to Region------------------
@@ -35,17 +35,17 @@ REG <- readOGR("downloads/shapefiles/2014 Digital Boundaries Generlised Clipped"
               "REGC2014_GV_Clipped")
 
 locs2 <- over(locs, REG)
-voting_places$REGC2014_N <- locs2$REGC2014_N
+distinct_voting_places$REGC2014_N <- locs2$REGC2014_N
 
 #-------------Match to Area Unit------------------
 AU <- readOGR("downloads/shapefiles/2014 Digital Boundaries Generlised Clipped",
                "AU2014_GV_Clipped")
 locs2 <- over(locs, AU)
-voting_places$AU2014 <- locs2$AU2014
+distinct_voting_places$AU2014 <- locs2$AU2014
 
 #-------------Match to Mesh Block------------------
 MB <- readOGR("downloads/shapefiles/2014 Digital Boundaries Generlised Clipped",
               "MB2014_GV_Clipped")
 
 locs2 <- over(locs, MB)
-voting_places$MB2014 <- locs2$MB2014
+distinct_voting_places$MB2014 <- locs2$MB2014

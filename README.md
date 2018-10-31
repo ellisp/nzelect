@@ -33,12 +33,14 @@ The New Zealand Electoral Commission had no involvement in preparing this packag
 
 `nzelect` is a very small voluntary project.  Please report any issues or bugs on [GitHub](https://github.com/ellisp/nzelect/issues).
 
-## Usage - 2002 to 2014 results by voting place
+## Usage - 2002 to 2017 results by voting place
 
 The election results are available in two main data frames:
 
-* `voting_places` has one row for each of election year - voting place combination
-* `nzge` has one row for each combination of election year, voting place, party, electorate and voting type (Party or Candidate)
+* `distinct_voting_places` has one row for each distinct voting place that could be located in a geographical point
+* `nzge` has one row for each combination of election year, voting place, party, electorate and voting type (Party or Candidate).  
+
+The `voting_place_id` column is shared between `distinct_voting_places` and `nzge` and is the only column that should be used to join the two.
 
 ### Overall results
 The code below replicates the published results for the 2011 election at http://www.electionresults.govt.nz/electionresults_2011/e9/html/e9_part1.html
@@ -101,17 +103,16 @@ ggpairs(proportions, aes(colour = voting_type), columns = 3:5)
 
 ### Geographical location of voting places
 
-These are most reliable and checked for 2014.  Please raise an issue on GitHub if you spot anything.
+These are available from 2008 onwards and can be obtained by joining the `nzge` and `distinct_voting_places` data frames by the `voting_place_id` column.
 
 
 ```r
 library(ggthemes) # for theme_map()
 nzge %>%
     filter(voting_type == "Party" & election_year == 2014) %>%
-    group_by(voting_place, election_year) %>%
+    group_by(voting_place_id, election_year) %>%
     summarise(proportion_national = sum(votes[party == "National Party"] / sum(votes))) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
-    filter(voting_place_suburb != "Chatham Islands") %>%
+    left_join(distinct_voting_places, by = c("voting_place_id")) %>%
     mutate(mostly_national = ifelse(proportion_national > 0.5, 
                                    "Mostly voted National", "Mostly didn't vote National")) %>%
     ggplot(aes(x = longitude, y = latitude, colour = proportion_national)) +
@@ -123,6 +124,10 @@ nzge %>%
     theme_map() +
     theme(legend.position = c(0.04, 0.5)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
+```
+
+```
+## Warning: Removed 1 rows containing missing values (geom_point).
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
@@ -139,9 +144,9 @@ near their normal place of residence.
 
 ```r
 nzge %>%
-    filter(election_year == 2014) %>%
+    filter(election_year == 2017) %>%
     filter(voting_type == "Party") %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    left_join(distinct_voting_places, by = "voting_place_id") %>%
     group_by(REGC2014_N) %>%
     summarise(
         total_votes = sum(votes),
@@ -153,55 +158,56 @@ nzge %>%
 ## # A tibble: 17 x 3
 ##                  REGC2014_N total_votes proportion_national
 ##                      <fctr>       <dbl>               <dbl>
-##  1          Gisborne Region       14342               0.351
-##  2            Nelson Region       18754               0.398
-##  3         Northland Region       53688               0.427
-##  4        Wellington Region      164913               0.430
-##  5 Manawatu-Wanganui Region       78841               0.447
-##  6             Otago Region       75933               0.447
-##  7                     <NA>      935376               0.451
-##  8       Hawke's Bay Region       53833               0.460
-##  9            Tasman Region       17935               0.465
-## 10        West Coast Region       12226               0.465
-## 11     Bay of Plenty Region       89065               0.473
-## 12          Auckland Region      478724               0.486
-## 13           Waikato Region      134511               0.512
-## 14        Canterbury Region      192120               0.520
-## 15       Marlborough Region       17474               0.520
-## 16         Southland Region       36158               0.528
-## 17          Taranaki Region       42586               0.552
+##  1          Gisborne Region       19402               0.347
+##  2            Nelson Region       25317               0.354
+##  3                     <NA>      462476               0.376
+##  4        Wellington Region      254815               0.386
+##  5        West Coast Region       15959               0.393
+##  6         Northland Region       79713               0.404
+##  7             Otago Region      112242               0.408
+##  8 Manawatu-Wanganui Region      113102               0.431
+##  9            Tasman Region       29183               0.432
+## 10       Hawke's Bay Region       79729               0.442
+## 11     Bay of Plenty Region      140818               0.466
+## 12        Canterbury Region      282927               0.480
+## 13          Auckland Region      656523               0.483
+## 14       Marlborough Region       24602               0.491
+## 15          Taranaki Region       56442               0.494
+## 16           Waikato Region      201022               0.496
+## 17         Southland Region       48417               0.523
 ```
 
 ```r
-# what are all those NA Regions?:
+# what are some of those NA Regions?:
 nzge %>%
-    filter(voting_type == "Party" & election_year == 2014) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    filter(voting_type == "Party" & election_year == 2017) %>%
+    left_join(distinct_voting_places, by = c("voting_place_id")) %>%
     filter(is.na(REGC2014_N)) %>%
     group_by(voting_place) %>%
     summarise(total_votes = sum(votes))
 ```
 
 ```
-## # A tibble: 10 x 2
-##                                               voting_place total_votes
-##                                                      <chr>       <dbl>
-##  1 Chatham Islands Council Building, 9 Tuku Road, Waitangi          90
-##  2  Mount Pleasant Community Centre, 3 Mccormacks Bay Road         457
-##  3                       Ordinary Votes BEFORE polling day      630775
-##  4               Otaki Surf Lifesaving Club, Marine Parade         294
-##  5          Overseas Special Votes including Defence Force       38316
-##  6              Port Fitzroy Aotea Centre (Nurses Cottage)          36
-##  7                        Special Votes BEFORE polling day       71362
-##  8                            Special Votes On polling day      151530
-##  9                            Votes Allowed for Party Only       40986
-## 10        Voting places where less than 6 votes were taken        1530
+## # A tibble: 396 x 2
+##                                                                   voting_place
+##                                                                          <chr>
+##  1                                          Advance Voting Place - Mobile Team
+##  2                   Ashburton Hospital & Rest Homes Team - Taken in Rangitata
+##  3                                   Auckland Hospital Mobile & Advance Voting
+##  4                                                         Central Mobile Team
+##  5                     Chatham Islands Council Building, 9 Tuku Road, Waitangi
+##  6 Christchurch Mobile Voting Facility One, Central Christchurch and South Cit
+##  7                                             Defence Force Team, Powles Road
+##  8                                     Duvauchelle Community Centre, Main Road
+##  9                               Herald Island Community Hall, 57 Ferry Parade
+## 10                      Hospital & Rest Homes - Team 1 - Taken in New Plymouth
+## # ... with 386 more rows, and 1 more variables: total_votes <dbl>
 ```
 
 ```r
 nzge %>%
-    filter(voting_type == "Party" & election_year == 2014) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    filter(voting_type == "Party" & election_year == 2017) %>%
+    left_join(distinct_voting_places, by = "voting_place_id") %>%
     group_by(TA2014_NAM) %>%
     summarise(
         total_votes = sum(votes),
@@ -215,7 +221,7 @@ nzge %>%
     geom_point() +
     scale_x_continuous("Proportion voting National Party", label = percent) +
     scale_size("Number of\nvotes cast", label = comma) +
-    labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
+    labs(y = "", title = "Voting in the New Zealand 2017 General Election by Territorial Authority")
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
@@ -375,7 +381,7 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 ```
 
 ```
-## Warning: Removed 13 rows containing missing values (geom_point).
+## Warning: Removed 642 rows containing missing values (geom_point).
 ```
 
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
@@ -385,3 +391,4 @@ ggplot(Meshblocks2013, aes(x = WGS84Longitude, y = WGS84Latitude, colour = Media
 
 # combining nzcensus and nzelect
 
+To be provided later.

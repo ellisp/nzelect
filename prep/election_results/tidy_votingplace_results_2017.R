@@ -161,5 +161,5 @@ tidy_results_2017 <- function(election_year = 2017, encoding = "UTF-8-BOM"){
 nzge_2017 <- tidy_results_2017()
 nzge <- rbind(nzge_pre2017, nzge_2017)
 
-
-save("nzge", file = "pkg1/data/nzge.rda", compress = "xz")
+# this isn't the final version of nzge yet - we need to add in a unique identifier for
+# those voting_place locations that have an actual location.  This becomes a little involved...

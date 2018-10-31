@@ -5,6 +5,7 @@
 
 
 #----------------functionality------------
+devtools::install_github("nz-mbie/mbiemaps-public/pkg")
 library(mbiemaps) # from nz-mbie/mbiemaps-public/pkg
 library(knitr)
 library(devtools)
@@ -45,7 +46,7 @@ source("prep/election_results/tidy_votingplace_results.R") # 30 seconds
 source("prep/election_results/tidy_votingplace_results_2017.R") # 30 seconds
 
 # download and import the actual locations.  Includes a 575KB download.
-# This script also calls ./prep/match_locations_to_areas.R from within itself 
+# This script also calls several other scripts from within itself 
 # (takes a few minutes to run because of importing shapefiles, downloaded earlier):
 source("prep/election_results/import_votingplace_locations.R") # 3 minutes
 

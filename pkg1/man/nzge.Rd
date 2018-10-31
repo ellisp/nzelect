@@ -15,9 +15,9 @@ nzge
 New Zealand general election results by voting place for 2002, 2005, 2008, 2011 and 2014
 }
 \details{
-\itemize{
+#' \itemize{
   \item \code{approx_location}. Approximate location of voting place
-  \item \code{vorting_place}. Description of exact location of voting place
+  \item \code{voting_place}. Description of exact location of voting place
   \item \code{party}. Party voted for (party vote) or party of candidate voted for
   (candidate vote)
   \item \code{votes}. Number of votes

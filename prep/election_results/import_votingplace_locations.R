@@ -150,12 +150,19 @@ voting_places <-  cbind(actually_missing, ggcodes) %>%
                coordinate_system = NA) %>% 
     rbind(voting_places)
 
+#--------------------remove duplicates and create unique IDs------------------
+source("./prep/election_results/find_voting_place_duplicates.R")
+
+source("./prep/election_results/create_unique_voting_places.R")
+
+
+#-------------add the spatial area attributes-----------------------
 # match to mesh blocks, regions, etc
 source("./prep/election_results/match_locations_to_areas.R")
 
-source("./prep/election_results/find_voting_place_duplicates.R")
 
-save(voting_places, file = "pkg1/data/voting_places.rda", compress = "xz")
+save(distinct_voting_places, file = "pkg1/data/distinct_voting_places.rda", compress = "xz")
+save(nzge, file = "pkg1/data/nzge.rda", compress = "xz")
 
 
 

@@ -34,12 +34,14 @@ The New Zealand Electoral Commission had no involvement in preparing this packag
 
 `nzelect` is a very small voluntary project.  Please report any issues or bugs on [GitHub](https://github.com/ellisp/nzelect/issues).
 
-## Usage - 2002 to 2014 results by voting place
+## Usage - 2002 to 2017 results by voting place
 
 The election results are available in two main data frames:
 
-* `voting_places` has one row for each of election year - voting place combination
-* `nzge` has one row for each combination of election year, voting place, party, electorate and voting type (Party or Candidate)
+* `distinct_voting_places` has one row for each distinct voting place that could be located in a geographical point
+* `nzge` has one row for each combination of election year, voting place, party, electorate and voting type (Party or Candidate).  
+
+The `voting_place_id` column is shared between `distinct_voting_places` and `nzge` and is the only column that should be used to join the two.
 
 ### Overall results
 The code below replicates the published results for the 2011 election at http://www.electionresults.govt.nz/electionresults_2011/e9/html/e9_part1.html
@@ -85,16 +87,15 @@ ggpairs(proportions, aes(colour = voting_type), columns = 3:5)
 
 ### Geographical location of voting places
 
-These are most reliable and checked for 2014.  Please raise an issue on GitHub if you spot anything.
+These are available from 2008 onwards and can be obtained by joining the `nzge` and `distinct_voting_places` data frames by the `voting_place_id` column.
 
 ```{r fig.width = 7, fig.height = 5}
 library(ggthemes) # for theme_map()
 nzge %>%
     filter(voting_type == "Party" & election_year == 2014) %>%
-    group_by(voting_place, election_year) %>%
+    group_by(voting_place_id, election_year) %>%
     summarise(proportion_national = sum(votes[party == "National Party"] / sum(votes))) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
-    filter(voting_place_suburb != "Chatham Islands") %>%
+    left_join(distinct_voting_places, by = c("voting_place_id")) %>%
     mutate(mostly_national = ifelse(proportion_national > 0.5, 
                                    "Mostly voted National", "Mostly didn't vote National")) %>%
     ggplot(aes(x = longitude, y = latitude, colour = proportion_national)) +
@@ -119,19 +120,19 @@ located this way.  And it needs to be remembered that people are not necessarily
 near their normal place of residence.
 ```{r fig.width=7, fig.height=9}
 nzge %>%
-    filter(election_year == 2014) %>%
+    filter(election_year == 2017) %>%
     filter(voting_type == "Party") %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    left_join(distinct_voting_places, by = "voting_place_id") %>%
     group_by(REGC2014_N) %>%
     summarise(
         total_votes = sum(votes),
         proportion_national = round(sum(votes[party == "National Party"]) / total_votes, 3)) %>%
     arrange(proportion_national)
     
-# what are all those NA Regions?:
+# what are some of those NA Regions?:
 nzge %>%
-    filter(voting_type == "Party" & election_year == 2014) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    filter(voting_type == "Party" & election_year == 2017) %>%
+    left_join(distinct_voting_places, by = c("voting_place_id")) %>%
     filter(is.na(REGC2014_N)) %>%
     group_by(voting_place) %>%
     summarise(total_votes = sum(votes))
@@ -139,8 +140,8 @@ nzge %>%
 
 
 nzge %>%
-    filter(voting_type == "Party" & election_year == 2014) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    filter(voting_type == "Party" & election_year == 2017) %>%
+    left_join(distinct_voting_places, by = "voting_place_id") %>%
     group_by(TA2014_NAM) %>%
     summarise(
         total_votes = sum(votes),
@@ -154,9 +155,7 @@ nzge %>%
     geom_point() +
     scale_x_continuous("Proportion voting National Party", label = percent) +
     scale_size("Number of\nvotes cast", label = comma) +
-    labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
-
-
+    labs(y = "", title = "Voting in the New Zealand 2017 General Election by Territorial Authority")
 ```
 
 ## Usage - Opinion polls

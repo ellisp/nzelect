@@ -39,10 +39,9 @@ ggpairs(proportions, aes(colour = voting_type), columns = 3:5)
 library(ggthemes) # for theme_map()
 nzge %>%
     filter(voting_type == "Party" & election_year == 2014) %>%
-    group_by(voting_place, election_year) %>%
+    group_by(voting_place_id, election_year) %>%
     summarise(proportion_national = sum(votes[party == "National Party"] / sum(votes))) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
-    filter(voting_place_suburb != "Chatham Islands") %>%
+    left_join(distinct_voting_places, by = c("voting_place_id")) %>%
     mutate(mostly_national = ifelse(proportion_national > 0.5, 
                                    "Mostly voted National", "Mostly didn't vote National")) %>%
     ggplot(aes(x = longitude, y = latitude, colour = proportion_national)) +
@@ -57,19 +56,19 @@ nzge %>%
 
 ## ----fig.width=7, fig.height=9-------------------------------------------
 nzge %>%
-    filter(election_year == 2014) %>%
+    filter(election_year == 2017) %>%
     filter(voting_type == "Party") %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    left_join(distinct_voting_places, by = "voting_place_id") %>%
     group_by(REGC2014_N) %>%
     summarise(
         total_votes = sum(votes),
         proportion_national = round(sum(votes[party == "National Party"]) / total_votes, 3)) %>%
     arrange(proportion_national)
     
-# what are all those NA Regions?:
+# what are some of those NA Regions?:
 nzge %>%
-    filter(voting_type == "Party" & election_year == 2014) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    filter(voting_type == "Party" & election_year == 2017) %>%
+    left_join(distinct_voting_places, by = c("voting_place_id")) %>%
     filter(is.na(REGC2014_N)) %>%
     group_by(voting_place) %>%
     summarise(total_votes = sum(votes))
@@ -77,8 +76,8 @@ nzge %>%
 
 
 nzge %>%
-    filter(voting_type == "Party" & election_year == 2014) %>%
-    left_join(voting_places, by = c("voting_place", "election_year")) %>%
+    filter(voting_type == "Party" & election_year == 2017) %>%
+    left_join(distinct_voting_places, by = "voting_place_id") %>%
     group_by(TA2014_NAM) %>%
     summarise(
         total_votes = sum(votes),
@@ -92,9 +91,7 @@ nzge %>%
     geom_point() +
     scale_x_continuous("Proportion voting National Party", label = percent) +
     scale_size("Number of\nvotes cast", label = comma) +
-    labs(y = "", title = "Voting in the New Zealand 2014 General Election by Territorial Authority")
-
-
+    labs(y = "", title = "Voting in the New Zealand 2017 General Election by Territorial Authority")
 
 ## ----fig.width = 8-------------------------------------------------------
 library(forcats)
