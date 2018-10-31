@@ -1,5 +1,12 @@
 
-polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017) %>%
+de_macron <- function(x){gsub("M.ori", "Maori", x)}
+
+
+polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017) 
+names(polls) <- de_macron(names(polls))
+
+polls <- polls %>%
+    plyr::rbind.fill(polls2020) %>%
     mutate(MidDate = StartDate + (EndDate - StartDate) / 2) %>%
     gather(Party, VotingIntention, -StartDate, -EndDate, -MidDate, -Poll, -WikipediaDates) %>%
     mutate(Poll = str_trim(gsub("\\[.+\\]", "", Poll)),
@@ -134,5 +141,3 @@ print(polls %>%
     labs(x = "") +
     ggtitle("Voting intention for the Green Party")
 )
-
-# see https://github.com/diegovalle/Elections-2012/blob/master/src/kalman.R to adapt for kalman filter
