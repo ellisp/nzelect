@@ -52,7 +52,8 @@ webpages of Curia and Pundit.
 \examples{
 polldates <- tail(unique(polls$MidDate), 20)
 weight_polls(polldates, method = "curia", refdate = Sys.Date())
-weight_polls(polldates, method = "pundit", refdate = Sys.Date())
+weight_polls(polldates, method = "pundit", refdate = Sys.Date() + 10,
+    electiondate = Sys.Date() + 10)
 }
 \references{
 \url{http://www.curia.co.nz/methodology/}

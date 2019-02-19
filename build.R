@@ -110,7 +110,7 @@ check("pkg2") # one note from exceeding 5MB, and the cartograms need helpfiles
 # create vignettes for actual builds
 build_vignettes("pkg1")
 build_vignettes("pkg2") 
-
+unlink("pkg1/.gitignore")
 
 
 # run win-builder checks and email results to maintainer (Peter Ellis)

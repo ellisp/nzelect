@@ -23,3 +23,5 @@ downloads/*
 *.Rcheck*
 *.tar.gz
 examples/leaflet/shinyapps/*
+
+tmp/*
