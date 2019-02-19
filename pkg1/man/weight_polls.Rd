@@ -4,8 +4,9 @@
 \alias{weight_polls}
 \title{Weight polls}
 \usage{
-weight_polls(polldates, n = rep(1, length(polldates)), method = c("pundit",
-  "curia"), refdate = Sys.Date(), electiondate = as.Date("2017-09-23"))
+weight_polls(polldates, n = rep(1, length(polldates)),
+  method = c("pundit", "curia"), refdate = Sys.Date(),
+  electiondate = as.Date("2017-09-23"))
 }
 \arguments{
 \item{polldates}{a vector of dates of polls.}
@@ -50,8 +51,8 @@ webpages of Curia and Pundit.
 }
 \examples{
 polldates <- tail(unique(polls$MidDate), 20)
-weight_polls(polldates, method = "curia", refdate = as.Date("2017-09-22"))
-weight_polls(polldates, method = "pundit", refdate = as.Date("2017-09-22"))
+weight_polls(polldates, method = "curia", refdate = Sys.Date())
+weight_polls(polldates, method = "pundit", refdate = Sys.Date())
 }
 \references{
 \url{http://www.curia.co.nz/methodology/}

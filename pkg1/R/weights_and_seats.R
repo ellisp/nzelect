@@ -38,8 +38,8 @@
 #' opinion polls
 #' @examples
 #' polldates <- tail(unique(polls$MidDate), 20)
-#' weight_polls(polldates, method = "curia", refdate = as.Date("2017-09-22"))
-#' weight_polls(polldates, method = "pundit", refdate = as.Date("2017-09-22"))
+#' weight_polls(polldates, method = "curia", refdate = Sys.Date())
+#' weight_polls(polldates, method = "pundit", refdate = Sys.Date())
 weight_polls <- function(polldates, 
                         n = rep(1, length(polldates)),
                         method = c("pundit", "curia"),
