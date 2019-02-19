@@ -48,6 +48,6 @@ nzge \%>\%
     arrange(election_year, desc(`Party vote`))
 }
 \seealso{
-\code{\link{voting_places}}
+\code{\link{distinct_voting_places}}
 }
 \keyword{datasets}

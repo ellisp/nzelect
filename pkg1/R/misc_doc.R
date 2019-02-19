@@ -41,7 +41,7 @@
 #'
 #' @format A data frame with 900,531 rows and 9 variables.
 #' @source \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html}
-#' @seealso \code{\link{voting_places}}
+#' @seealso \code{\link{distinct_voting_places}}
 #' @examples
 #' # the following matches the results published at
 #' # http://www.electionresults.govt.nz/electionresults_2014/e9/html/e9_part1.html
