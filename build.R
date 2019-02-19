@@ -71,6 +71,7 @@ source("prep/polls/download_polls_2008.R")
 source("prep/polls/download_polls_2011.R")
 source("prep/polls/download_polls_2014.R")
 source("prep/polls/download_polls_2017.R")
+source("prep/polls/download_polls_2020.R")
 source("prep/polls/combine_polls.R")
 
 expect_equal(oldpolls, polls[1:nrow(oldpolls), ])
