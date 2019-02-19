@@ -354,9 +354,9 @@ electorate =<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 electorates &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">27</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">41</span>,<span class="dv">1</span>,<span class="dv">1</span>)
 
 polls <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">filter</span>(MidDate <span class="op">&gt;</span><span class="st"> &quot;2014-12-30&quot;</span> <span class="op">&amp;</span><span class="st"> </span>MidDate <span class="op">&lt;</span><span class="st"> &quot;2017-09-22&quot;</span> <span class="op">&amp;</span><span class="st"> </span>Party <span class="op">!=</span><span class="st"> &quot;TOP&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">wt_p =</span> <span class="kw">weight_polls</span>(MidDate, <span class="dt">method =</span> <span class="st">&quot;pundit&quot;</span>, <span class="dt">refdate =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2017-9-23&quot;</span>)),
-           <span class="dt">wt_c =</span> <span class="kw">weight_polls</span>(MidDate, <span class="dt">method =</span> <span class="st">&quot;curia&quot;</span>, <span class="dt">refdate =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2017-9-23&quot;</span>))) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(MidDate <span class="op">&gt;</span><span class="st"> &quot;2014-12-30&quot;</span> <span class="op">&amp;</span><span class="st"> </span>MidDate <span class="op">&lt;</span><span class="st"> &quot;2017-09-21&quot;</span> <span class="op">&amp;</span><span class="st"> </span>Party <span class="op">!=</span><span class="st"> &quot;TOP&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">wt_p =</span> <span class="kw">weight_polls</span>(MidDate, <span class="dt">method =</span> <span class="st">&quot;pundit&quot;</span>, <span class="dt">refdate =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2017-09-22&quot;</span>)),
+           <span class="dt">wt_c =</span> <span class="kw">weight_polls</span>(MidDate, <span class="dt">method =</span> <span class="st">&quot;curia&quot;</span>, <span class="dt">refdate =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2017-09-22&quot;</span>))) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(Party) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">summarise</span>(<span class="dt">pundit_perc =</span> <span class="kw">round</span>(<span class="kw">sum</span>(VotingIntention <span class="op">*</span><span class="st"> </span>wt_p, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(wt_p) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>),
               <span class="dt">curia_perc =</span> <span class="kw">round</span>(<span class="kw">sum</span>(VotingIntention <span class="op">*</span><span class="st"> </span>wt_c, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(wt_c) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span>
@@ -369,10 +369,10 @@ polls <span class="op">%&gt;%</span>
 ## 1 ACT                   0.5        0.6            1           1
 ## 2 Conservative          0.5        0.5            0           0
 ## 3 Green                 7.1        6.6            9           8
-## 4 Labour               38.8       40.4           47          50
+## 4 Labour               38.8       40.5           47          50
 ## 5 Mana                  0.1        0.1            0           0
 ## 6 Maori                 0.9        1.1            1           1
-## 7 National             43.1       41.6           53          51
+## 7 National             43.1       41.5           53          51
 ## 8 NZ First              7          7.2            9           9
 ## 9 United Future         0.1        0.1            1           1</code></pre>
 </div>

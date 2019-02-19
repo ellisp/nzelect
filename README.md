@@ -61,18 +61,18 @@ nzge %>%
 
 ```
 ## # A tibble: 25 x 3
-##                      party `Candidate Vote` `Party Vote`
-##                      <chr>            <dbl>        <dbl>
-##  1          National Party          1027696      1058636
-##  2            Labour Party           762897       614937
-##  3             Green Party           155492       247372
+##    party                   `Candidate Vote` `Party Vote`
+##    <chr>                              <dbl>        <dbl>
+##  1 National Party                   1027696      1058636
+##  2 Labour Party                      762897       614937
+##  3 Green Party                       155492       247372
 ##  4 New Zealand First Party            39892       147544
-##  5      Conservative Party            51678        59237
-##  6             Maori Party            39320        31982
-##  7                    Mana            29872        24168
-##  8         ACT New Zealand            31001        23889
-##  9    Informal Party Votes               NA        19872
-## 10           United Future            18792        13443
+##  5 Conservative Party                 51678        59237
+##  6 Maori Party                        39320        31982
+##  7 Mana                               29872        24168
+##  8 ACT New Zealand                    31001        23889
+##  9 Informal Party Votes                  NA        19872
+## 10 United Future                      18792        13443
 ## # ... with 15 more rows
 ```
 
@@ -156,25 +156,25 @@ nzge %>%
 
 ```
 ## # A tibble: 17 x 3
-##                  REGC2014_N total_votes proportion_national
-##                      <fctr>       <dbl>               <dbl>
-##  1          Gisborne Region       19402               0.347
-##  2            Nelson Region       25317               0.354
-##  3                     <NA>      462476               0.376
-##  4        Wellington Region      254815               0.386
-##  5        West Coast Region       15959               0.393
-##  6         Northland Region       79713               0.404
-##  7             Otago Region      112242               0.408
+##    REGC2014_N               total_votes proportion_national
+##    <fct>                          <dbl>               <dbl>
+##  1 Gisborne Region                19402               0.347
+##  2 Nelson Region                  25317               0.354
+##  3 <NA>                          462476               0.376
+##  4 Wellington Region             254815               0.386
+##  5 West Coast Region              15959               0.393
+##  6 Northland Region               79713               0.404
+##  7 Otago Region                  112242               0.408
 ##  8 Manawatu-Wanganui Region      113102               0.431
-##  9            Tasman Region       29183               0.432
-## 10       Hawke's Bay Region       79729               0.442
-## 11     Bay of Plenty Region      140818               0.466
-## 12        Canterbury Region      282927               0.480
-## 13          Auckland Region      656523               0.483
-## 14       Marlborough Region       24602               0.491
-## 15          Taranaki Region       56442               0.494
-## 16           Waikato Region      201022               0.496
-## 17         Southland Region       48417               0.523
+##  9 Tasman Region                  29183               0.432
+## 10 Hawke's Bay Region             79729               0.442
+## 11 Bay of Plenty Region          140818               0.466
+## 12 Canterbury Region             282927               0.48 
+## 13 Auckland Region               656523               0.483
+## 14 Marlborough Region             24602               0.491
+## 15 Taranaki Region                56442               0.494
+## 16 Waikato Region                201022               0.496
+## 17 Southland Region               48417               0.523
 ```
 
 ```r
@@ -189,19 +189,19 @@ nzge %>%
 
 ```
 ## # A tibble: 396 x 2
-##                                                                   voting_place
-##                                                                          <chr>
-##  1                                          Advance Voting Place - Mobile Team
-##  2                   Ashburton Hospital & Rest Homes Team - Taken in Rangitata
-##  3                                   Auckland Hospital Mobile & Advance Voting
-##  4                                                         Central Mobile Team
-##  5                     Chatham Islands Council Building, 9 Tuku Road, Waitangi
-##  6 Christchurch Mobile Voting Facility One, Central Christchurch and South Cit
-##  7                                             Defence Force Team, Powles Road
-##  8                                     Duvauchelle Community Centre, Main Road
-##  9                               Herald Island Community Hall, 57 Ferry Parade
-## 10                      Hospital & Rest Homes - Team 1 - Taken in New Plymouth
-## # ... with 386 more rows, and 1 more variables: total_votes <dbl>
+##    voting_place                                                 total_votes
+##    <chr>                                                              <dbl>
+##  1 Advance Voting Place - Mobile Team                                   210
+##  2 Ashburton Hospital & Rest Homes Team - Taken in Rangitata            310
+##  3 Auckland Hospital Mobile & Advance Voting                            816
+##  4 Central Mobile Team                                                  212
+##  5 Chatham Islands Council Building, 9 Tuku Road, Waitangi              230
+##  6 Christchurch Mobile Voting Facility One, Central Christchur~         982
+##  7 Defence Force Team, Powles Road                                       94
+##  8 Duvauchelle Community Centre, Main Road                              185
+##  9 Herald Island Community Hall, 57 Ferry Parade                        274
+## 10 Hospital & Rest Homes - Team 1 - Taken in New Plymouth               643
+## # ... with 386 more rows
 ```
 
 ```r
@@ -249,7 +249,17 @@ polls %>%
 ```
 
 ```
-## `geom_smooth()` using method = 'loess'
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+```
+## Warning: The shape palette can deal with a maximum of 6 discrete values
+## because more than 6 becomes difficult to discriminate; you have 7.
+## Consider specifying shapes manually if you must have them.
+```
+
+```
+## Warning: Removed 4 rows containing missing values (geom_point).
 ```
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
@@ -323,7 +333,8 @@ The example below shows the `weight_polls` function in action in combination wit
 electorates <- c(1,0,0,27,0,1,41,1,1)
 
 polls %>%
-    filter(MidDate > "2014-12-30" & MidDate < "2017-10-1" & Party != "TOP") %>%
+    as_tibble() %>%
+    filter(MidDate > "2014-12-30" & MidDate < "2017-09-21" & Party != "TOP") %>%
     mutate(wt_p = weight_polls(MidDate, method = "pundit", refdate = as.Date("2017-09-22")),
            wt_c = weight_polls(MidDate, method = "curia", refdate = as.Date("2017-09-22"))) %>%
     group_by(Party) %>%
@@ -336,16 +347,16 @@ polls %>%
 
 ```
 ## # A tibble: 9 x 5
-##           Party pundit_perc curia_perc pundit_seats curia_seats
-##           <chr>       <dbl>      <dbl>        <dbl>       <dbl>
-## 1           ACT         0.5        0.6            1           1
-## 2  Conservative         0.3        0.4            0           0
-## 3         Green         7.1        6.5            9           8
-## 4        Labour        39.3       41.0           48          50
-## 5          Mana         0.1        0.1            0           0
-## 6         Maori         1.2        1.3            1           2
-## 7      National        42.3       40.8           52          50
-## 8      NZ First         7.0        7.2            9           9
+##   Party         pundit_perc curia_perc pundit_seats curia_seats
+##   <chr>               <dbl>      <dbl>        <dbl>       <dbl>
+## 1 ACT                   0.5        0.6            1           1
+## 2 Conservative          0.5        0.5            0           0
+## 3 Green                 7.1        6.6            9           8
+## 4 Labour               38.8       40.5           47          50
+## 5 Mana                  0.1        0.1            0           0
+## 6 Maori                 0.9        1.1            1           1
+## 7 National             43.1       41.5           53          51
+## 8 NZ First              7          7.2            9           9
 ## 9 United Future         0.1        0.1            1           1
 ```
 

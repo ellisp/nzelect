@@ -133,13 +133,14 @@ allocate_seats(votes, electorate = electorate, threshold = 0)$seats_v
 electorates <- c(1,0,0,27,0,1,41,1,1)
 
 polls %>%
-    filter(MidDate > "2014-12-30" & MidDate < "2017-09-22" & Party != "TOP") %>%
-    mutate(wt_p = weight_polls(MidDate, method = "pundit", refdate = as.Date("2017-9-23")),
-           wt_c = weight_polls(MidDate, method = "curia", refdate = as.Date("2017-9-23"))) %>%
+    filter(MidDate > "2014-12-30" & MidDate < "2017-09-21" & Party != "TOP") %>%
+    mutate(wt_p = weight_polls(MidDate, method = "pundit", refdate = as.Date("2017-09-22")),
+           wt_c = weight_polls(MidDate, method = "curia", refdate = as.Date("2017-09-22"))) %>%
     group_by(Party) %>%
     summarise(pundit_perc = round(sum(VotingIntention * wt_p, na.rm = TRUE) / sum(wt_p) * 100, 1),
               curia_perc = round(sum(VotingIntention * wt_c, na.rm = TRUE) / sum(wt_c) * 100, 1)) %>%
     ungroup() %>%
     mutate(pundit_seats = allocate_seats(pundit_perc, electorate = electorates)$seats_v,
            curia_seats = allocate_seats(curia_perc, electorate = electorates)$seats_v)
+
 
