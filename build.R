@@ -135,5 +135,5 @@ if(build2)system("Rcmd.exe INSTALL --no-multiarch --with-keep.source pkg2")
 
 #-----------------shiny app----------------
 # munge data for Shiny app and prompts to deploy it:
-if(build1)source("prep/shiny_prep.R")
+# if(build1)source("prep/shiny_prep.R")
 # shiny::runApp("examples/leaflet")
