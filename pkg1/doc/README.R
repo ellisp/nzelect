@@ -1,7 +1,7 @@
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  devvtools::install_github("ellisp/nzelect/pkg2")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(nzelect)
 library(tidyr)
 library(dplyr)
@@ -15,7 +15,7 @@ nzge %>%
     arrange(desc(`Party Vote`))
 
 
-## ----fig.width = 7, fig.height = 7---------------------------------------
+## ----fig.width = 7, fig.height = 7--------------------------------------------
 
 library(ggplot2, quietly = TRUE)
 library(scales, quietly = TRUE)
@@ -35,7 +35,7 @@ ggpairs(proportions, aes(colour = voting_type), columns = 3:5)
 
 
 
-## ----fig.width = 7, fig.height = 5---------------------------------------
+## ----fig.width = 7, fig.height = 5--------------------------------------------
 library(ggthemes) # for theme_map()
 nzge %>%
     filter(voting_type == "Party" & election_year == 2014) %>%
@@ -54,7 +54,7 @@ nzge %>%
     theme(legend.position = c(0.04, 0.5)) +
     ggtitle("Voting patterns in the 2014 General Election\n")
 
-## ----fig.width=7, fig.height=9-------------------------------------------
+## ----fig.width=7, fig.height=9------------------------------------------------
 nzge %>%
     filter(election_year == 2017) %>%
     filter(voting_type == "Party") %>%
@@ -93,7 +93,7 @@ nzge %>%
     scale_size("Number of\nvotes cast", label = comma) +
     labs(y = "", title = "Voting in the New Zealand 2017 General Election by Territorial Authority")
 
-## ----fig.width = 8-------------------------------------------------------
+## ----fig.width = 8------------------------------------------------------------
 library(forcats)
 polls %>%
     filter(MidDate > as.Date("2014-11-20") & !is.na(VotingIntention)) %>%
@@ -109,7 +109,7 @@ polls %>%
     scale_x_date("") +
     facet_wrap(~Party, scales = "free_y") 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 votes <- c(National = 1131501, Labour = 604535, Green = 257359,
            NZFirst = 208300, Cons = 95598, IntMana = 34094, 
            Maori = 31849, Act = 16689, United = 5286,
@@ -125,7 +125,7 @@ allocate_seats(votes, electorate = electorate)
 # Result if there were no 5% minimum threshold:
 allocate_seats(votes, electorate = electorate, threshold = 0)$seats_v
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # electorate seats for Act, Cons, Green, Labour, Mana, Maori, National, NZFirst, United,
 # assuming that electorates stay as currently allocated.  This is critical particularly
 # for ACT, Maori and United Future, who if they lose their singles electorate seat each
