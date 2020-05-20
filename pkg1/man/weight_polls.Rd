@@ -4,9 +4,13 @@
 \alias{weight_polls}
 \title{Weight polls}
 \usage{
-weight_polls(polldates, n = rep(1, length(polldates)),
-  method = c("pundit", "curia"), refdate = Sys.Date(),
-  electiondate = as.Date("2017-09-23"))
+weight_polls(
+  polldates,
+  n = rep(1, length(polldates)),
+  method = c("pundit", "curia"),
+  refdate = Sys.Date(),
+  electiondate = as.Date("2017-09-23")
+)
 }
 \arguments{
 \item{polldates}{a vector of dates of polls.}
