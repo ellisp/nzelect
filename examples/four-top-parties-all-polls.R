@@ -18,7 +18,7 @@ names(palette) <- c("Election result", pollsters)
 p <- polls %>%
     filter(Party %in% c("Labour", "National", "NZ First", "Green")) %>%
     mutate(Party = fct_reorder(Party, -VotingIntention),
-           Pollster = fct_reorder(Pollster, VotingIntention, fun = length, .desc = TRUE)) %>%
+           Pollster = fct_reorder(Pollster, -VotingIntention, .fun = length)) %>%
     ggplot(aes(x = MidDate, y = VotingIntention, colour = Pollster)) +
     facet_wrap(~Party, scales = "free_y") +
     geom_line() +
@@ -27,7 +27,7 @@ p <- polls %>%
     scale_y_continuous(label = percent) +
     labs(x = "Polling date",
          y = "Voting intention",
-         caption = "Peter's Stats Stuff, http://ellisp.github.io") +
+         caption = "http://freerangestats.info and https://github.com/ellisp/nzelect/") +
     scale_colour_manual(values = palette) +
     ggtitle("Fifteen years of opinion polls in New Zealand",
             "Intended party vote for the next election (election results shown in black)\nPolling results taken from Wikipedia, compiled in the nzelect R package")
