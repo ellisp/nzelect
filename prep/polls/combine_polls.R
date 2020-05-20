@@ -40,7 +40,9 @@ polls <- polls %>%
            Poll = ifelse(grepl("Colmar Brunton", Poll), "Colmar Brunton", Poll),
            Poll = ifelse(grepl("Roy Morgan", Poll), "Roy Morgan", Poll),
            Poll = ifelse(grepl("SSI", Poll), "SSI", Poll),
+           Poll = ifelse(grepl("YouGov", Poll), "YouGov", Poll),
            Poll = ifelse(grepl("Bauer Media Insights", Poll), "Bauer Media Insights", Poll),
+           Poll = ifelse(grepl("Reid Research", Poll), "Reid Research", Poll),
            Poll = str_trim(gsub("Sunday Star.Times.", "", Poll))) %>%
     mutate(Party = gsub("\n", " ", Party, fixed = TRUE),
            Party = gsub("^Con$", "Conservative", Party)) %>%
@@ -75,7 +77,7 @@ polls <- polls %>%
 
 
 test_that("Right number of pollsters", {
-    expect_equal(length(unique(polls$Pollster)), 15)
+    expect_equal(length(unique(polls$Pollster)), 16)
 })
 
 test_that("Right number of parties", {

@@ -4,7 +4,9 @@
 \name{distinct_voting_places}
 \alias{distinct_voting_places}
 \title{Distinct voting places}
-\format{A data frame with 3,425 rows and 8 columns}
+\format{
+A data frame with 3,425 rows and 8 columns
+}
 \source{
 \url{http://www.electionresults.govt.nz/electionresults_2014/e9/html/statistics.html} (and similar for earlier years) 
 for the voting place locations.

@@ -4,8 +4,13 @@
 \alias{allocate_seats}
 \title{Allocate seats after election}
 \usage{
-allocate_seats(votes, parties = names(votes), nseats = 120,
-  threshold = 0.05, electorate = rep(0, length(votes)))
+allocate_seats(
+  votes,
+  parties = names(votes),
+  nseats = 120,
+  threshold = 0.05,
+  electorate = rep(0, length(votes))
+)
 }
 \arguments{
 \item{votes}{vector of vote proportions or counts.}

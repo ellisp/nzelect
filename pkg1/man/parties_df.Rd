@@ -4,7 +4,9 @@
 \name{parties_df}
 \alias{parties_df}
 \title{New Zealand political parties}
-\format{A data frame of colours, shades, short and long names}
+\format{
+A data frame of colours, shades, short and long names
+}
 \source{
 \url{https://en.wikipedia.org/wiki/Wikipedia:Index_of_New_Zealand_political_party_meta_attributes}
 }
