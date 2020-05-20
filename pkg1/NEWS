@@ -1,0 +1,23 @@
+nzelect v 0.4.0
+================
+    
+- add election results by voting place back to 2002
+- fix bugs with allocate_seats and with the example in helpfile for weight_polls failing post the 2017 election
+- add voting place locations back to 2008.  Still some problems with allocating to TA, Region, etc
+- update all voting intention polls up to the 2017 election
+- adopt snake_case rather than CamelCase for column names (still not complete...)
+
+nzelect v 0.3.0
+===================
+
+- add voting intention polls
+- add functions to convert voting numbers to seats and to weight voting numbers
+- add vector and data frames with some party metadata eg colours
+
+
+nzelect v 0.2.0
+======================
+
+- First CRAN version
+- removed 2013 census data (too large) and now in its own package, nzcensus
+-
