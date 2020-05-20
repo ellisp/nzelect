@@ -122,8 +122,8 @@ if(build2)build_vignettes("pkg2")
 
 
 # run win-builder checks and email results to maintainer (Peter Ellis)
-if(build1)build_win("pkg1")
-if(build2)build_win("pkg2")
+if(build1)check_win_devel("pkg1")
+if(build2)check_win_devel("pkg2")
 
 
 # create .tar.gz for CRAN or wherever
