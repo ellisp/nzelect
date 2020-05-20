@@ -4,7 +4,9 @@
 \name{polls}
 \alias{polls}
 \title{New Zealand Opinion Polls}
-\format{A data frame of 7 columns}
+\format{
+A data frame of 7 columns
+}
 \source{
 \url{https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2005}
 \url{https://en.wikipedia.org/wiki/Opinion_polling_for_the_New_Zealand_general_election,_2008}

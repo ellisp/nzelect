@@ -4,7 +4,9 @@
 \name{parties_v}
 \alias{parties_v}
 \title{New Zealand political party colours}
-\format{A named vector of colours}
+\format{
+A named vector of colours
+}
 \source{
 \url{https://en.wikipedia.org/wiki/Wikipedia:Index_of_New_Zealand_political_party_meta_attributes}
 }

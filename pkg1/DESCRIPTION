@@ -12,5 +12,5 @@ License: GPL-3
 LazyData: true
 Suggests:
     testthat, dplyr, tidyr, knitr, rmarkdown, ggplot2, scales, ggthemes, GGally, maps, mapproj, forcats
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr
