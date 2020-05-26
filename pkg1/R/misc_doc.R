@@ -55,3 +55,26 @@
 #'     ungroup() %>%
 #'     arrange(election_year, desc(`Party vote`))
 "nzge"
+
+
+
+#' Estimates of long term GDP
+#'
+#' Seven different estimates of long term GDP in New Zealand
+#'
+#' @details The seven different values of variable are: 
+#'
+#'
+#'\itemize{
+#'   \item Rankin (1990) - GNP, 1910/11 prices, calendar year           
+#'   \item Greasley and Oxley (2008) - index, 1939 = 100"                
+#'   \item Easton (1997) - 1977/79 prices"                               
+#'   \item SNA - Statistics New Zealand official series - 1977/78 prices
+#'   \item SNB - Statistics New Zealand official series - 1991/92 prices
+#'   \item SND - Statistics New Zealand official series - 1995/96 prices
+#'   \item SNC - Statistics New Zealand official series - 1995/96 prices
+#' }
+#'
+#' @format A data frame with 333 rows and d variables.
+#' @source Stats NZ Infoshare
+"long_term_gdp_nz"
