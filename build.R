@@ -51,6 +51,8 @@ if(build1){
     # This script also calls several other scripts from within itself 
     # (takes a few minutes to run because of importing shapefiles, downloaded earlier):
     source("prep/election_results/import_votingplace_locations.R") # 3 minutes 
+    
+    source("prep/long_term_gdp_nz.R")
 }
 if(build2){
     # Import and tidy up census data
