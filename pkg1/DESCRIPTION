@@ -7,7 +7,7 @@ Description: Convenient access to New Zealand election
     Territorial Authority, and Area Unit, to facilitate matching with additional data.
     Opinion polls since 2002 and some convenience analytical function are also supplied.
 Depends:
-    R (>= 3.1.2)
+    R (>= 3.5.0)
 License: GPL-3
 LazyData: true
 Suggests:

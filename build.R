@@ -25,6 +25,7 @@ library(stringdist)
 library(proj4)
 
 build1 <- TRUE # whether to build nzelect
+non_polls <- FALSE  # whether to do the non-polls bit or just the polls
 build2 <- FALSE  # whether to build nzcensus
 #-------------downloads---------------
 # These are one-offs, and separated from the rest of the grooming to avoid
@@ -42,7 +43,7 @@ build2 <- FALSE  # whether to build nzcensus
 #              destfile = "downloads/elect2014/vp_coordinates.xls", mode = "wb")
 
 #----------tidying----------------
-if(build1){
+if(build1 & non_polls){
     # import all the voting results CVS and amalgamate into a single object
     source("prep/election_results/tidy_votingplace_results.R") # 30 seconds
     source("prep/election_results/tidy_votingplace_results_2017.R") # 30 seconds
@@ -66,6 +67,11 @@ if(build2){
 }
 
 #-------opinion polls and related-------------------
+# If we're not building nzelect from scratch, load up the existing version
+if(!non_polls){
+    library(nzelect)
+}
+
 if(build1){
     # Load in the existing version of the polls to facilitate checking and seeing
     # if anything has gone wrong with the source material on Wikipedia
