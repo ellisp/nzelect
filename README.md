@@ -60,6 +60,10 @@ nzge %>%
 ```
 
 ```
+## `summarise()` regrouping output by 'party' (override with `.groups` argument)
+```
+
+```
 ## # A tibble: 25 x 3
 ##    party                   `Candidate Vote` `Party Vote`
 ##    <chr>                              <dbl>        <dbl>
@@ -93,7 +97,13 @@ proportions <- nzge %>%
               `proportion Greens` = sum(votes[party == "Green Party"]) / sum(votes),
               `proportion NZF` = sum(votes[party == "New Zealand First Party"]) / sum(votes),
               `proportion Maori` = sum(votes[party == "Maori Party"]) / sum(votes))
+```
 
+```
+## `summarise()` regrouping output by 'voting_place' (override with `.groups` argument)
+```
+
+```r
 ggpairs(proportions, aes(colour = voting_type), columns = 3:5)
 ```
 
@@ -127,6 +137,10 @@ nzge %>%
 ```
 
 ```
+## `summarise()` regrouping output by 'voting_place_id' (override with `.groups` argument)
+```
+
+```
 ## Warning: Removed 1 rows containing missing values (geom_point).
 ```
 
@@ -152,6 +166,10 @@ nzge %>%
         total_votes = sum(votes),
         proportion_national = round(sum(votes[party == "National Party"]) / total_votes, 3)) %>%
     arrange(proportion_national)
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```
@@ -185,6 +203,10 @@ nzge %>%
     filter(is.na(REGC2014_N)) %>%
     group_by(voting_place) %>%
     summarise(total_votes = sum(votes))
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```
@@ -222,6 +244,10 @@ nzge %>%
     scale_x_continuous("Proportion voting National Party", label = percent) +
     scale_size("Number of\nvotes cast", label = comma) +
     labs(y = "", title = "Voting in the New Zealand 2017 General Election by Territorial Authority")
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
@@ -338,6 +364,10 @@ polls %>%
     ungroup() %>%
     mutate(pundit_seats = allocate_seats(pundit_perc, electorate = electorates)$seats_v,
            curia_seats = allocate_seats(curia_perc, electorate = electorates)$seats_v)
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```

@@ -68,7 +68,8 @@ polls <- polls %>%
     
 # add in election years
 polls <- polls %>%
-    mutate(ElectionYear = 2017,
+    mutate(ElectionYear = ifelse(MidDate <= "2020-09-19", 2020, ElectionYear),
+           ElectionYear = ifelse(MidDate <= "2017-09-23", 2017, ElectionYear),
            ElectionYear = ifelse(MidDate <= "2014-09-20", 2014, ElectionYear),
            ElectionYear = ifelse(MidDate <= "2011-11-26", 2011, ElectionYear),
            ElectionYear = ifelse(MidDate <= "2008-11-08", 2008, ElectionYear),
