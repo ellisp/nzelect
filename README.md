@@ -211,18 +211,18 @@ nzge %>%
 
 ```
 ## # A tibble: 395 x 2
-##    voting_place                                                                      total_votes
-##    <chr>                                                                                   <dbl>
-##  1 Advance Voting Place - Mobile Team                                                        210
-##  2 Ashburton Hospital & Rest Homes Team - Taken in Rangitata                                 310
-##  3 Auckland Hospital Mobile & Advance Voting                                                 816
-##  4 Central Mobile Team                                                                       212
-##  5 Chatham Islands Council Building, 9 Tuku Road, Waitangi                                   230
-##  6 Christchurch Mobile Voting Facility One, Central Christchurch and South City Mall         982
-##  7 Defence Force Team, Powles Road                                                            94
-##  8 Duvauchelle Community Centre, Main Road                                                   185
-##  9 Herald Island Community Hall, 57 Ferry Parade                                             274
-## 10 Hospital & Rest Homes - Team 1 - Taken in New Plymouth                                    643
+##    voting_place                                                                total_votes
+##    <chr>                                                                             <dbl>
+##  1 Advance Voting Place - Mobile Team                                                  210
+##  2 Ashburton Hospital & Rest Homes Team - Taken in Rangitata                           310
+##  3 Auckland Hospital Mobile & Advance Voting                                           816
+##  4 Central Mobile Team                                                                 212
+##  5 Chatham Islands Council Building, 9 Tuku Road, Waitangi                             230
+##  6 Christchurch Mobile Voting Facility One, Central Christchurch and South Ci~         982
+##  7 Defence Force Team, Powles Road                                                      94
+##  8 Duvauchelle Community Centre, Main Road                                             185
+##  9 Herald Island Community Hall, 57 Ferry Parade                                       274
+## 10 Hospital & Rest Homes - Team 1 - Taken in New Plymouth                              643
 ## # ... with 385 more rows
 ```
 
@@ -279,9 +279,9 @@ polls %>%
 ```
 
 ```
-## Warning: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes
-## difficult to discriminate; you have 8. Consider specifying shapes manually if you must have
-## them.
+## Warning: The shape palette can deal with a maximum of 6 discrete values because more than
+## 6 becomes difficult to discriminate; you have 8. Consider specifying shapes
+## manually if you must have them.
 ```
 
 ```
