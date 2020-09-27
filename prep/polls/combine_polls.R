@@ -68,7 +68,7 @@ polls <- polls %>%
     
 # add in election years
 polls <- polls %>%
-    mutate(ElectionYear = ifelse(MidDate <= "2020-09-19", 2020, ElectionYear),
+    mutate(ElectionYear = ifelse(MidDate <= "2020-10-23", 2020, NA),
            ElectionYear = ifelse(MidDate <= "2017-09-23", 2017, ElectionYear),
            ElectionYear = ifelse(MidDate <= "2014-09-20", 2014, ElectionYear),
            ElectionYear = ifelse(MidDate <= "2011-11-26", 2011, ElectionYear),
@@ -76,6 +76,8 @@ polls <- polls %>%
            ElectionYear = ifelse(MidDate <= "2005-09-17", 2005, ElectionYear),
            ElectionYear = ifelse(MidDate == "2002-07-27", 2002, ElectionYear))
 
+# Remove ANZ - only in one poll
+polls <- filter(polls, Party != "ANZ")
 
 test_that("Right number of pollsters", {
     expect_equal(length(unique(polls$Pollster)), 16)
