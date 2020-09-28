@@ -18,7 +18,8 @@ names(tab)[1] <- "WikipediaDates"
 # head(tab[1])
 
 tab$StartDate <- 
-    as.Date(c("16/9/2020",
+    as.Date(c("23/9/2020", 
+              "16/9/2020",
               "17/9/2020",
               "1/8/2020",
               "1/7/2020",
@@ -42,7 +43,8 @@ tab$StartDate <-
               "2/10/2017", "23/9/2017"), 
             format = "%d/%m/%Y")
 
-tab$EndDate <- as.Date(c("23/9/2020",
+tab$EndDate <- as.Date(c("27/9/2020", 
+                         "23/9/2020",
                          "21/9/2020",
                          "31/8/2020",
                          "31/7/2020",
