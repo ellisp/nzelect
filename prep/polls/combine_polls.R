@@ -2,11 +2,11 @@
 de_macron <- function(x){gsub("M.ori", "Maori", x)}
 
 
-polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014, polls2017) 
+polls <- plyr::rbind.fill(polls2005, polls2008, polls2011, polls2014) 
 names(polls) <- de_macron(names(polls))
 
 polls <- polls %>%
-    plyr::rbind.fill(polls2020) %>%
+    plyr::rbind.fill(polls2017, polls2020) %>%
     mutate(MidDate = StartDate + (EndDate - StartDate) / 2) %>%
     gather(Party, VotingIntention, -StartDate, -EndDate, -MidDate, -Poll, -WikipediaDates) %>%
     mutate(Poll = str_trim(gsub("\\[.+\\]", "", Poll)),

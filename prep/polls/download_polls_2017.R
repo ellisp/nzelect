@@ -10,11 +10,11 @@ tabs <- webpage %>%
 # number below depends on the webpage...
 tab <- html_table(tabs[[1]], fill = TRUE) 
 
-tab <- tab[tab[ , 1] != tab[ , 2], 1:12]
-tab <- tab[tab[ , 1] != "Poll", ]
-names(tab)[2] <- "WikipediaDates"
+tab <- tab[tab[ , 2] != tab[ , 3], 1:12]
+tab <- tab[tab[ , 2] != "Poll", ]
+names(tab)[1] <- "WikipediaDates"
 
-# tab[2]
+# tab[1]
 
 tab$StartDate <- 
     as.Date(c("20/9/2014", "29/9/2014", "27/10/2014", "24/11/2014", "8/12/2014", "5/1/2015",
@@ -76,6 +76,21 @@ tab$EndDate <- as.Date(c("20/9/2014", "12/10/2014", "9/11/2014",
                          "13/9/2017", "20/9/2017", "19/9/2017",
                          "23/9/2017"),
                        format = "%d/%m/%Y")
+
+x <- names(tab)
+names(tab) <- case_when(
+    x == "NAT" ~ "National",
+    x == "LAB" ~ "Labour",
+    x == "NZF" ~ "NZ First",
+    x == "GRN" ~ "Green",
+    x == "MRI" ~ "Maori",
+    x == "MNA" ~ "Mana",
+    x == "UNF" ~ "United Future",
+    x == "CON" ~ "Con",
+    x == "Polling organisation" ~ "Poll",
+    TRUE ~ names(tab)
+)
+
 polls2017 <- tab
 
 # latest <- data_frame(Poll = "One News Colmar Brunton", 
