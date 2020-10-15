@@ -279,9 +279,8 @@ polls %>%
 ```
 
 ```
-## Warning: The shape palette can deal with a maximum of 6 discrete values because more than 6
-## becomes difficult to discriminate; you have 8. Consider specifying shapes manually if you
-## must have them.
+## Warning: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to
+## discriminate; you have 8. Consider specifying shapes manually if you must have them.
 ```
 
 ```
