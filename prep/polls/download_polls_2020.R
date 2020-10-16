@@ -13,12 +13,15 @@ tab <- html_table(tabs[[1]], fill = TRUE)
 # knock out the historical commentaries:
 tab <- tab[tab[ , 2] != tab[ , 3], 1:12]
 
+tab <- tab[tab[, 1] != "Date[nb 1]", ]
+
 names(tab)[1] <- "WikipediaDates"
 
 # head(tab[1])
 
 tab$StartDate <- 
-    as.Date(c("10/10/2020",
+    as.Date(c("8/10/2020",
+              "10/10/2020",
               "3/10/2020", 
               "1/9/2020",
               "23/9/2020", 
@@ -46,7 +49,8 @@ tab$StartDate <-
               "2/10/2017", "23/9/2017"), 
             format = "%d/%m/%Y")
 
-tab$EndDate <- as.Date(c("14/10/2020", 
+tab$EndDate <- as.Date(c("15/10/2020", 
+                         "14/10/2020", 
                          "7/10/2020", 
                          "30/9/2020",
                          "27/9/2020", 
